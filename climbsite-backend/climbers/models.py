@@ -6,13 +6,13 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from crags.models import Route, Crag
 
 class CustomManager(BaseUserManager):
-    def create_user(self, email, full_name, password,dob, **other_fields):
+    def create_user(self, email, full_name, password, dob, **other_fields):
         
         if not email:
             raise ValueError(_('You must provide an email address'))
         
         email = self.normalize_email(email)
-        user = self.model(email = email, full_name=full_name,dob = dob, **other_fields )
+        user = self.model(email = email, full_name=full_name, dob = dob, **other_fields )
         user.set_password(password)
         user.save()
         return user
