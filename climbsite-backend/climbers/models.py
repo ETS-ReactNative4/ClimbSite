@@ -33,7 +33,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = CustomManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['full_name']
+    REQUIRED_FIELDS = ['full_name','dob']
 
 class UserFollowing(models.Model):
     follower = models.ForeignKey(User, related_name="follower", on_delete=models.CASCADE)
