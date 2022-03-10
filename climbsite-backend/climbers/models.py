@@ -25,7 +25,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     dob = models.DateField(null=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
-    start_date = models.DateTimeField(default=timezone.now)
+    start_date = models.DateTimeField(auto_now_add=True)
 
     objects = CustomManager()
 

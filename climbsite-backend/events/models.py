@@ -13,3 +13,9 @@ class Event(models.Model):
     current_seats = models.IntegerField()
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    created = models.DateTimeField(auto_now_add=True)
+
+class Attendee(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
