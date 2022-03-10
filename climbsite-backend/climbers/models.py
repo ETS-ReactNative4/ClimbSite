@@ -29,3 +29,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['full_name']
+
+class UserFollowing(models.Model):
+    follower = models.ForeignKey(User, related_name="follower", on_delete=models.CASCADE)
+    following = models.ForeignKey(User, related_name="following",on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
