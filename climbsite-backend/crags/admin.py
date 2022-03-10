@@ -1,3 +1,11 @@
 from django.contrib import admin
+from . import models
 
-# Register your models here.
+
+@admin.register(models.Route)
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ('name', 'id', 'slug')
+    prepopulated_fields = {'slug': ('name',), }
+
+
+admin.site.register(models.Crag)
