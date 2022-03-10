@@ -7,6 +7,20 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from crags.models import Route, Crag
 
 class CustomManager(BaseUserManager):
+    def create_superuser(self, email, full_name, password, dob, **other_fields):
+
+
+        other_fields.setdefault('is_superuser', True)
+        other_fields.setdefault('is_staff', True)
+        if other_fields.get('is_staff') is not True:
+            raise ValueError(
+                'Superuser must be assigned to is_staff=True.')
+        if other_fields.get('is_superuser') is not True:
+            raise ValueError(
+                'Superuser must be assigned to is_superuser=True.')
+
+        return self.create_user(email, full_name, password, dob, **other_fields)
+
     def create_user(self, email, full_name, password, dob, **other_fields):
         
         if not email:
@@ -29,7 +43,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     longitude = models.DecimalField(max_digits=9, decimal_places=6,null=True, blank=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6,null=True, blank=True)
     start_date = models.DateTimeField(auto_now_add=True)
-
+    is_staff = models.BooleanField(default=False)
     objects = CustomManager()
 
     USERNAME_FIELD = 'email'
