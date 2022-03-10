@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.db import models
@@ -14,7 +15,9 @@ class CustomManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(email = email, full_name=full_name, dob = dob, **other_fields )
         user.set_password(password)
-        user.save()
+        # other_fields.setdefault('longitude',)
+        # other_fields.setdefault('latitude',)
+        user.save() 
         return user
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -23,8 +26,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField(max_length=150, blank=True)
     # profile_pic = models.ImageField(_("Image"),upload_to = upload_to, null=True, blank = True)
     dob = models.DateField(null=True)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6,null=True, blank=True)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6,null=True, blank=True)
     start_date = models.DateTimeField(auto_now_add=True)
 
     objects = CustomManager()
