@@ -1,7 +1,7 @@
 from django.contrib import admin
-from climbers.models import User
+from .models import User, UserFollowing, ClimbList, Ascending, Favorite
 from django.contrib.auth.admin import UserAdmin
-from django.forms import TextInput, Textarea, CharField
+from django.forms import Textarea
 from django.db import models
 
 
@@ -27,5 +27,8 @@ class UserAdminConfig(UserAdmin):
          ),
     )
 
-
+admin.site.register(UserFollowing)
+admin.site.register(ClimbList)
+admin.site.register(Ascending)
+admin.site.register(Favorite)
 admin.site.register(User, UserAdminConfig)

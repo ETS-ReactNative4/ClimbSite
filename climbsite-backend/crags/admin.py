@@ -8,4 +8,5 @@ class AuthorAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',), }
 
 
+admin.site.register(models.Sector)
 admin.site.register(models.Crag)
