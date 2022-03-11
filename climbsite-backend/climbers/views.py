@@ -15,7 +15,7 @@ class UserCreate(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-class Userfollowers(generics.ListAPIView):
+class Userfollowings(generics.ListAPIView):
     
     # authentication_classes = [JWTAuthentication]
     # authentication_classes = [SessionAuthentication, BasicAuthentication]
