@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth import get_user_model
+from .models import UserFollowing
 
 
 User = get_user_model()
@@ -22,3 +23,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User 
         fields = ('id', 'full_name', 'email', 'password','dob')
+
+class UserFollowingSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('id','follower','following')
+        model = UserFollowing
