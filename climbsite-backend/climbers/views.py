@@ -22,6 +22,8 @@ class AddFollower(generics.CreateAPIView):
 
         user = User.objects.get(id=request.data.get('follower'))
         follow = User.objects.get(id=request.data.get('following'))
+        if (user == follow):
+            return Response({'status':status.HTTP_400_BAD_REQUEST})
 
         try:
             UserFollowing.objects.get(follower = user ,following=follow)
@@ -38,6 +40,7 @@ class Userfollowings(generics.ListAPIView):
     
     permission_classes = [IsAuthenticated]
     serializer_class = UserFollowingSerializer
+
     def get_queryset(self):
 
         """
@@ -45,8 +48,27 @@ class Userfollowings(generics.ListAPIView):
         for the currently authenticated user.
         """
         user = self.request.user
-        print(user)
         queryset = UserFollowing.objects.filter(follower=user)
-        # count = UserFollowing.objects.filter(follower=user).count
-        return queryset
+        count = queryset.count()
+        print(count)
+        return queryset, count
     
+    # def get_context_data(self, **kwargs):
+    #     context = super(Userfollowings, self).get_context_data(**kwargs)
+    #     context['following'] = self.get_queryset().count()
+    #     return context
+
+class Userfollowers(generics.ListAPIView):
+    
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserFollowingSerializer
+
+    def get_queryset(self):
+
+        """
+        This view should return a list of all the followings
+        for the currently authenticated user.
+        """
+        user = self.request.user
+        queryset = UserFollowing.objects.filter(following=user)
+        return queryset
