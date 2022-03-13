@@ -1,12 +1,13 @@
 from itertools import count
 from multiprocessing import context
 from urllib import response
+from xml.etree.ElementTree import Comment
 from django.forms import ValidationError
 from rest_framework import filters
 from rest_framework.views import APIView
 from .serializers import UserClimbListSerializer, UserFavoritesSerializer, UserFollowingSerializer, UserSerializer
 from django.contrib.auth import get_user_model
-from .models import ClimbList, Favorite, UserFollowing
+from .models import Ascending, ClimbList, Favorite, UserFollowing
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -162,3 +163,25 @@ class GetClimbList(generics.ListAPIView):
         print(user)
         queryset = ClimbList.objects.filter(user=user)
         return queryset
+
+class LogAscent(generics.CreateAPIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = self.request.user
+        route = Route.objects.get(id=request.data.get('route'))
+        tries = request.data.get('tries')
+        rating = request.data.get('rating')
+        comment = request.data.get('comment')
+
+
+        try:
+            Ascending.objects.get(user = user , route = route)
+            return Response({'status':status.HTTP_400_BAD_REQUEST})
+        except Ascending.DoesNotExist:
+
+            ascent = Ascending.objects.create(user = user , route = route, 
+            tries = tries, rating = rating, comment=comment)
+            ClimbList.save(ascent)
+            return Response({'status':status.HTTP_200_OK})
