@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth import get_user_model
 from .models import Ascending, ClimbList, UserFollowing, Favorite
+from crags.serializers import RouteSerializer
 
 
 User = get_user_model()
@@ -40,6 +41,7 @@ class UserFavoritesSerializer(serializers.ModelSerializer):
         model = Favorite
 
 class AscendingSerializer(serializers.ModelSerializer):
+    # route = RouteSerializer(many = True,read_only=True)
     class Meta:
         fields = ('id','user','route', 'tries','rating','comment','date')
         model = Ascending

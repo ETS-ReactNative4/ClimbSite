@@ -5,7 +5,7 @@ from xml.etree.ElementTree import Comment
 from django.forms import ValidationError
 from rest_framework import filters
 from rest_framework.views import APIView
-from .serializers import UserClimbListSerializer, UserFavoritesSerializer, UserFollowingSerializer, UserSerializer
+from .serializers import AscendingSerializer, UserClimbListSerializer, UserFavoritesSerializer, UserFollowingSerializer, UserSerializer
 from django.contrib.auth import get_user_model
 from .models import Ascending, ClimbList, Favorite, UserFollowing
 from rest_framework import generics
@@ -185,3 +185,13 @@ class LogAscent(generics.CreateAPIView):
             tries = tries, rating = rating, comment=comment)
             ClimbList.save(ascent)
             return Response({'status':status.HTTP_200_OK})
+
+class GetAscents(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = AscendingSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        print(user)
+        queryset = Ascending.objects.filter(user=user)
+        return queryset
