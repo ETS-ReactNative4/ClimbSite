@@ -6,11 +6,12 @@ from rest_framework import filters
 from rest_framework.views import APIView
 from .serializers import UserFollowSerializer, UserFollowingSerializer, UserSerializer
 from django.contrib.auth import get_user_model
-from .models import UserFollowing
+from .models import Favorite, UserFollowing
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
+from crags.models import Crag
 
 User = get_user_model()
 
@@ -26,18 +27,18 @@ class AddFollower(generics.CreateAPIView):
     def post(self, request):
 
         user = self.request.user
-        follow = User.objects.get(id=request.data.get('following'))
-        if (user == follow):
+        following = User.objects.get(id=request.data.get('following'))
+        if (user == following):
             return Response({'status':status.HTTP_400_BAD_REQUEST})
 
         try:
-            UserFollowing.objects.get(follower = user ,following=follow)
+            UserFollowing.objects.get(follower = user ,following=following)
             return Response({'status':status.HTTP_400_BAD_REQUEST})
         except UserFollowing.DoesNotExist:
 
-            following = UserFollowing.objects.create(follower=user,
-                             following=follow)
-            UserFollowing.save(following)
+            follow = UserFollowing.objects.create(follower=user,
+                             following=following)
+            UserFollowing.save(follow)
             return Response({'status':status.HTTP_200_OK})
 
 # class AddFollower(generics.CreateAPIView):
@@ -111,13 +112,17 @@ class Userfollowers(generics.ListAPIView):
 class AddToFavorites(generics.ListAPIView):
 
     permission_classes = [IsAuthenticated]
-    serializer_class = UserFollowingSerializer
-
-    def get_queryset(self):
-
-        # This view should return a list of all the followers
-        # for the currently authenticated user.
+    serializer_class = UserFollowSerializer
+    def post(self, request):
 
         user = self.request.user
-        queryset = UserFollowing.objects.filter(following=user)
-        return queryset
+        crag = Crag.objects.get(id=request.data.get('crag'))
+
+        try:
+            Favorite.objects.get(user = user , crag = crag)
+            return Response({'status':status.HTTP_400_BAD_REQUEST})
+        except Favorite.DoesNotExist:
+
+            favorite = Favorite.objects.create(user = user , crag = crag)
+            Favorite.save(favorite)
+            return Response({'status':status.HTTP_200_OK})

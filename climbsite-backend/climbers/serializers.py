@@ -37,5 +37,5 @@ class UserFollowSerializer(serializers.ModelSerializer):
     # def get_count():
 class UserFavoritesSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id','user','following')
+        fields = ('id','user','crag')
         model = Favorite
