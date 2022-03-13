@@ -4,7 +4,7 @@ from urllib import response
 from django.forms import ValidationError
 from rest_framework import filters
 from rest_framework.views import APIView
-from .serializers import UserFollowSerializer, UserFollowingSerializer, UserSerializer
+from .serializers import UserFavoritesSerializer, UserFollowSerializer, UserFollowingSerializer, UserSerializer
 from django.contrib.auth import get_user_model
 from .models import Favorite, UserFollowing
 from rest_framework import generics
@@ -23,7 +23,7 @@ class UserCreate(generics.CreateAPIView):
 
 class AddFollower(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = UserFollowSerializer
+
     def post(self, request):
 
         user = self.request.user
@@ -109,12 +109,11 @@ class Userfollowers(generics.ListAPIView):
         queryset = UserFollowing.objects.filter(following=user)
         return queryset
 
-class AddToFavorites(generics.ListAPIView):
+class AddToFavorites(generics.CreateAPIView):
 
     permission_classes = [IsAuthenticated]
-    serializer_class = UserFollowSerializer
-    def post(self, request):
 
+    def post(self, request):
         user = self.request.user
         crag = Crag.objects.get(id=request.data.get('crag'))
 
@@ -126,3 +125,13 @@ class AddToFavorites(generics.ListAPIView):
             favorite = Favorite.objects.create(user = user , crag = crag)
             Favorite.save(favorite)
             return Response({'status':status.HTTP_200_OK})
+
+class FavoriteList(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserFavoritesSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        print(user)
+        queryset = Favorite.objects.filter(user=user)
+        return queryset
