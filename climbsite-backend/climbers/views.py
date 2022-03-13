@@ -1,5 +1,7 @@
 from itertools import count
+from multiprocessing import context
 from urllib import response
+from rest_framework import filters
 from rest_framework.views import APIView
 from .serializers import UserFollowingSerializer, UserSerializer
 from django.contrib.auth import get_user_model
@@ -36,9 +38,32 @@ class AddFollower(generics.CreateAPIView):
             return Response({'status':status.HTTP_200_OK})
 
 
-class Userfollowings(generics.ListAPIView):
+# class Userfollowings(generics.ListAPIView):
+#     permission_classes = [IsAuthenticated]
+#     serializer_class = UserFollowingSerializer
     
-    permission_classes = [IsAuthenticated]
+#     def get_queryset(self):
+
+#         """
+#         This view should return a list of all the followings
+#         for the currently authenticated user.
+#         """
+#         user = self.request.user
+#         queryset = UserFollowing.objects.filter(follower=user)
+#         count = UserFollowing.objects.filter(follower=user).count()
+#         print(type(count))
+#         print(type(queryset))
+#         return queryset
+
+#     def get_context_data(self, **kwargs):
+#         context = super(Userfollowings, self).get_context_data(**kwargs)
+#         context['following'] = self.get_queryset.count()
+#         return context
+
+class Userfollowings(generics.ListAPIView):
+    model = UserFollowing
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['follower']
     serializer_class = UserFollowingSerializer
 
     def get_queryset(self):
@@ -49,14 +74,15 @@ class Userfollowings(generics.ListAPIView):
         """
         user = self.request.user
         queryset = UserFollowing.objects.filter(follower=user)
-        count = queryset.count()
-        print(count)
-        return queryset, count
+        count = UserFollowing.objects.filter(follower=user).count()
+        print(type(count))
+        print(type(queryset))
+
     
-    # def get_context_data(self, **kwargs):
-    #     context = super(Userfollowings, self).get_context_data(**kwargs)
-    #     context['following'] = self.get_queryset().count()
-    #     return context
+    def followers(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        count = queryset.annotate(count('follower'))
+        return count
 
 class Userfollowers(generics.ListAPIView):
     
