@@ -4,8 +4,7 @@ from . import models
 
 @admin.register(models.Route)
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'id', 'slug')
-    prepopulated_fields = {'slug': ('name',), }
+    list_display = ('name', 'id')
 
 
 admin.site.register(models.Sector)
