@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth import get_user_model
-from .models import UserFollowing
+from .models import UserFollowing, Favorite
 
 
 User = get_user_model()
@@ -28,5 +28,14 @@ class UserFollowingSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id','follower','following')
         model = UserFollowing
+
+class UserFollowSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('id','following')
+        model = UserFollowing
     
     # def get_count():
+class UserFavoritesSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('id','user','following')
+        model = Favorite
