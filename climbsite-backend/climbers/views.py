@@ -4,14 +4,14 @@ from urllib import response
 from django.forms import ValidationError
 from rest_framework import filters
 from rest_framework.views import APIView
-from .serializers import UserFavoritesSerializer, UserFollowSerializer, UserFollowingSerializer, UserSerializer
+from .serializers import UserClimbListSerializer, UserFavoritesSerializer, UserFollowingSerializer, UserSerializer
 from django.contrib.auth import get_user_model
-from .models import Favorite, UserFollowing
+from .models import ClimbList, Favorite, UserFollowing
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-from crags.models import Crag
+from crags.models import Crag, Route
 
 User = get_user_model()
 
@@ -134,4 +134,31 @@ class FavoriteList(generics.ListAPIView):
         user = self.request.user
         print(user)
         queryset = Favorite.objects.filter(user=user)
+        return queryset
+
+class AddToClimbList(generics.CreateAPIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = self.request.user
+        route = Route.objects.get(id=request.data.get('route'))
+
+        try:
+            ClimbList.objects.get(user = user , route = route)
+            return Response({'status':status.HTTP_400_BAD_REQUEST})
+        except ClimbList.DoesNotExist:
+
+            list = ClimbList.objects.create(user = user , route = route)
+            ClimbList.save(list)
+            return Response({'status':status.HTTP_200_OK})
+
+class GetClimbList(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserClimbListSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        print(user)
+        queryset = ClimbList.objects.filter(user=user)
         return queryset
