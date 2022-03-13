@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Crag, Sector
+from .models import Crag, Route, Sector
 
 class CragSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,3 +10,8 @@ class SectorSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id', 'name', 'crag')
         model = Sector
+
+class RouteSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('id', 'name', 'sector', 'grade')
+        model = Route

@@ -1,6 +1,6 @@
 from rest_framework import generics
-from .models import Crag, Sector
-from .serializers import CragSerializer, SectorSerializer
+from .models import Crag, Route, Sector
+from .serializers import CragSerializer, RouteSerializer, SectorSerializer
 
 class CragList(generics.ListAPIView):
     queryset = Crag.objects.all()
@@ -15,4 +15,11 @@ class SectorList(generics.ListAPIView):
         queryset = Sector.objects.filter(crag=crag)
         return queryset
 
- 
+class RouteList(generics.ListAPIView):
+
+    serializer_class = RouteSerializer
+    def get_queryset(self):
+        sector = Sector.objects.get(id=self.request.data.get('sector'))
+        print(sector)
+        queryset = Route.objects.filter(sector=sector)
+        return queryset
