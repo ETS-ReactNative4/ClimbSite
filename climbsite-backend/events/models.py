@@ -9,7 +9,7 @@ class Event(models.Model):
     description = models.TextField(max_length=500)
     date = models.DateTimeField()
     total_seats = models.IntegerField()
-    current_seats = models.IntegerField()
+    current_seats = models.IntegerField(default=0)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
     created = models.DateTimeField(auto_now_add=True)
