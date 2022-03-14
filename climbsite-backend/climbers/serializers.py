@@ -41,7 +41,8 @@ class UserFavoritesSerializer(serializers.ModelSerializer):
         model = Favorite
 
 class AscendingSerializer(serializers.ModelSerializer):
-    # route = RouteSerializer(many = True,read_only=True)
+    route = RouteSerializer(read_only=True)
+    user = UserSerializer(read_only = True)
     class Meta:
         fields = ('id','user','route', 'tries','rating','comment','date')
         model = Ascending

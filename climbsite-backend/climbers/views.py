@@ -189,9 +189,8 @@ class LogAscent(generics.CreateAPIView):
 class GetAscents(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = AscendingSerializer
+    queryset = Ascending.objects.all()
 
     def get_queryset(self):
         user = self.request.user
-        print(user)
-        queryset = Ascending.objects.filter(user=user)
-        return queryset
+        return super().get_queryset().filter(user = user)
