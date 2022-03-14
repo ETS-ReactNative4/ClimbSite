@@ -36,4 +36,8 @@ class GetEvents(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return super().get_queryset().filter(user = user)
+        if self.request.data.get('crag') == None:
+            return super().get_queryset().filter(user = user)
+        else:
+            crag = self.request.data.get('crag')
+            return super().get_queryset().filter(user = user, crag = crag)
