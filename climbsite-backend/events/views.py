@@ -41,3 +41,19 @@ class GetEvents(generics.ListAPIView):
         else:
             crag = self.request.data.get('crag')
             return super().get_queryset().filter(user = user, crag = crag)
+
+class JoinEvent(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        user = self.request.user
+        event = Event.objects.get(id=request.data.get('event'))
+
+        try:
+            Attendee.objects.get(user = user , event = event)
+            return Response({'status':status.HTTP_400_BAD_REQUEST})
+
+        except Attendee.DoesNotExist:
+            join = Attendee.objects.create(user = user , event = event)
+            Attendee.save(join)
+            return Response({'status':status.HTTP_200_OK})
