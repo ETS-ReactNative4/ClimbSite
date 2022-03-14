@@ -9,7 +9,7 @@ urlpatterns = [
     path('follow', AddFollower.as_view()),
     path('favorite', AddToFavorites.as_view()),
     path('get_favorites', FavoriteList.as_view()),
-    path('add_route', AddToClimbList.as_view()),
+    path('add_to_climblist', AddToClimbList.as_view()),
     path('climblist', GetClimbList.as_view()),
     path('logascent', LogAscent.as_view()),
     path('get_ascents', GetAscents.as_view()),

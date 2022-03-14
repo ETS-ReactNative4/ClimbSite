@@ -6,7 +6,6 @@ class Event(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     crag = models.ForeignKey(Crag, on_delete=models.CASCADE)
-    tries = models.IntegerField()
     description = models.TextField(max_length=500)
     date = models.DateTimeField()
     total_seats = models.IntegerField()

@@ -183,7 +183,7 @@ class LogAscent(generics.CreateAPIView):
 
             ascent = Ascending.objects.create(user = user , route = route, 
             tries = tries, rating = rating, comment=comment)
-            ClimbList.save(ascent)
+            Ascending.save(ascent)
             return Response({'status':status.HTTP_200_OK})
 
 class GetAscents(generics.ListAPIView):
