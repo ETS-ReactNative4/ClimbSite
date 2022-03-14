@@ -35,12 +35,11 @@ class GetEvents(generics.ListAPIView):
     queryset = Event.objects.all()
 
     def get_queryset(self):
-        user = self.request.user
         if self.request.data.get('crag') == None:
-            return super().get_queryset().filter(user = user)
+            return super().get_queryset()
         else:
             crag = self.request.data.get('crag')
-            return super().get_queryset().filter(user = user, crag = crag)
+            return super().get_queryset().filter(crag = crag)
 
 class JoinEvent(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
@@ -48,7 +47,9 @@ class JoinEvent(generics.CreateAPIView):
     def post(self, request, *args, **kwargs):
         user = self.request.user
         event = Event.objects.get(id=request.data.get('event'))
-
+        print(event.user)
+        if(event.user == user):
+            return Response({'status':status.HTTP_400_BAD_REQUEST})
         try:
             Attendee.objects.get(user = user , event = event)
             return Response({'status':status.HTTP_400_BAD_REQUEST})
@@ -57,3 +58,13 @@ class JoinEvent(generics.CreateAPIView):
             join = Attendee.objects.create(user = user , event = event)
             Attendee.save(join)
             return Response({'status':status.HTTP_200_OK})
+
+class GetAttendees(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = AttendeeSerializer
+    queryset = Attendee.objects.all()
+
+    def get_queryset(self):
+
+        event = self.request.data.get('event')
+        return super().get_queryset().filter( event = event)

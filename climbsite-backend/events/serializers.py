@@ -11,6 +11,8 @@ class EventSerializer(serializers.ModelSerializer):
         model = Event
 
 class AttendeeSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only = True)
+    event = EventSerializer(read_only = True)
     class Meta:
         fields=('id','user','event')
         model = Attendee
