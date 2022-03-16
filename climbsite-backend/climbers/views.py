@@ -133,7 +133,6 @@ class FavoriteList(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        print(user)
         queryset = Favorite.objects.filter(user=user)
         return queryset
 
