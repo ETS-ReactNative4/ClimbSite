@@ -1,20 +1,12 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import Login from "./pages/Login";
+import React from "react";
+import { styles } from "./styles";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>ClimbSite</Text>
-      <StatusBar style="auto" />
+    <View style={styles.app}>
+      <Login />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
