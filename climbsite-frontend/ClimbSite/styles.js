@@ -17,7 +17,6 @@ export const styles = StyleSheet.create({
     backgroundColor: "#2F3F4A",
     borderRadius: 15,
     alignSelf: "center",
-    marginTop: 75,
   },
   inputRegister: {
     padding: 20,
@@ -25,7 +24,6 @@ export const styles = StyleSheet.create({
     backgroundColor: "#2F3F4A",
     borderRadius: 15,
     alignSelf: "center",
-    marginTop: 50,
   },
   input: {
     borderWidth: 1,
@@ -45,7 +43,7 @@ export const styles = StyleSheet.create({
   },
   climbsite: {
     alignSelf: "center",
-    marginTop: 140,
+    marginTop: 100,
     fontSize: 35,
     fontWeight: "bold",
   },
@@ -54,5 +52,18 @@ export const styles = StyleSheet.create({
     marginTop: 100,
     fontSize: 30,
     fontWeight: "bold",
+  },
+  noaccount: {
+    color: "#6886C5",
+    marginTop: 10,
+  },
+  loginButton: {
+    width: 75,
+    height: 35,
+    padding: 5,
+    backgroundColor: "#1B8B6A",
+    borderRadius: 5,
+    textAlign: "center",
+    marginVertical: 10,
   },
 });
