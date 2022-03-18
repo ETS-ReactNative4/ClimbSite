@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     borderColor: "#777",
     padding: 10,
     margin: 10,
-    width: 250,
+    width: 275,
   },
   headerlogin: {
     alignSelf: "center",
@@ -37,10 +37,12 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   inputtext: {
-    fontSize: 16,
+    fontSize: 17,
   },
   climbsite: {
     alignSelf: "center",
-    marginTop: 150,
+    marginTop: 140,
+    fontSize: 35,
+    fontWeight: "bold",
   },
 });
