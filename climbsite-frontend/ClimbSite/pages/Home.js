@@ -10,7 +10,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 
-export default function Home({ navigation }) {
+export default function Home() {
   const { height } = useWindowDimensions();
 
   return (

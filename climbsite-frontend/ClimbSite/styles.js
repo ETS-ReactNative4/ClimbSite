@@ -67,4 +67,12 @@ export const styles = StyleSheet.create({
     marginVertical: 10,
     alignSelf: "center",
   },
+  navbar: {
+    height: 60,
+    backgroundColor: "#1B8B6A",
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
