@@ -59,6 +59,9 @@ export default function Login({ navigation }) {
           </Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity style={{ alignSelf: "center", marginTop: 10 }}>
+        <Text style={{ color: "#1B8B6A" }}>Forgot Password?</Text>
+      </TouchableOpacity>
     </View>
   );
 }
