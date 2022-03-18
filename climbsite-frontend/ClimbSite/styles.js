@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
   },
 
-  inputlogin: {
+  inputblock: {
     padding: 20,
     margin: 30,
     backgroundColor: "#2F3F4A",
@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     margin: 10,
     width: 275,
   },
-  headerlogin: {
+  headerinput: {
     alignSelf: "center",
     marginBottom: 20,
     fontSize: 25,
