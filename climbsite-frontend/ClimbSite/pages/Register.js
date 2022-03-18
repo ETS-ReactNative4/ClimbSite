@@ -2,10 +2,16 @@ import React from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
 
-import { Text, View, TextInput, Button } from "react-native";
-import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
+import {
+  Text,
+  View,
+  TextInput,
+  Button,
+  TouchableOpacity,
+  useWindowDimensions,
+} from "react-native";
 
-export default function Register() {
+export default function Register({ navigation }) {
   const { height } = useWindowDimensions();
 
   return (
@@ -21,10 +27,35 @@ export default function Register() {
         <Text style={styles.inputtext}>Enter your full name: </Text>
         <TextInput style={styles.input} placeholder="Full Name..." />
         <Text style={styles.inputtext}>Enter your password: </Text>
-        <TextInput style={styles.input} placeholder="Password..." />
+        <TextInput
+          style={styles.input}
+          placeholder="Password..."
+          secureTextEntry={true}
+        />
         <Text style={styles.inputtext}>Confirm your password: </Text>
-        <TextInput style={styles.input} placeholder="Confirm password..." />
-        <Button title="Register" />
+        <TextInput
+          style={styles.input}
+          placeholder="Confirm password..."
+          secureTextEntry={true}
+        />
+        <TouchableOpacity
+          style={styles.loginButton}
+          onPress={() => navigation.navigate("Home")}
+        >
+          <Text
+            style={{
+              alignSelf: "center",
+              fontSize: 17,
+              flex: 1,
+              fontWeight: "bold",
+            }}
+          >
+            Sign Up
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <Text style={styles.noaccount}>Already have an account? Login.</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

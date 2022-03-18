@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
-import { Text, View, TextInput, Button, TouchableOpacity } from "react-native";
-import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
+import {
+  Text,
+  View,
+  TextInput,
+  Button,
+  TouchableOpacity,
+  useWindowDimensions,
+} from "react-native";
 
 export default function Login({ navigation }) {
   const { height } = useWindowDimensions();
+  const { email, setEmail } = useState("");
+  const { password, setPassword } = useState("");
 
   return (
     <View style={styles.container}>
@@ -16,14 +24,32 @@ export default function Login({ navigation }) {
       <View style={styles.inputLogin}>
         <Text style={styles.headerinput}>Login </Text>
         <Text style={styles.inputtext}>Enter your email: </Text>
-        <TextInput style={styles.input} placeholder="Email..." />
+        <TextInput
+          style={styles.input}
+          placeholder="Email..."
+          value={email}
+          setValue={setEmail}
+        />
         <Text style={styles.inputtext}>Enter your password: </Text>
-        <TextInput style={styles.input} placeholder="Password..." />
+        <TextInput
+          style={styles.input}
+          placeholder="Password..."
+          value={password}
+          setValue={setPassword}
+          secureTextEntry={true}
+        />
         <TouchableOpacity
           style={styles.loginButton}
           onPress={() => navigation.navigate("Home")}
         >
-          <Text style={{ alignSelf: "center", fontSize: 17, flex: 1 }}>
+          <Text
+            style={{
+              alignSelf: "center",
+              fontSize: 17,
+              flex: 1,
+              fontWeight: "bold",
+            }}
+          >
             Login
           </Text>
         </TouchableOpacity>

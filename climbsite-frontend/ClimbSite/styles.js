@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
   },
   inputRegister: {
     padding: 20,
-    margin: 30,
+    marginHorizontal: 30,
     backgroundColor: "#2F3F4A",
     borderRadius: 15,
     alignSelf: "center",
@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
   },
   signupHeader: {
     alignSelf: "center",
-    marginTop: 100,
+    marginTop: 75,
     fontSize: 30,
     fontWeight: "bold",
   },
@@ -58,12 +58,13 @@ export const styles = StyleSheet.create({
     marginTop: 10,
   },
   loginButton: {
-    width: 75,
+    width: 90,
     height: 35,
     padding: 5,
     backgroundColor: "#1B8B6A",
     borderRadius: 5,
     textAlign: "center",
     marginVertical: 10,
+    alignSelf: "center",
   },
 });
