@@ -106,4 +106,15 @@ export const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
   },
+  rankings: {
+    padding: 20,
+    marginHorizontal: 30,
+    backgroundColor: "#2F3F4A",
+    borderRadius: 15,
+    alignSelf: "center",
+    display: "flex",
+    width: 320,
+    margin: 10,
+    flexDirection: "row",
+  },
 });
