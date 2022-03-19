@@ -10,6 +10,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Header from "../components/Header";
 
 export default function Community() {
   const { height } = useWindowDimensions();
@@ -19,6 +20,7 @@ export default function Community() {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
+      <Header />
       <Text>Community page</Text>
     </View>
   );

@@ -11,6 +11,7 @@ import {
   Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Header from "../components/Header";
 
 export default function Log({ navigation }) {
   const { height } = useWindowDimensions();
@@ -20,6 +21,7 @@ export default function Log({ navigation }) {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
+      <Header />
       <View
         style={{
           flex: 1,
@@ -27,7 +29,7 @@ export default function Log({ navigation }) {
           alignContent: "center",
           justifyContent: "center",
           flexDirection: "row",
-          marginTop: height * 0.4,
+          marginTop: height * 0.35,
         }}
       >
         <TouchableOpacity
