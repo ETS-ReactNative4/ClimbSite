@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth import get_user_model
 from .models import Ascending, ClimbList, UserFollowing, Favorite
-from crags.serializers import RouteSerializer
+from crags.serializers import RouteSerializer, SectorSerializer, CragSerializer
 
 
 User = get_user_model()

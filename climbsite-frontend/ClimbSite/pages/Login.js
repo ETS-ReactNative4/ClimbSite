@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   useWindowDimensions,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Login({ navigation }) {
   const { height } = useWindowDimensions();
@@ -17,7 +18,9 @@ export default function Login({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <StatusBar />
+      <SafeAreaView>
+        <StatusBar />
+      </SafeAreaView>
       <Text style={[styles.climbsite, { height: height * 0.1 }]}>
         <Text style={{ color: "#1B8B6A" }}>Climb</Text>Site
       </Text>

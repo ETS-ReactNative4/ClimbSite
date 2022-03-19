@@ -13,15 +13,18 @@ import { View, Text, TouchableOpacity } from "react-native";
 import Rankings from "../pages/Rankings";
 import Community from "../pages/Community";
 
+// const CreateNewPlaceHolder = () => (
+//   <View style={{ flex: 1, backgroundColor: "transparent" }}></View>
+// );
 const Tab = createMaterialBottomTabNavigator();
-const CustomTabBarButton = ({ children, onPress }) => (
-  <TouchableOpacity
-    onPress={onPress}
-    style={{ top: -20, justifyContent: "center", alignItems: "center" }}
-  >
-    <View style={{ width: 70, height: 70 }}>{children}</View>
-  </TouchableOpacity>
-);
+// const CustomTabBarButton = ({ children, onPress }) => (
+//   <TouchableOpacity
+//     onPress={onPress}
+//     style={{ top: -20, justifyContent: "center", alignItems: "center" }}
+//   >
+//     <View style={{ width: 70, height: 70 }}>{children}</View>
+//   </TouchableOpacity>
+// );
 
 export default function Navbar() {
   return (
@@ -31,13 +34,8 @@ export default function Navbar() {
       activeColor="#1B8B6A"
       inactiveColor="rgba(255, 255, 255, 0.3)"
       barStyle={{
-        position: "absolute",
         backgroundColor: "#2F3F4A",
         height: 60,
-        zIndex: 1,
-      }}
-      screenOptions={{
-        headerShown: false,
       }}
     >
       <Tab.Screen
@@ -88,10 +86,16 @@ export default function Navbar() {
               <AntDesign name="pluscircle" size={35} color={color} />
             </View>
           ),
-          tabBarButton: (props) => <CustomTabBarButton {...props} />,
+          //   tabBarButton: (props) => <CustomTabBarButton {...props} />,
         }}
         name="Log"
         component={Log}
+        // listeners={({ navigation }) => ({
+        //   tabPress: (e) => {
+        //     // Prevent default action
+        //     e.preventDefault();
+        //   },
+        // })}
       />
       <Tab.Screen
         options={{

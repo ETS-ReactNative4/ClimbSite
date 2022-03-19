@@ -3,9 +3,17 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   app: {
     flex: 1,
+    backgroundColor: "transparent",
+    flex: 1,
   },
   container: {
     backgroundColor: "#122222",
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+  },
+  logContainer: {
+    backgroundColor: "transparent",
     flex: 1,
     display: "flex",
     flexDirection: "column",
@@ -43,13 +51,13 @@ export const styles = StyleSheet.create({
   },
   climbsite: {
     alignSelf: "center",
-    marginTop: 100,
+    marginTop: 60,
     fontSize: 35,
     fontWeight: "bold",
   },
   signupHeader: {
     alignSelf: "center",
-    marginTop: 75,
+    marginTop: 30,
     fontSize: 30,
     fontWeight: "bold",
   },
@@ -74,4 +82,21 @@ export const styles = StyleSheet.create({
   //     alignItems: "center",
   //     justifyContent: "center",
   //   },
+  bottomtab: {
+    height: 60,
+    backgroundColor: "#1B8B6A",
+    display: "flex",
+    bottom: 0,
+    flexDirection: "row",
+  },
+  post: {
+    padding: 20,
+    marginHorizontal: 30,
+    backgroundColor: "#2F3F4A",
+    borderRadius: 15,
+    alignSelf: "center",
+    display: "flex",
+    width: 320,
+    margin: 10,
+  },
 });

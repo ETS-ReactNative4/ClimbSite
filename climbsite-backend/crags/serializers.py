@@ -7,11 +7,15 @@ class CragSerializer(serializers.ModelSerializer):
         model = Crag
 
 class SectorSerializer(serializers.ModelSerializer):
+    crag=CragSerializer(read_only = True)
+
     class Meta:
         fields = ('id', 'name', 'crag')
         model = Sector
 
 class RouteSerializer(serializers.ModelSerializer):
+    sector=SectorSerializer(read_only = True)
+
     class Meta:
         fields = ('id', 'name', 'sector', 'grade')
         model = Route

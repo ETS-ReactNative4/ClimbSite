@@ -9,12 +9,16 @@ import {
   TouchableOpacity,
   useWindowDimensions,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Community() {
   const { height } = useWindowDimensions();
 
   return (
     <View style={styles.container}>
+      <SafeAreaView>
+        <StatusBar />
+      </SafeAreaView>
       <Text>Community page</Text>
     </View>
   );

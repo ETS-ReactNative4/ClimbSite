@@ -1,7 +1,6 @@
 import React from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
-
 import {
   Text,
   View,
@@ -10,13 +9,16 @@ import {
   TouchableOpacity,
   useWindowDimensions,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Register({ navigation }) {
   const { height } = useWindowDimensions();
 
   return (
     <View style={styles.container}>
-      <StatusBar />
+      <SafeAreaView>
+        <StatusBar />
+      </SafeAreaView>
       <Text style={[styles.signupHeader, { height: height * 0.1 }]}>
         <Text style={{ color: "#1B8B6A" }}>Create</Text> Account
       </Text>
