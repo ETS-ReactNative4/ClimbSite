@@ -99,4 +99,9 @@ export const styles = StyleSheet.create({
     width: 320,
     margin: 10,
   },
+  header: {
+    height: 60,
+    backgroundColor: "#2F3F4A",
+    justifyContent: "center",
+  },
 });

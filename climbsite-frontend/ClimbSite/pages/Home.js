@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign } from "@expo/vector-icons";
+import Header from "../components/Header";
 
 export default function Home() {
   const { height } = useWindowDimensions();
@@ -59,6 +60,7 @@ export default function Home() {
       <SafeAreaView style={{ backgroundColor: "#1B8B6A" }}>
         <StatusBar />
       </SafeAreaView>
+      <Header />
       <View style={{ flex: 1 }}>
         <FlatList
           key={(item) => item.id}
