@@ -6,6 +6,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Register from "./pages/Register";
 import Navbar from "./components/Navbar";
+import LogClimb from "./pages/LogClimb";
+import LogEvent from "./pages/LogEvent";
+import SearchEvent from "./pages/SearchEvent";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +22,9 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Navbar" component={Navbar} />
+        <Stack.Screen name="LogClimb" component={LogClimb} />
+        <Stack.Screen name="LogEvent" component={LogEvent} />
+        <Stack.Screen name="SearchEvent" component={SearchEvent} />
       </Stack.Navigator>
     </NavigationContainer>
   );

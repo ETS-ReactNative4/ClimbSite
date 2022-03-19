@@ -40,6 +40,7 @@ export default function Navbar() {
     >
       <Tab.Screen
         options={{
+          title: "My home",
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
             <View
