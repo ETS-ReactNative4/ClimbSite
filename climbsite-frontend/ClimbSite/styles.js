@@ -103,5 +103,7 @@ export const styles = StyleSheet.create({
     height: 60,
     backgroundColor: "#2F3F4A",
     justifyContent: "center",
+    display: "flex",
+    flexDirection: "row",
   },
 });
