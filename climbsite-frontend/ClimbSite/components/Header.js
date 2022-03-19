@@ -10,11 +10,13 @@ import {
 } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-export default function Header() {
+export default function Header({ navigation }) {
   return (
     <View style={styles.header}>
       <View style={{ alignSelf: "center", marginLeft: 15 }}>
-        <FontAwesome5 name="user-circle" size={30} color="black" />
+        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+          <FontAwesome5 name="user-circle" size={30} color="black" />
+        </TouchableOpacity>
       </View>
       <Text
         style={{

@@ -9,6 +9,8 @@ import Navbar from "./components/Navbar";
 import LogClimb from "./pages/LogClimb";
 import LogEvent from "./pages/LogEvent";
 import SearchEvent from "./pages/SearchEvent";
+import Profile from "./pages/Profile";
+import Header from "./components/Header";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +27,8 @@ export default function App() {
         <Stack.Screen name="LogClimb" component={LogClimb} />
         <Stack.Screen name="LogEvent" component={LogEvent} />
         <Stack.Screen name="SearchEvent" component={SearchEvent} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Header" component={Header} />
       </Stack.Navigator>
     </NavigationContainer>
   );
