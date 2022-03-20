@@ -46,13 +46,11 @@ export default function Log({ navigation }) {
           }}
           onPress={() => navigation.navigate("LogClimb")}
         >
-          <View>
-            <Image
-              style={{ width: 70, height: 70 }}
-              source={require("../assets/climbing.png")}
-            ></Image>
-            <Text>Log Climb</Text>
-          </View>
+          <Image
+            style={{ width: 70, height: 70 }}
+            source={require("../assets/climbing.png")}
+          ></Image>
+          <Text>Log Climb</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
@@ -68,13 +66,11 @@ export default function Log({ navigation }) {
           }}
           onPress={() => navigation.navigate("LogEvent")}
         >
-          <View>
-            <Image
-              style={{ width: 70, height: 70 }}
-              source={require("../assets/calendar.png")}
-            ></Image>
-            <Text>Log Event</Text>
-          </View>
+          <Image
+            style={{ width: 70, height: 70 }}
+            source={require("../assets/calendar.png")}
+          ></Image>
+          <Text>Log Event</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
@@ -90,13 +86,11 @@ export default function Log({ navigation }) {
           }}
           onPress={() => navigation.navigate("SearchEvent")}
         >
-          <View>
-            <Image
-              style={{ width: 70, height: 70 }}
-              source={require("../assets/schedule.png")}
-            ></Image>
-            <Text>Log Event</Text>
-          </View>
+          <Image
+            style={{ width: 70, height: 70 }}
+            source={require("../assets/schedule.png")}
+          ></Image>
+          <Text>Search Event</Text>
         </TouchableOpacity>
       </View>
     </View>

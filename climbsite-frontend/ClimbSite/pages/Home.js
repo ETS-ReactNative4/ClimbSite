@@ -159,6 +159,7 @@ export default function Home({ navigation }) {
       <Header navigation={navigation} />
       <View style={{ flex: 1 }}>
         <FlatList
+          style={{ marginTop: 10 }}
           key={(item) => item.id}
           data={posts}
           renderItem={({ item }) => (
@@ -196,7 +197,7 @@ export default function Home({ navigation }) {
               />
               <View>
                 <Text style={{ fontSize: 14, lineHeight: 18 }}>
-                  {item.comment}{" "}
+                  {item.comment}
                 </Text>
               </View>
             </View>
