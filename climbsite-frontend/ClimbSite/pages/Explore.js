@@ -12,7 +12,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
 
-export default function Explore() {
+export default function Explore({ navigation }) {
   const { height } = useWindowDimensions();
 
   return (
@@ -20,7 +20,7 @@ export default function Explore() {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
-      <Header />
+      <Header navigation={navigation} />
       <Text>Explore Page</Text>
     </View>
   );

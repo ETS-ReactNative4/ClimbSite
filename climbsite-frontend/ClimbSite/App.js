@@ -28,7 +28,6 @@ export default function App() {
         <Stack.Screen name="LogEvent" component={LogEvent} />
         <Stack.Screen name="SearchEvent" component={SearchEvent} />
         <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Header" component={Header} />
       </Stack.Navigator>
     </NavigationContainer>
   );

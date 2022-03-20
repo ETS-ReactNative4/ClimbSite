@@ -12,7 +12,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
 
-export default function Community() {
+export default function Community({ navigation }) {
   const { height } = useWindowDimensions();
 
   return (
@@ -20,7 +20,7 @@ export default function Community() {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
-      <Header />
+      <Header navigation={navigation} />
       <Text>Community page</Text>
     </View>
   );

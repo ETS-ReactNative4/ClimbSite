@@ -21,7 +21,7 @@ export default function Log({ navigation }) {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
-      <Header />
+      <Header navigation={navigation} />
       <View
         style={{
           flex: 1,

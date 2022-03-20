@@ -13,7 +13,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
 
-export default function Rankings() {
+export default function Rankings({ navigation }) {
   const { height } = useWindowDimensions();
   const [rankings, setPost] = useState([
     {
@@ -53,7 +53,7 @@ export default function Rankings() {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
-      <Header />
+      <Header navigation={navigation} />
       <Text style={{ marginLeft: 45, marginVertical: 20, fontSize: 20 }}>
         Ascents Ranking
       </Text>
