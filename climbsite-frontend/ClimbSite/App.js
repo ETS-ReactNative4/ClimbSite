@@ -11,24 +11,27 @@ import LogEvent from "./pages/LogEvent";
 import SearchEvent from "./pages/SearchEvent";
 import Profile from "./pages/Profile";
 import Header from "./components/Header";
+import { Provider } from "react-native-paper";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer style={styles.app}>
-      <Stack.Navigator
-        initialRouteName="Login"
-        screenOptions={{ headerShown: false }}
-      >
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="Navbar" component={Navbar} />
-        <Stack.Screen name="LogClimb" component={LogClimb} />
-        <Stack.Screen name="LogEvent" component={LogEvent} />
-        <Stack.Screen name="SearchEvent" component={SearchEvent} />
-        <Stack.Screen name="Profile" component={Profile} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider>
+      <NavigationContainer style={styles.app}>
+        <Stack.Navigator
+          initialRouteName="Login"
+          screenOptions={{ headerShown: false }}
+        >
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="Navbar" component={Navbar} />
+          <Stack.Screen name="LogClimb" component={LogClimb} />
+          <Stack.Screen name="LogEvent" component={LogEvent} />
+          <Stack.Screen name="SearchEvent" component={SearchEvent} />
+          <Stack.Screen name="Profile" component={Profile} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }

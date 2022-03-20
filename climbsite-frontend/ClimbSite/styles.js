@@ -13,10 +13,11 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
   },
   logContainer: {
-    backgroundColor: "transparent",
+    backgroundColor: "#122222",
     flex: 1,
     display: "flex",
-    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   inputLogin: {

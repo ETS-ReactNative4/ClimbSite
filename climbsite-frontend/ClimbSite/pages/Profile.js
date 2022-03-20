@@ -56,6 +56,23 @@ export default function Profile({ navigation }) {
                 </Text>
               </View>
             </View>
+            <View
+              style={{
+                flexDirection: "row",
+                marginTop: 30,
+                width: 350,
+              }}
+            >
+              <Text style={{ flex: 0.3, fontSize: 14 }}>
+                {item.followers} Followers
+              </Text>
+              <Text style={{ flex: 0.3, fontSize: 14 }}>
+                {item.followings} Followings
+              </Text>
+              <Text style={{ flex: 0.3, fontSize: 14 }}>
+                {item.asc} Ascents
+              </Text>
+            </View>
           </View>
         ))}
       </View>
