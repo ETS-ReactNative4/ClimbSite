@@ -12,6 +12,7 @@ import Log from "../pages/Log";
 import { View, Text, TouchableOpacity } from "react-native";
 import Rankings from "../pages/Rankings";
 import Community from "../pages/Community";
+import LogNavigation from "../navigations/LogNavigation";
 
 // const CreateNewPlaceHolder = () => (
 //   <View style={{ flex: 1, backgroundColor: "transparent" }}></View>
@@ -89,8 +90,8 @@ export default function Navbar() {
           ),
           //   tabBarButton: (props) => <CustomTabBarButton {...props} />,
         }}
-        name="Log"
-        component={Log}
+        name="LogStack"
+        component={LogNavigation}
         // listeners={({ navigation }) => ({
         //   tabPress: (e) => {
         //     // Prevent default action

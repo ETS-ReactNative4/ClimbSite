@@ -26,10 +26,6 @@ export default function App() {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="Navbar" component={Navbar} />
-          <Stack.Screen name="LogClimb" component={LogClimb} />
-          <Stack.Screen name="LogEvent" component={LogEvent} />
-          <Stack.Screen name="SearchEvent" component={SearchEvent} />
-          <Stack.Screen name="Profile" component={Profile} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

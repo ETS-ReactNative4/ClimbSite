@@ -15,7 +15,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function Profile({ navigation }) {
   const { height } = useWindowDimensions();
-  const [profile, setPost] = useState([
+  const [profile, setProfile] = useState([
     {
       id: 8,
       full_name: "Cyril Asmar",
