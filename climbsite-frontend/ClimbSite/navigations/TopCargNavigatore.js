@@ -8,11 +8,19 @@ const Tab = createMaterialTopTabNavigator();
 export default function TopTab() {
   return (
     <Tab.Navigator
-      initialRouteName="Feed"
+      initialRouteName="Info"
       screenOptions={{
-        tabBarActiveTintColor: "#e91e63",
+        tabBarActiveTintColor: "#1B8B6A",
+        tabBarInactiveTintColor: "rgba(255, 255, 255, 0.3)",
         tabBarLabelStyle: { fontSize: 12 },
-        tabBarStyle: { backgroundColor: "powderblue" },
+        tabBarStyle: {
+          backgroundColor: "#2F3F4A",
+          borderTopWidth: 0.75,
+          borderTopColor: "rgba(255, 255, 255, 0.3)",
+        },
+        tabBarIndicatorStyle: {
+          backgroundColor: "#1B8B6A",
+        },
       }}
     >
       <Tab.Screen
