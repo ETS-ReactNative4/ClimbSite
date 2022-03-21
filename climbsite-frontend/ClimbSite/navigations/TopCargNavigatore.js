@@ -26,17 +26,17 @@ export default function TopTab() {
       <Tab.Screen
         name="Info"
         component={Info}
-        options={{ tabBarLabel: "Home" }}
+        options={{ tabBarLabel: "Info" }}
       />
       <Tab.Screen
         name="Sectors"
         component={Sectors}
-        options={{ tabBarLabel: "Updates" }}
+        options={{ tabBarLabel: "Sectors" }}
       />
       <Tab.Screen
         name="CragEvents"
         component={CragEvents}
-        options={{ tabBarLabel: "Profile" }}
+        options={{ tabBarLabel: "Events" }}
       />
     </Tab.Navigator>
   );
