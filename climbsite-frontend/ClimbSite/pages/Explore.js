@@ -20,6 +20,17 @@ import Header from "../components/Header";
 export default function Explore({ navigation }) {
   const { height } = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
+  const [crag, setCrag] = useState([
+    {
+      id: 2,
+      name: "Beit merry",
+      description: "it's bet mery",
+      conditions: "hard boldery",
+      gear: "60m rope",
+      longitude: "448.484000",
+      latitude: "841.286000",
+    },
+  ]);
 
   return (
     <View style={styles.container}>
@@ -51,24 +62,40 @@ export default function Explore({ navigation }) {
               marginBottom: 50,
             }}
           >
-            <View
-              style={{
-                margin: 20,
-                backgroundColor: "#2F3F4A",
-                borderRadius: 15,
-                padding: 35,
-                width: 320,
-                alignItems: "center",
-              }}
-            >
-              <View>
-                <Image
-                  style={{ width: 70, height: 70 }}
-                  source={require("../assets/betmerry.jpg")}
-                ></Image>
+            {crag.map((item) => (
+              <View key={item.id}>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Crag");
+                    setModalVisible(!modalVisible);
+                  }}
+                >
+                  <View
+                    style={{
+                      margin: 20,
+                      backgroundColor: "#2F3F4A",
+                      borderRadius: 15,
+                      padding: 20,
+                      width: 320,
+                      alignItems: "center",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <View style={{ flex: 0.3 }}>
+                      <Image
+                        style={{ width: 80, height: 80 }}
+                        source={require("../assets/betmerry.jpg")}
+                      ></Image>
+                    </View>
+                    <View style={{ flex: 0.8, marginLeft: 20 }}>
+                      <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                        {item.name}
+                      </Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
               </View>
-              <Text style={styles1.modalText}>Hello World!</Text>
-            </View>
+            ))}
           </View>
         </Modal>
         <Pressable
@@ -82,21 +109,6 @@ export default function Explore({ navigation }) {
   );
 }
 const styles1 = StyleSheet.create({
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
   button: {
     borderRadius: 20,
     padding: 10,
@@ -111,10 +123,6 @@ const styles1 = StyleSheet.create({
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
     textAlign: "center",
   },
 });

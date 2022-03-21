@@ -13,6 +13,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import Rankings from "../pages/Rankings";
 import Community from "../pages/Community";
 import LogNavigation from "../navigations/LogNavigation";
+import ExploreNavigation from "../navigations/ExploreNavigation";
 
 // const CreateNewPlaceHolder = () => (
 //   <View style={{ flex: 1, backgroundColor: "transparent" }}></View>
@@ -75,8 +76,8 @@ export default function Navbar() {
             <Ionicons name="md-location-outline" size={24} color={color} />
           ),
         }}
-        name="Explore"
-        component={Explore}
+        name="ExploreStack"
+        component={ExploreNavigation}
       />
       <Tab.Screen
         options={{
