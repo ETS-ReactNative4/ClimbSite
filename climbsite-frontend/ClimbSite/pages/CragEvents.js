@@ -10,10 +10,8 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CragHeader from "../components/CragHeader";
-import TopTab from "../navigations/TopCargNavigatore";
 
-export default function Crag({ navigation }) {
+export default function CragEvents() {
   const { height } = useWindowDimensions();
 
   return (
@@ -21,8 +19,7 @@ export default function Crag({ navigation }) {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
-      <CragHeader cragName="Crag Name" navigation={navigation} />
-      <TopTab />
+      <Text>Crag Event</Text>
     </View>
   );
 }
