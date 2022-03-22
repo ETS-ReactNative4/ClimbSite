@@ -11,6 +11,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function Info() {
   const { height } = useWindowDimensions();
@@ -57,10 +58,16 @@ export default function Info() {
                   source={require("../assets/betmerry.jpg")}
                 ></Image>
               </View>
-              <View style={{ marginTop: 10 }}>
-                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              <View style={{ marginTop: 10, flexDirection: "row" }}>
+                <Text style={{ fontSize: 20, fontWeight: "bold", flex: 0.9 }}>
                   {item.name}
                 </Text>
+                <MaterialIcons
+                  style={{ flex: 0.1 }}
+                  name="favorite-border"
+                  size={24}
+                  color="black"
+                />
               </View>
               <View
                 style={{

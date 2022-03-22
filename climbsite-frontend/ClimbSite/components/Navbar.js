@@ -53,16 +53,6 @@ export default function Navbar() {
               }}
             >
               <Feather name="home" size={24} color={color} />
-              {/* <Text
-                style={{
-                  fontSize: 12,
-                  width: 40,
-                  textAlign: "center",
-                  color: color,
-                }}
-              >
-                Home
-              </Text> */}
             </View>
           ),
         }}
@@ -93,12 +83,6 @@ export default function Navbar() {
         }}
         name="LogStack"
         component={LogNavigation}
-        // listeners={({ navigation }) => ({
-        //   tabPress: (e) => {
-        //     // Prevent default action
-        //     e.preventDefault();
-        //   },
-        // })}
       />
       <Tab.Screen
         options={{

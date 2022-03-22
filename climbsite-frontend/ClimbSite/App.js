@@ -1,4 +1,3 @@
-import { Text, View } from "react-native";
 import Login from "./pages/Login";
 import React from "react";
 import { styles } from "./styles";
@@ -6,11 +5,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Register from "./pages/Register";
 import Navbar from "./components/Navbar";
-import LogClimb from "./pages/LogClimb";
-import LogEvent from "./pages/LogEvent";
-import SearchEvent from "./pages/SearchEvent";
-import Profile from "./pages/Profile";
-import Header from "./components/Header";
 import { Provider } from "react-native-paper";
 
 const Stack = createNativeStackNavigator();
