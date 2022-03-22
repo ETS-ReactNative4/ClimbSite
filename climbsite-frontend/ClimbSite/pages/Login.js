@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
+import axios from "axios";
 import {
   Text,
   View,
@@ -13,8 +14,44 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Login({ navigation }) {
   const { height } = useWindowDimensions();
-  const { email, setEmail } = useState("");
-  const { password, setPassword } = useState("");
+  const [error, setError] = useState(null);
+  const url = "http://127.0.0.1:7000/api/token/";
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleEmail = (value) => {
+    setData({
+      ...data,
+      email: value,
+    });
+  };
+  const handlePassword = (value) => {
+    setData({
+      ...data,
+      password: value,
+    });
+  };
+
+  const handleSubmit = async () => {
+    if (!(data.email && data.password)) {
+      setError("empty");
+    } else {
+      try {
+        const response = await axios.post(url, data);
+        const data_received = await response.data;
+        console.log(data_received);
+        // localStorage.setItem("token", data_received.access_token);
+        // localStorage.setItem("name", data_received.user.name);
+        // localStorage.setItem("email", data_received.user.email);
+        navigation.navigate("Navbar");
+      } catch (error) {
+        console.log(error);
+        setError("wrong");
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -30,21 +67,16 @@ export default function Login({ navigation }) {
         <TextInput
           style={styles.input}
           placeholder="Email..."
-          value={email}
-          setValue={setEmail}
+          onChangeText={(value) => handleEmail(value)}
         />
         <Text style={styles.inputtext}>Enter your password: </Text>
         <TextInput
           style={styles.input}
           placeholder="Password..."
-          value={password}
-          setValue={setPassword}
           secureTextEntry={true}
+          onChangeText={(value) => handlePassword(value)}
         />
-        <TouchableOpacity
-          style={styles.loginButton}
-          onPress={() => navigation.navigate("Navbar")}
-        >
+        <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
           <Text
             style={{
               alignSelf: "center",

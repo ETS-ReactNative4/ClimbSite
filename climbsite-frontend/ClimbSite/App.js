@@ -4,8 +4,8 @@ import { styles } from "./styles";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Register from "./pages/Register";
-import Navbar from "./components/Navbar";
 import { Provider } from "react-native-paper";
+import Navbar from "./navigations/Navbar";
 
 const Stack = createNativeStackNavigator();
 

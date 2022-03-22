@@ -12,21 +12,10 @@ import Log from "../pages/Log";
 import { View, Text, TouchableOpacity } from "react-native";
 import Rankings from "../pages/Rankings";
 import Community from "../pages/Community";
-import LogNavigation from "../navigations/LogNavigation";
-import ExploreNavigation from "../navigations/ExploreNavigation";
+import LogNavigation from "./LogNavigation";
+import ExploreNavigation from "./ExploreNavigation";
 
-// const CreateNewPlaceHolder = () => (
-//   <View style={{ flex: 1, backgroundColor: "transparent" }}></View>
-// );
 const Tab = createMaterialBottomTabNavigator();
-// const CustomTabBarButton = ({ children, onPress }) => (
-//   <TouchableOpacity
-//     onPress={onPress}
-//     style={{ top: -20, justifyContent: "center", alignItems: "center" }}
-//   >
-//     <View style={{ width: 70, height: 70 }}>{children}</View>
-//   </TouchableOpacity>
-// );
 
 export default function Navbar() {
   return (
