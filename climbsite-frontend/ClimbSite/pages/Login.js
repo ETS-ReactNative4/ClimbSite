@@ -35,6 +35,7 @@ export default function Login({ navigation }) {
   };
 
   const handleSubmit = async () => {
+    navigation.navigate("Navbar");
     if (!(data.email && data.password)) {
       setError("empty");
     } else {
@@ -45,7 +46,6 @@ export default function Login({ navigation }) {
         // localStorage.setItem("token", data_received.access_token);
         // localStorage.setItem("name", data_received.user.name);
         // localStorage.setItem("email", data_received.user.email);
-        navigation.navigate("Navbar");
       } catch (error) {
         console.log(error);
         setError("wrong");
