@@ -14,13 +14,15 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import DropDown from "react-native-paper-dropdown";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import ProfileHeader from "../components/ProfileHeader";
 
-export default function LogEvent() {
+export default function LogEvent(navigation) {
   const { height } = useWindowDimensions();
   const [showDropDown, setShowDropDown] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [date, setDate] = useState("Pick Date");
+
   const [crag, setCrag] = useState([
     {
       id: 2,
@@ -88,18 +90,16 @@ export default function LogEvent() {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
+      <ProfileHeader navigation={navigation} title="Log Event" />
       <View
         style={{
           padding: 20,
           backgroundColor: "#2F3F4A",
           borderRadius: 15,
           width: 320,
+          marginTop: 20,
         }}
       >
-        <Text style={{ fontSize: 24, alignSelf: "center", margin: 10 }}>
-          Log Event
-        </Text>
-
         <View style={{ marginVertical: 10 }}>
           <TouchableOpacity
             onPress={() => {

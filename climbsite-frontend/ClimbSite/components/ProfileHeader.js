@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 
-export default function ProfileHeader({ navigation }) {
+export default function ProfileHeader({ navigation, title }) {
   return (
     <View style={styles.header}>
       <View style={{ alignSelf: "center", marginLeft: 15 }}>
@@ -28,7 +28,7 @@ export default function ProfileHeader({ navigation }) {
           marginRight: 45,
         }}
       >
-        Profile
+        {title}
       </Text>
     </View>
   );

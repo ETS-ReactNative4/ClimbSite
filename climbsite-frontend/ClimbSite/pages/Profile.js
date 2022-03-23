@@ -34,7 +34,7 @@ export default function Profile({ navigation }) {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
-      <ProfileHeader navigation={navigation} />
+      <ProfileHeader navigation={navigation} title="Profile" />
 
       <View style={styles.profile}>
         {profile.map((item) => (
