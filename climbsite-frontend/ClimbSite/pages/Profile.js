@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ProfileHeader from "../components/ProfileHeader";
+import ImagePicker from "react-native-image-picker";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function Profile({ navigation }) {

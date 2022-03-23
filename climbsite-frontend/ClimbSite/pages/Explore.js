@@ -100,33 +100,7 @@ export default function Explore({ navigation }) {
             longitude: region.longitude,
           }}
         />
-        {/* <Marker
-          coordinate={pin}
-          pinColor="purple"
-          draggable={true}
-          onDragStart={(e) => {
-            console.log("Drag start", e.nativeEvent.coordinate);
-          }}
-          onDragEnd={(e) => {
-            console.log("Drag end", e.nativeEvent.coordinate),
-              setPin({
-                latitude: e.nativeEvent.coordinate.latitude,
-                longitude: e.nativeEvent.coordinate.longitude,
-              });
-          }}
-        >
-          <Callout>
-            <Text>I'm here</Text>
-          </Callout>
-        </Marker> */}
-        {/* <MapView.Marker
-          coordinate={{
-            longitude: 35.59988484,
-            latitude: 33.797395,
-          }}
-          pinColor="purple"
-          onPress={() => setModalVisible(true)}
-        ></MapView.Marker> */}
+
         {crag.map((item) => {
           return (
             <View key={item.id}>
@@ -140,7 +114,7 @@ export default function Explore({ navigation }) {
                   latitude: item.latitude,
                   longitude: item.longitude,
                 }}
-                title={"Crag location"}
+                title={item.name}
               />
             </View>
           );
