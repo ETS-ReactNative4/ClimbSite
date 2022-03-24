@@ -18,6 +18,28 @@ import MapView, { Callout, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 export default function Explore({ navigation }) {
   const { height } = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
+  const [bookmates, setBookmates] = useState([
+    {
+      id: 1,
+      name: "Laurena Fayad",
+
+      bio: "I love books♥",
+      followers: 200,
+      following: 150,
+      longitude: 34.4429,
+      latitude: 35.8353,
+    },
+    {
+      id: 2,
+      name: "John Doe",
+
+      bio: "Chilling",
+      followers: 233,
+      following: 56,
+      longitude: 33.903,
+      latitude: 35.584,
+    },
+  ]);
   const [region, setRegion] = useState({
     latitude: 33.787395,
     longitude: 35.72789,

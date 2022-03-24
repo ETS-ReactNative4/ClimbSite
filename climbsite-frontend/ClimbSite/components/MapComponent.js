@@ -7,12 +7,7 @@ export default function Map() {
     latitude: 33.890536626710244,
     longitude: 35.489303601542964,
   });
-  const [region, setRegion] = useState({
-    latitude: 33.890536626710244,
-    longitude: 35.489303601542964,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
+
   return (
     <View>
       <MapView
@@ -25,12 +20,6 @@ export default function Map() {
         }}
         provider="google"
       >
-        <Marker
-          coordinate={{
-            latitude: region.latitude,
-            longitude: region.longitude,
-          }}
-        />
         <Marker
           coordinate={pin}
           pinColor="purple"
