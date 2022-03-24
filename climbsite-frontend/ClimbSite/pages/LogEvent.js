@@ -127,7 +127,6 @@ export default function LogEvent(navigation) {
       style={{
         flex: 1,
         backgroundColor: "#122222",
-        marginTop: 20,
         alignItems: "center",
       }}
     >

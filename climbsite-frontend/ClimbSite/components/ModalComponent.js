@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { styles } from "../styles";
 import { Text, View, TouchableOpacity, Modal, FlatList } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
+import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
 
 export default function ModalComponent({
   item,
   setModalVisible,
   modalVisible,
 }) {
+  const { height } = useWindowDimensions();
   return (
     <Modal
       animationType="slide"
@@ -18,10 +20,9 @@ export default function ModalComponent({
       <View
         style={{
           flex: 1,
-          backgroundColor: "rgba(0, 0, 0,0.7)",
+          backgroundColor: "rgba(0, 0, 0,0.6)",
           justifyContent: "center",
           alignItems: "center",
-          marginBottom: 60,
         }}
       >
         <View
