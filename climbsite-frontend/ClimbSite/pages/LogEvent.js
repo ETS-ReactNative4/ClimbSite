@@ -19,7 +19,6 @@ import ModalComponent from "../components/ModalComponent";
 
 export default function LogEvent(navigation) {
   const { height } = useWindowDimensions();
-  const [showDropDown, setShowDropDown] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible1, setModalVisible1] = useState(false);
@@ -235,6 +234,9 @@ export default function LogEvent(navigation) {
           </TouchableOpacity>
         </View>
         <View style={{ marginVertical: 10 }}>
+          <TextInput multiline style={styles.input} placeholder="Description" />
+        </View>
+        <View style={{ marginVertical: 10 }}>
           <TextInput
             style={styles.input}
             keyboardType="numeric"
@@ -242,48 +244,6 @@ export default function LogEvent(navigation) {
           />
         </View>
       </View>
-      {/* <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "rgba(0, 0, 0,0.7)",
-            justifyContent: "center",
-            alignItems: "center",
-            marginBottom: 50,
-          }}
-        >
-          <View
-            style={{
-              margin: 20,
-              backgroundColor: "#2F3F4A",
-              borderRadius: 15,
-              padding: 20,
-              width: 320,
-              alignItems: "center",
-              flexDirection: "row",
-            }}
-          >
-            <FlatList
-              key={(item) => item.id}
-              data={crag}
-              renderItem={({ item }) => (
-                <TouchableOpacity>
-                  <View style={{ height: 50 }}>
-                    <Text>{item.name} </Text>
-                  </View>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
-        </View>
-      </Modal> */}
       <ModalComponent
         item={crag}
         setModalVisible={() => {
