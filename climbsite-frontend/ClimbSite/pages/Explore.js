@@ -18,10 +18,6 @@ import MapView, { Callout, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 export default function Explore({ navigation }) {
   const { height } = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
-  const [pin, setPin] = useState({
-    latitude: 33.890536626710244,
-    longitude: 35.489303601542964,
-  });
   const [region, setRegion] = useState({
     latitude: 33.787395,
     longitude: 35.72789,

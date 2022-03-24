@@ -15,12 +15,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import DropDown from "react-native-paper-dropdown";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import ProfileHeader from "../components/ProfileHeader";
+import ModalComponent from "../components/ModalComponent";
 
 export default function LogEvent(navigation) {
   const { height } = useWindowDimensions();
   const [showDropDown, setShowDropDown] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible1, setModalVisible1] = useState(false);
   const [date, setDate] = useState("Pick Date");
 
   const [crag, setCrag] = useState([
@@ -59,6 +61,48 @@ export default function LogEvent(navigation) {
       gear: "60m rope",
       longitude: 38.890536626710244,
       latitude: 35.489303601542964,
+    },
+  ]);
+
+  const [sector, setSector] = useState([
+    {
+      id: 3,
+      name: "sector3",
+      crag: {
+        id: 1,
+        name: "tanourine",
+        description: "it is in tanourine and has 5 routes",
+        conditions: "very hard",
+        gear: "90 m",
+        longitude: "585.454000",
+        latitude: "355.544000",
+      },
+    },
+    {
+      id: 4,
+      name: "sector4",
+      crag: {
+        id: 1,
+        name: "tanourine",
+        description: "it is in tanourine and has 5 routes",
+        conditions: "very hard",
+        gear: "90 m",
+        longitude: "585.454000",
+        latitude: "355.544000",
+      },
+    },
+    {
+      id: 5,
+      name: "sector1",
+      crag: {
+        id: 1,
+        name: "tanourine",
+        description: "it is in tanourine and has 5 routes",
+        conditions: "very hard",
+        gear: "90 m",
+        longitude: "585.454000",
+        latitude: "355.544000",
+      },
     },
   ]);
 
@@ -128,6 +172,34 @@ export default function LogEvent(navigation) {
             </Text>
           </TouchableOpacity>
         </View>
+        <View style={{ marginVertical: 10 }}>
+          <TouchableOpacity
+            onPress={() => {
+              setModalVisible1(true);
+            }}
+            style={{
+              width: 280,
+              height: 50,
+              padding: 5,
+              backgroundColor: "#122222",
+              borderRadius: 5,
+              marginVertical: 10,
+              elevation: 2,
+              shadowColor: "gray",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 17,
+                flex: 1,
+                marginTop: 7,
+              }}
+            >
+              Pick Sector
+            </Text>
+          </TouchableOpacity>
+        </View>
 
         <View style={{ marginVertical: 10 }}>
           <TouchableOpacity
@@ -171,7 +243,7 @@ export default function LogEvent(navigation) {
           />
         </View>
       </View>
-      <Modal
+      {/* <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -212,7 +284,21 @@ export default function LogEvent(navigation) {
             />
           </View>
         </View>
-      </Modal>
+      </Modal> */}
+      <ModalComponent
+        item={crag}
+        setModalVisible={() => {
+          setModalVisible(!modalVisible);
+        }}
+        modalVisible={modalVisible}
+      />
+      <ModalComponent
+        item={sector}
+        setModalVisible={() => {
+          setModalVisible1(!modalVisible1);
+        }}
+        modalVisible={modalVisible1}
+      />
     </View>
   );
 }
