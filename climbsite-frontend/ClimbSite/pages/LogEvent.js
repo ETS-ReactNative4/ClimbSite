@@ -10,12 +10,14 @@ import {
   useWindowDimensions,
   Modal,
   FlatList,
+  ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DropDown from "react-native-paper-dropdown";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import ProfileHeader from "../components/ProfileHeader";
 import ModalComponent from "../components/ModalComponent";
+import Map from "../components/MapComponent";
 
 export default function LogEvent(navigation) {
   const { height } = useWindowDimensions();
@@ -133,117 +135,124 @@ export default function LogEvent(navigation) {
         <StatusBar />
       </SafeAreaView>
       <ProfileHeader navigation={navigation} title="Log Event" />
-      <View
-        style={{
-          padding: 20,
-          backgroundColor: "#2F3F4A",
-          borderRadius: 15,
-          width: 320,
-          marginTop: 20,
-        }}
-      >
-        <View style={{ marginVertical: 10 }}>
-          <TouchableOpacity
-            onPress={() => {
-              setModalVisible(true);
-            }}
-            style={{
-              width: 280,
-              height: 50,
-              padding: 5,
-              backgroundColor: "#122222",
-              borderRadius: 5,
-              marginVertical: 10,
-              elevation: 2,
-              shadowColor: "gray",
-              alignItems: "center",
-            }}
-          >
-            <Text
+      <ScrollView style={{ marginBottom: 5 }}>
+        <View
+          style={{
+            padding: 20,
+            backgroundColor: "#2F3F4A",
+            borderRadius: 15,
+            width: 320,
+            marginTop: 20,
+          }}
+        >
+          <View style={{ marginVertical: 10 }}>
+            <TouchableOpacity
+              onPress={() => {
+                setModalVisible(true);
+              }}
               style={{
-                fontSize: 17,
-                flex: 1,
-                marginTop: 7,
+                width: 280,
+                height: 50,
+                padding: 5,
+                backgroundColor: "#122222",
+                borderRadius: 5,
+                marginVertical: 10,
+                elevation: 2,
+                shadowColor: "gray",
+                alignItems: "center",
               }}
             >
-              Pick Crag
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{ marginVertical: 10 }}>
-          <TouchableOpacity
-            onPress={() => {
-              setModalVisible1(true);
-            }}
-            style={{
-              width: 280,
-              height: 50,
-              padding: 5,
-              backgroundColor: "#122222",
-              borderRadius: 5,
-              marginVertical: 10,
-              elevation: 2,
-              shadowColor: "gray",
-              alignItems: "center",
-            }}
-          >
-            <Text
+              <Text
+                style={{
+                  fontSize: 17,
+                  flex: 1,
+                  marginTop: 7,
+                }}
+              >
+                Pick Crag
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{ marginVertical: 10 }}>
+            <TouchableOpacity
+              onPress={() => {
+                setModalVisible1(true);
+              }}
               style={{
-                fontSize: 17,
-                flex: 1,
-                marginTop: 7,
+                width: 280,
+                height: 50,
+                padding: 5,
+                backgroundColor: "#122222",
+                borderRadius: 5,
+                marginVertical: 10,
+                elevation: 2,
+                shadowColor: "gray",
+                alignItems: "center",
               }}
             >
-              Pick Sector
-            </Text>
-          </TouchableOpacity>
-        </View>
+              <Text
+                style={{
+                  fontSize: 17,
+                  flex: 1,
+                  marginTop: 7,
+                }}
+              >
+                Pick Sector
+              </Text>
+            </TouchableOpacity>
+          </View>
 
-        <View style={{ marginVertical: 10 }}>
-          <TouchableOpacity
-            style={{
-              width: 280,
-              height: 50,
-              backgroundColor: "#122222",
-              padding: 5,
-              borderRadius: 5,
-              justifyContent: "center",
-              alignSelf: "center",
-              marginVertical: 10,
-              elevation: 2,
-              shadowColor: "gray",
-            }}
-            onPress={showDatePicker}
-          >
-            <Text
+          <View style={{ marginVertical: 10 }}>
+            <TouchableOpacity
               style={{
-                textAlign: "center",
+                width: 280,
+                height: 50,
+                backgroundColor: "#122222",
+                padding: 5,
+                borderRadius: 5,
+                justifyContent: "center",
                 alignSelf: "center",
-                color: "white",
-                fontSize: 16,
+                marginVertical: 10,
+                elevation: 2,
+                shadowColor: "gray",
               }}
+              onPress={showDatePicker}
             >
-              {date}
-            </Text>
-            <DateTimePickerModal
-              isVisible={isDatePickerVisible}
-              mode="date"
-              onConfirm={handleConfirm}
-              onCancel={hideDatePicker}
+              <Text
+                style={{
+                  textAlign: "center",
+                  alignSelf: "center",
+                  color: "white",
+                  fontSize: 16,
+                }}
+              >
+                {date}
+              </Text>
+              <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="date"
+                onConfirm={handleConfirm}
+                onCancel={hideDatePicker}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{ marginVertical: 10 }}>
+            <TextInput
+              multiline
+              style={styles.input}
+              placeholder="Description"
             />
-          </TouchableOpacity>
+          </View>
+          <View style={{ marginVertical: 10 }}>
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              placeholder="Places Available"
+            />
+          </View>
+          <Map />
         </View>
-        <View style={{ marginVertical: 10 }}>
-          <TextInput multiline style={styles.input} placeholder="Description" />
-        </View>
-        <View style={{ marginVertical: 10 }}>
-          <TextInput
-            style={styles.input}
-            keyboardType="numeric"
-            placeholder="Places Available"
-          />
-        </View>
-      </View>
+      </ScrollView>
       <ModalComponent
         item={crag}
         setModalVisible={() => {
