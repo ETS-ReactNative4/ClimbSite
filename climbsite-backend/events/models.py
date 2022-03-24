@@ -6,6 +6,7 @@ class Event(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     crag = models.ForeignKey(Crag, on_delete=models.CASCADE)
+    # should add sectors also
     description = models.TextField(max_length=500)
     date = models.DateTimeField()
     total_seats = models.IntegerField()

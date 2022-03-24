@@ -9,6 +9,7 @@ import SearchEvent from "../pages/SearchEvent";
 import { Provider } from "react-native-paper";
 import Log from "../pages/Log";
 import Profile from "../pages/Profile";
+import Sectors from "../pages/Sectors";
 
 const layout = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ export default function LogNavigation() {
         <layout.Screen name="LogEvent" component={LogEvent} />
         <layout.Screen name="SearchEvent" component={SearchEvent} />
         <layout.Screen name="Profile" component={Profile} />
+        <layout.Screen name="Sectors" component={Sectors} />
       </layout.Navigator>
     </Provider>
   );

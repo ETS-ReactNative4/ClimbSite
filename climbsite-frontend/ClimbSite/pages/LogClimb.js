@@ -83,7 +83,9 @@ export default function LogClimb({ navigation }) {
       </SafeAreaView>
       <ProfileHeader navigation={navigation} title="Log Climb" />
       <ScrollView>
-        <Text>favorites</Text>
+        <Text style={{ marginLeft: 45, marginVertical: 20, fontSize: 20 }}>
+          Favorites
+        </Text>
         {favorites.map((item) => {
           return (
             <View
@@ -95,13 +97,13 @@ export default function LogClimb({ navigation }) {
               }}
             >
               <TouchableOpacity
-              // onPress={() => {
-              //   navigation.navigate("Crag");
-              // }}
+                onPress={() => {
+                  navigation.navigate("Sectors");
+                }}
               >
                 <View
                   style={{
-                    margin: 20,
+                    marginVertical: 10,
                     backgroundColor: "#2F3F4A",
                     borderRadius: 15,
                     padding: 20,
@@ -126,7 +128,9 @@ export default function LogClimb({ navigation }) {
             </View>
           );
         })}
-        <Text>Others</Text>
+        <Text style={{ marginLeft: 45, marginVertical: 20, fontSize: 20 }}>
+          Others
+        </Text>
         {crag.map((item) => {
           return (
             <View
@@ -138,13 +142,13 @@ export default function LogClimb({ navigation }) {
               }}
             >
               <TouchableOpacity
-              // onPress={() => {
-              //   navigation.navigate("Crag");
-              // }}
+                onPress={() => {
+                  navigation.navigate("Sectors");
+                }}
               >
                 <View
                   style={{
-                    margin: 20,
+                    marginVertical: 10,
                     backgroundColor: "#2F3F4A",
                     borderRadius: 15,
                     padding: 20,
