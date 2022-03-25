@@ -37,20 +37,16 @@ export default function ClimblistRoutes({ data }) {
             }}
           >
             <Text style={{ fontSize: 18, flex: 0.9, marginLeft: 10 }}>
-              {item.name}
+              {item.name} ({item.grade})
             </Text>
             <TouchableOpacity
+              style={{ flex: 0.1 }}
               onPress={() => {
                 setSelectedItem(item);
                 setModalVisible(true);
               }}
             >
-              <AntDesign
-                style={{ flex: 0.1 }}
-                name="check"
-                size={24}
-                color="black"
-              />
+              <AntDesign name="check" size={24} color="black" />
             </TouchableOpacity>
           </View>
         )}
@@ -60,7 +56,7 @@ export default function ClimblistRoutes({ data }) {
           setModalVisible(!modalVisible);
         }}
         modalVisible={modalVisible}
-        data={selectedItem && selectedItem}
+        item={selectedItem && selectedItem}
       />
     </View>
   );

@@ -20,7 +20,7 @@ export default function Climblist({ navigation }) {
   const [route, setRoute] = useState([
     {
       id: 1,
-      name: "test",
+      name: "For Charlotte",
       sector: {
         id: 1,
         name: "sector 1",

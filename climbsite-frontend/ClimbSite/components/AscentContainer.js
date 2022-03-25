@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { styles } from "../styles";
-import { Text, View, TouchableOpacity, Modal, FlatList } from "react-native";
+import { Text, View, TouchableOpacity, Modal, TextInput } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
 
@@ -40,8 +40,33 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
               color: "#1B8B6A",
             }}
           >
-            {item && item.name} ({item.grade})
+            {item && item.name} ({item && item.grade})
           </Text>
+
+          <View style={{ marginVertical: 10 }}>
+            <Text style={{ fontSize: 18 }}>Tries</Text>
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              placeholder="How many Tries?"
+            />
+          </View>
+          <View style={{ marginVertical: 10 }}>
+            <Text style={{ fontSize: 18 }}>Comment</Text>
+            <TextInput
+              multiline
+              style={styles.input}
+              placeholder="Add Comment"
+            />
+          </View>
+          <View style={{ marginVertical: 10 }}>
+            <Text style={{ fontSize: 18 }}>Rating</Text>
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              placeholder="How do you rate this route?"
+            />
+          </View>
           <TouchableOpacity
             style={{
               width: 80,
