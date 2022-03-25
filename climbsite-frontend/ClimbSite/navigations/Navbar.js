@@ -1,5 +1,4 @@
 import { styles } from "../styles";
-import Home from "../pages/Home";
 import {
   Feather,
   Ionicons,
@@ -14,13 +13,14 @@ import Rankings from "../pages/Rankings";
 import Community from "../pages/Community";
 import LogNavigation from "./LogNavigation";
 import ExploreNavigation from "./ExploreNavigation";
+import HomeNavigation from "./HomeNavigation";
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function Navbar() {
   return (
     <Tab.Navigator
-      initialRouteName={Home}
+      initialRouteName="HomeNavigation"
       backBehavior="order"
       activeColor="#1B8B6A"
       inactiveColor="rgba(255, 255, 255, 0.3)"
@@ -45,8 +45,8 @@ export default function Navbar() {
             </View>
           ),
         }}
-        name="Home"
-        component={Home}
+        name="HomeNavigation"
+        component={HomeNavigation}
       />
       <Tab.Screen
         options={{
