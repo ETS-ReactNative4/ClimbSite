@@ -13,6 +13,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign } from "@expo/vector-icons";
 import Header from "../components/Header";
+import Posts from "../components/Posts";
 
 export default function Home({ navigation }) {
   const { height } = useWindowDimensions();
@@ -158,51 +159,7 @@ export default function Home({ navigation }) {
       </SafeAreaView>
       <Header navigation={navigation} />
       <View style={{ flex: 1 }}>
-        <FlatList
-          style={{ marginTop: 10 }}
-          key={(item) => item.id}
-          data={posts}
-          renderItem={({ item }) => (
-            <View style={styles.post}>
-              <View style={{ display: "flex", flexDirection: "row" }}>
-                <View style={{ width: 130 }}>
-                  <Text style={{ fontSize: 18, color: "#1B8B6A" }}>
-                    {item.route.name} {item.route.grade}
-                  </Text>
-                  <Text
-                    style={{ fontSize: 14, fontWeight: "100", color: "white" }}
-                  >
-                    {item.route.sector.crag.name}
-                  </Text>
-                  <Text style={{ fontSize: 16, color: "white" }}>
-                    {item.user.full_name}
-                  </Text>
-                </View>
-                <View style={{ marginLeft: 80 }}>
-                  <Text>{item.date} </Text>
-                  <View style={{ marginVertical: 8 }}>{star}</View>
-                  <Text
-                    style={{ fontSize: 14, fontWeight: "100", color: "white" }}
-                  >
-                    Tries: {item.tries}
-                  </Text>
-                </View>
-              </View>
-              <View
-                style={{
-                  borderBottomColor: "rgba(255, 255, 255, 0.25)",
-                  borderBottomWidth: 1,
-                  marginVertical: 20,
-                }}
-              />
-              <View>
-                <Text style={{ fontSize: 14, lineHeight: 18 }}>
-                  {item.comment}
-                </Text>
-              </View>
-            </View>
-          )}
-        />
+        <Posts navigation={navigation} data={posts} />
       </View>
     </View>
   );

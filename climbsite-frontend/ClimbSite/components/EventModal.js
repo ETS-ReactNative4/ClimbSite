@@ -36,6 +36,30 @@ export default function EventModal({ setModalVisible, modalVisible, item }) {
             Description
           </Text>
           <Text>{item && item.description}</Text>
+          <TouchableOpacity
+            style={{
+              width: 80,
+              height: 35,
+              padding: 5,
+              backgroundColor: "#1B8B6A",
+              borderRadius: 5,
+              textAlign: "center",
+              marginVertical: 10,
+              alignSelf: "center",
+              marginTop: 20,
+            }}
+          >
+            <Text
+              style={{
+                alignSelf: "center",
+                fontSize: 17,
+                flex: 1,
+                fontWeight: "bold",
+              }}
+            >
+              Join
+            </Text>
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     </Modal>

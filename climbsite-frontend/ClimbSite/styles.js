@@ -97,7 +97,7 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
     alignSelf: "center",
     display: "flex",
-    width: 320,
+    width: 350,
     margin: 10,
   },
   header: {
@@ -120,13 +120,12 @@ export const styles = StyleSheet.create({
   },
   profile: {
     padding: 30,
-    marginHorizontal: 30,
+    marginTop: 20,
     backgroundColor: "#2F3F4A",
     borderRadius: 15,
     alignSelf: "center",
     display: "flex",
     width: 350,
-    margin: 10,
     flexDirection: "row",
   },
 });
