@@ -17,7 +17,8 @@ export default function ModalComponent({
       visible={modalVisible}
       onRequestClose={setModalVisible}
     >
-      <View
+      <TouchableOpacity
+        onPress={() => setModalVisible(false)}
         style={{
           flex: 1,
           backgroundColor: "rgba(0, 0, 0,0.6)",
@@ -60,7 +61,7 @@ export default function ModalComponent({
             )}
           />
         </View>
-      </View>
+      </TouchableOpacity>
     </Modal>
   );
 }

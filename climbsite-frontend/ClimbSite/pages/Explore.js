@@ -67,7 +67,7 @@ export default function Explore({ navigation }) {
     },
     {
       id: 4,
-      name: "Tannourine",
+      name: "Chabrouh",
       description: "it's Tannourine",
       conditions: "hard tannourine",
       gear: "80m rope",
@@ -147,7 +147,8 @@ export default function Explore({ navigation }) {
           setModalVisible(!modalVisible);
         }}
       >
-        <View
+        <TouchableOpacity
+          onPress={() => setModalVisible(false)}
           style={{
             flex: 1,
             justifyContent: "flex-end",
@@ -160,14 +161,16 @@ export default function Explore({ navigation }) {
               navigation.navigate("Crag");
               setModalVisible(!modalVisible);
             }}
+            style={{
+              backgroundColor: "#2F3F4A",
+              width: 320,
+              margin: 20,
+              borderRadius: 15,
+              padding: 20,
+            }}
           >
             <View
               style={{
-                margin: 20,
-                backgroundColor: "#2F3F4A",
-                borderRadius: 15,
-                padding: 20,
-                width: 320,
                 alignItems: "center",
                 flexDirection: "row",
               }}
@@ -185,7 +188,7 @@ export default function Explore({ navigation }) {
               </View>
             </View>
           </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
       </Modal>
     </View>
   );

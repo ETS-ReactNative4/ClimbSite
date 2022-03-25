@@ -117,6 +117,7 @@ export default function Sectors() {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
+
       <View style={{ marginVertical: 30 }}>
         {sector.map((item) => {
           return (
@@ -127,58 +128,43 @@ export default function Sectors() {
                 alignItems: "center",
               }}
             >
-              <TouchableOpacity
-              // onPress={() => {
-              //   navigation.navigate("Sectors");
-              // }}
-              >
-                <View
-                  style={{
-                    marginVertical: 10,
-                    backgroundColor: "#2F3F4A",
-                    borderRadius: 15,
-                    padding: 20,
-                    width: 320,
-                    alignItems: "center",
-                    flexDirection: "row",
-                  }}
-                >
-                  <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                    {item.name}
-                  </Text>
-                </View>
-              </TouchableOpacity>
+              <SelectDropdown
+                defaultButtonText={item.name}
+                dropdownStyle={{
+                  backgroundColor: "#2F3F4A",
+                  width: 320,
+                  alignSelf: "center",
+                  borderRadius: 15,
+                }}
+                buttonStyle={{
+                  backgroundColor: "#2F3F4A",
+                  borderRadius: 15,
+                  padding: 20,
+                  width: 320,
+                  height: 65,
+                  alignSelf: "center",
+                  marginTop: 30,
+                }}
+                rowStyle={{ borderBottomColor: "rgba(255, 255, 255, 0.25)" }}
+                data={route}
+                onSelect={(selectedItem, index) => {
+                  console.warn(selectedItem, index);
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  // text represented after item is selected
+                  // if data array is an array of objects then return selectedItem.property to render after item is selected
+                  return item.name;
+                }}
+                rowTextForSelection={(item, index) => {
+                  // text represented for each item in dropdown
+                  // if data array is an array of objects then return item.property to represent item in dropdown
+                  return item.name;
+                }}
+              />
             </View>
           );
         })}
       </View>
-
-      <SelectDropdown
-        dropdownStyle={{
-          backgroundColor: "#2F3F4A",
-          width: 320,
-          alignSelf: "center",
-        }}
-        buttonStyle={{
-          backgroundColor: "#2F3F4A",
-          width: 320,
-          alignSelf: "center",
-        }}
-        data={route}
-        onSelect={(selectedItem, index) => {
-          console.log(selectedItem, index);
-        }}
-        buttonTextAfterSelection={(selectedItem, index) => {
-          // text represented after item is selected
-          // if data array is an array of objects then return selectedItem.property to render after item is selected
-          return selectedItem;
-        }}
-        rowTextForSelection={(item, index) => {
-          // text represented for each item in dropdown
-          // if data array is an array of objects then return item.property to represent item in dropdown
-          return item.name;
-        }}
-      />
     </View>
   );
 }
