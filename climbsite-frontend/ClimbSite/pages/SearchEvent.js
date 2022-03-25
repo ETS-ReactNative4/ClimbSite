@@ -12,8 +12,9 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ProfileHeader from "../components/ProfileHeader";
+import EventContainer from "../components/EventContainer";
 
-export default function SearchEvent() {
+export default function SearchEvent({ navigation }) {
   const { height } = useWindowDimensions();
   const [event, setEvent] = useState([
     {
@@ -72,44 +73,7 @@ export default function SearchEvent() {
         <StatusBar />
       </SafeAreaView>
       <ProfileHeader navigation={navigation} title="All Events" />
-      <FlatList
-        style={{ marginTop: 10 }}
-        key={(item) => item.id}
-        data={event}
-        renderItem={({ item }) => (
-          <View style={styles.post}>
-            <View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  marginBottom: 20,
-                }}
-              >
-                <Text style={{ fontSize: 20, color: "#1B8B6A", flex: 0.7 }}>
-                  {item.crag.name}
-                </Text>
-                <Text style={{ color: "white", flex: 0.3 }}>{item.date} </Text>
-              </View>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Text style={{ fontSize: 16, color: "white", flex: 0.7 }}>
-                  {item.user.full_name}
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontWeight: "100",
-                    color: "white",
-                    flex: 0.6,
-                  }}
-                >
-                  Places Available: {item.current_seats}
-                </Text>
-              </View>
-            </View>
-          </View>
-        )}
-      />
+      <EventContainer data={event} />
     </View>
   );
 }

@@ -1,7 +1,8 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import CragEvents from "../pages/CragEvents";
+import SearchEvent from "../pages/SearchEvent";
 import Info from "../pages/Info";
 import Sectors from "../pages/Sectors";
+import CragEvents from "../pages/CragEvents";
 
 const Tab = createMaterialTopTabNavigator();
 
