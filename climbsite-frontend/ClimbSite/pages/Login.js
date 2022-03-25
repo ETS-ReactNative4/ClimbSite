@@ -15,7 +15,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function Login({ navigation }) {
   const { height } = useWindowDimensions();
   const [error, setError] = useState(null);
-  const url = "http://127.0.0.1:7000/api/token/";
+  const url = "http://192.168.1.5:7000/api/token/";
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -35,7 +35,6 @@ export default function Login({ navigation }) {
   };
 
   const handleSubmit = async () => {
-    navigation.navigate("Navbar");
     if (!(data.email && data.password)) {
       setError("empty");
     } else {
@@ -43,6 +42,7 @@ export default function Login({ navigation }) {
         const response = await axios.post(url, data);
         const data_received = await response.data;
         console.log(data_received);
+        navigation.navigate("Navbar");
         // localStorage.setItem("token", data_received.access_token);
         // localStorage.setItem("name", data_received.user.name);
         // localStorage.setItem("email", data_received.user.email);
