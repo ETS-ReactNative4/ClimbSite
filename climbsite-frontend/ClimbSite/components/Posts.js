@@ -9,12 +9,13 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   FlatList,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign } from "@expo/vector-icons";
 import Header from "../components/Header";
 
-export default function Posts({ navigation, data }) {
+export default function Posts({ navigation, data, image }) {
   const { height } = useWindowDimensions();
 
   const [star, setStar] = useState(
@@ -29,7 +30,8 @@ export default function Posts({ navigation, data }) {
       renderItem={({ item }) => (
         <View style={styles.post}>
           <View style={{ display: "flex", flexDirection: "row" }}>
-            <View style={{ flex: 0.8 }}>
+            {image}
+            <View style={{ flex: 0.7 }}>
               <Text style={{ fontSize: 18, color: "#1B8B6A" }}>
                 {item.route.name} {item.route.grade}
               </Text>
@@ -41,7 +43,7 @@ export default function Posts({ navigation, data }) {
               </Text>
             </View>
             <View style={{ flex: 0.3 }}>
-              <Text>{item.date} </Text>
+              <Text style={{ color: "white" }}>{item.date} </Text>
               <View style={{ marginVertical: 8 }}>{star}</View>
               <Text style={{ fontSize: 14, fontWeight: "100", color: "white" }}>
                 Tries: {item.tries}

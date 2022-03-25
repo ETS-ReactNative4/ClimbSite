@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   FlatList,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign } from "@expo/vector-icons";
@@ -159,7 +160,23 @@ export default function Home({ navigation }) {
       </SafeAreaView>
       <Header navigation={navigation} />
       <View style={{ flex: 1 }}>
-        <Posts navigation={navigation} data={posts} />
+        <Posts
+          navigation={navigation}
+          data={posts}
+          image={
+            <View style={{ flex: 0.23 }}>
+              <Image
+                style={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: 100,
+                  marginRight: 10,
+                }}
+                source={require("../assets/juan.jpeg")}
+              ></Image>
+            </View>
+          }
+        />
       </View>
     </View>
   );

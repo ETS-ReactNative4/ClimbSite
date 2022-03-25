@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   FlatList,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
@@ -57,27 +58,31 @@ export default function Community({ navigation }) {
           <View
             key={item.id}
             style={{
-              padding: 30,
+              padding: 20,
               marginHorizontal: 30,
               backgroundColor: "#2F3F4A",
               borderRadius: 15,
               alignSelf: "center",
               display: "flex",
-              width: 320,
+              width: 350,
               margin: 10,
               flexDirection: "row",
             }}
           >
             <View
-              style={{ flexDirection: "row", alignItems: "center", flex: 0.9 }}
+              style={{ flexDirection: "row", alignItems: "center", flex: 1 }}
             >
-              <FontAwesome5
-                style={{ marginRight: 15 }}
-                name="user-circle"
-                size={65}
-                color="black"
-              />
-              <View>
+              <View style={{ flex: 0.2, marginRight: 20 }}>
+                <Image
+                  style={{
+                    width: 60,
+                    height: 60,
+                    borderRadius: 100,
+                  }}
+                  source={require("../assets/juan.jpeg")}
+                ></Image>
+              </View>
+              <View style={{ flex: 0.7 }}>
                 <Text style={{ fontSize: 20, fontWeight: "bold" }}>
                   {item.full_name}
                 </Text>

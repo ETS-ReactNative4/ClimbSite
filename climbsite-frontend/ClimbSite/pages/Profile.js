@@ -8,6 +8,7 @@ import {
   Button,
   TouchableOpacity,
   useWindowDimensions,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ProfileHeader from "../components/ProfileHeader";
@@ -42,15 +43,18 @@ export default function Profile({ navigation }) {
         {profile.map((item) => (
           <View key={item.id}>
             <View style={{ flexDirection: "row" }}>
-              <FontAwesome5
-                style={{ marginRight: 10 }}
-                name="user-circle"
-                size={65}
-                color="black"
-              />
+              <Image
+                style={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: 100,
+                  marginRight: 10,
+                }}
+                source={require("../assets/juan.jpeg")}
+              ></Image>
               <View>
                 <Text
-                  style={{ fontSize: 22, fontWeight: "bold", marginTop: 10 }}
+                  style={{ fontSize: 22, fontWeight: "bold", marginTop: 5 }}
                 >
                   {item.full_name}
                 </Text>

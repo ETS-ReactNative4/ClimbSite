@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   FlatList,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
@@ -63,7 +64,18 @@ export default function Rankings({ navigation }) {
         renderItem={({ item }) => (
           <View style={styles.rankings}>
             <Text style={{ flex: 0.1, fontSize: 18 }}>{item.id}</Text>
-            <Text style={{ flex: 0.7, fontSize: 16 }}>
+            <View style={{ flex: 0.2, marginRight: 10 }}>
+              <Image
+                style={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: 100,
+                }}
+                source={require("../assets/juan.jpeg")}
+              ></Image>
+            </View>
+
+            <Text style={{ flex: 0.6, fontSize: 16 }}>
               {item.user.full_name}
             </Text>
             <Text
