@@ -13,7 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import SelectDropdown from "react-native-select-dropdown";
 import { AntDesign } from "@expo/vector-icons";
 
-export default function SectorContainer({ data, rowData }) {
+export default function SectorContainer({ data, rowData, Buttontext, icon }) {
   const { height } = useWindowDimensions();
 
   return (
@@ -27,7 +27,6 @@ export default function SectorContainer({ data, rowData }) {
             }}
           >
             <SelectDropdown
-              defaultButtonText={item.name}
               renderDropdownIcon={() => {
                 return (
                   <View style={{ marginRight: 15 }}>
@@ -54,16 +53,36 @@ export default function SectorContainer({ data, rowData }) {
                 alignItems: "center",
                 justifyContent: "center",
               }}
-              buttonTextStyle={{
-                textAlign: "left",
-                marginLeft: 20,
-                fontWeight: "bold",
-                fontSize: 20,
-              }}
               rowStyle={{ borderBottomColor: "rgba(255, 255, 255, 0.25)" }}
               data={rowData}
               onSelect={(selectedItem, index) => {
                 console.warn(selectedItem, index);
+              }}
+              renderCustomizedButtonChild={() => {
+                return (
+                  <View>
+                    <Text
+                      style={{
+                        textAlign: "left",
+                        marginLeft: 20,
+                        fontWeight: "bold",
+                        fontSize: 20,
+                      }}
+                    >
+                      {item.name}
+                    </Text>
+                    <Text
+                      style={{
+                        textAlign: "left",
+                        marginLeft: 20,
+                        fontWeight: "light",
+                        fontSize: 12,
+                      }}
+                    >
+                      {Buttontext}
+                    </Text>
+                  </View>
+                );
               }}
               buttonTextAfterSelection={(selectedItem, index) => {
                 // text represented after item is selected
@@ -78,7 +97,24 @@ export default function SectorContainer({ data, rowData }) {
               renderCustomizedRowChild={(item, index) => {
                 return (
                   <View style={{ flexDirection: "row" }}>
-                    <Text style={{ color: "white" }}>{item.name}</Text>
+                    <Text
+                      style={{
+                        color: "white",
+                        fontSize: 18,
+                        marginLeft: 20,
+                        flex: 1,
+                      }}
+                    >
+                      {item.name}
+                    </Text>
+                    <View
+                      style={{
+                        flex: 0.2,
+                        flexDirection: "row",
+                      }}
+                    >
+                      {icon}
+                    </View>
                   </View>
                 );
               }}

@@ -122,7 +122,12 @@ export default function CragSectors({ navigation }) {
       </SafeAreaView>
 
       <View style={{ marginTop: -30 }}>
-        <SectorContainer data={sector} rowData={route} />
+        <SectorContainer
+          data={sector}
+          rowData={route}
+          Buttontext="Add Route to your List:"
+          icon={<AntDesign name="plus" size={24} color="black" />}
+        />
       </View>
     </View>
   );

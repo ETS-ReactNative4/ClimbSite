@@ -122,7 +122,12 @@ export default function Sectors({ navigation }) {
       </SafeAreaView>
       <ProfileHeader title="Sectors" navigation={navigation} />
       <View style={{ marginVertical: 10 }}>
-        <SectorContainer data={sector} rowData={route} />
+        <SectorContainer
+          data={sector}
+          rowData={route}
+          Buttontext="Select Route Climbed:"
+          icon={<AntDesign name="check" size={24} color="black" />}
+        />
       </View>
     </View>
   );
