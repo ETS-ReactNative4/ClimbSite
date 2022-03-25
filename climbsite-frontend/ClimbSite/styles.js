@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#777",
     padding: 10,
-    margin: 10,
+
     width: 275,
   },
   headerinput: {
