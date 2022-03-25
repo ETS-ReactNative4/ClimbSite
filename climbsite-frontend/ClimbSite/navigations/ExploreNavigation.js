@@ -15,6 +15,7 @@ import Sectors from "../pages/Sectors";
 import Info from "../pages/Info";
 import CragHeader from "../components/CragHeader";
 import CragEvents from "../pages/CragEvents";
+import TopTab from "./TopCargNavigatore";
 
 const layout = createNativeStackNavigator();
 
@@ -27,7 +28,6 @@ export default function ExploreNavigation() {
       >
         <layout.Screen name="Explore" component={Explore} />
         <layout.Screen name="Crag" component={Crag} />
-        <layout.Screen name="CragHeader" component={CragHeader} />
         <layout.Screen name="Profile" component={Profile} />
       </layout.Navigator>
     </Provider>
