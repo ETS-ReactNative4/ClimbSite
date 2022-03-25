@@ -15,7 +15,7 @@ import { AntDesign } from "@expo/vector-icons";
 import SectorContainer from "../components/SectorContainer";
 import ProfileHeader from "../components/ProfileHeader";
 
-export default function Sectors({ navigation }) {
+export default function CragSectors({ navigation }) {
   const { height } = useWindowDimensions();
   const [route, setRoute] = useState([
     {
@@ -120,8 +120,8 @@ export default function Sectors({ navigation }) {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
-      <ProfileHeader title="Sectors" navigation={navigation} />
-      <View style={{ marginVertical: 10 }}>
+
+      <View style={{ marginTop: -30 }}>
         <SectorContainer data={sector} rowData={route} />
       </View>
     </View>

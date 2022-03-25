@@ -70,7 +70,9 @@ export default function CragEvents() {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
-      <EventContainer data={event} />
+      <View style={{ marginTop: -30 }}>
+        <EventContainer data={event} />
+      </View>
     </View>
   );
 }

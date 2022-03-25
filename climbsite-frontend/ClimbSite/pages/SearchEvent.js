@@ -73,7 +73,9 @@ export default function SearchEvent({ navigation }) {
         <StatusBar />
       </SafeAreaView>
       <ProfileHeader navigation={navigation} title="All Events" />
-      <EventContainer data={event} />
+      <View style={{ marginTop: 10 }}>
+        <EventContainer data={event} />
+      </View>
     </View>
   );
 }

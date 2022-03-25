@@ -3,6 +3,7 @@ import SearchEvent from "../pages/SearchEvent";
 import Info from "../pages/Info";
 import Sectors from "../pages/Sectors";
 import CragEvents from "../pages/CragEvents";
+import CragSectors from "../pages/CragSectors";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -31,7 +32,7 @@ export default function TopTab() {
       />
       <Tab.Screen
         name="Sectors"
-        component={Sectors}
+        component={CragSectors}
         options={{ tabBarLabel: "Sectors" }}
       />
       <Tab.Screen

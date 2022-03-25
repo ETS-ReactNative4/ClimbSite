@@ -14,11 +14,20 @@ import { FontAwesome5 } from "@expo/vector-icons";
 export default function EventContainer({ data }) {
   return (
     <FlatList
-      style={{ marginTop: 10 }}
       key={(item) => item.id}
       data={data}
       renderItem={({ item }) => (
-        <View style={styles.post}>
+        <View
+          style={{
+            padding: 20,
+            backgroundColor: "#2F3F4A",
+            borderRadius: 15,
+            alignSelf: "center",
+            display: "flex",
+            width: 320,
+            marginTop: 20,
+          }}
+        >
           <View>
             <View
               style={{
