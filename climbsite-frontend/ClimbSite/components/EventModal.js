@@ -29,11 +29,13 @@ export default function EventModal({ setModalVisible, modalVisible, item }) {
             borderRadius: 15,
             padding: 20,
             width: 320,
-            alignItems: "center",
-            flexDirection: "row",
+            alignItems: "flex-start",
           }}
         >
-          <Text>{item.description}</Text>
+          <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
+            Description
+          </Text>
+          <Text>{item && item.description}</Text>
         </View>
       </TouchableOpacity>
     </Modal>

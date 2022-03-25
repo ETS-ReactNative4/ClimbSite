@@ -75,7 +75,6 @@ export default function SectorContainer({ data, rowData, Buttontext, icon }) {
                       style={{
                         textAlign: "left",
                         marginLeft: 20,
-                        fontWeight: "light",
                         fontSize: 12,
                       }}
                     >
