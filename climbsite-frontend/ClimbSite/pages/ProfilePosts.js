@@ -17,18 +17,7 @@ import Posts from "../components/Posts";
 
 export default function ProfilePosts({ navigation }) {
   const { height } = useWindowDimensions();
-  const [profile, setProfile] = useState([
-    {
-      id: 8,
-      full_name: "Cyril Asmar",
-      email: "cyro@hotmail.com",
-      dob: "1990-12-04",
-      followers: "25",
-      followings: "50",
-      country: "Lebanese",
-      asc: "34",
-    },
-  ]);
+
   const [posts, setPost] = useState([
     {
       id: 1,

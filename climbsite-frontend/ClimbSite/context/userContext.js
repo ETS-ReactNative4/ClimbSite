@@ -1,6 +1,6 @@
 import React, { createContext } from "react";
 
 export const AuthContext = createContext({
-  authState: { signedIn: false },
+  authState: { signedIn: false, token: "" },
   setAuthState: () => {},
 });

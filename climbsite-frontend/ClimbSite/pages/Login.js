@@ -48,11 +48,12 @@ export default function Login({ navigation }) {
         const data_received = await response.data;
         setAuthState({
           signedIn: true,
+          token: data_received.access,
         });
         // const token = data_received.access;
         // await SecureStore.setItemAsync("token", JSON.stringify(token));s
-        save("token", data_received.access);
-        console.warn(await SecureStore.getItemAsync("token"));
+        // save("token", data_received.access);
+        // console.warn(await SecureStore.getItemAsync("token"));
 
         navigation.navigate("Navbar");
       } catch (error) {

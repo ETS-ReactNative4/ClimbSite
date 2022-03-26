@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
 import axios from "axios";
@@ -16,15 +16,17 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../context/userContext";
 
 export default function Explore({ navigation }) {
   const { height } = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedId, setSelectedId] = useState();
+  const [authState, setAuthState] = useContext(AuthContext);
 
   const url = "http://192.168.1.54:7000/api/crags/";
   async function getInfo() {
-    const token = await SecureStore.getItemAsync("token");
+    const token = authState.token;
 
     try {
       const response = await axios.get(url, {
