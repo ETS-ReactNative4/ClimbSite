@@ -18,28 +18,28 @@ import * as SecureStore from "expo-secure-store";
 export default function Settings({ navigation }) {
   const { height } = useWindowDimensions();
 
-  const handleLogout = async () => {
-    SecureStore.deleteItemAsync("token").then(
-      console.warn(SecureStore.getItemAsync("token"))
-    );
-    const access = await SecureStore.getItemAsync("token");
-    // .then((token) => {
-    //   var access = JSON.parse(token);
-    // });
-    const token = JSON.parse(access);
-    if (token === null) {
-      console.warn(token);
-    } else {
-      console.warn(token);
-    }
-  };
+  // const handleLogout = async () => {
+  //   SecureStore.deleteItemAsync("token").then(
+  //     console.warn(SecureStore.getItemAsync("token"))
+  //   );
+  //   const access = await SecureStore.getItemAsync("token");
+  //   // .then((token) => {
+  //   //   var access = JSON.parse(token);
+  //   // });
+  //   const token = JSON.parse(access);
+  //   if (token === null) {
+  //     console.warn(token);
+  //   } else {
+  //     console.warn(token);
+  //   }
+  // };
   return (
     <View style={styles.container}>
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
       <Text>Settings</Text>
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogout}>
+      <TouchableOpacity style={styles.loginButton}>
         <Text
           style={{
             alignSelf: "center",

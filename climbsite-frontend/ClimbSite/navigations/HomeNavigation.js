@@ -16,6 +16,7 @@ import Info from "../pages/Info";
 import CragHeader from "../components/CragHeader";
 import CragEvents from "../pages/CragEvents";
 import Home from "../pages/Home";
+import Login from "../pages/Login";
 
 const layout = createNativeStackNavigator();
 

@@ -7,22 +7,22 @@ import Register from "./pages/Register";
 import { Provider } from "react-native-paper";
 import Navbar from "./navigations/Navbar";
 import * as SecureStore from "expo-secure-store";
+import { useEffect } from "react";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
-  const [isLogged, setIsLogged] = useState(null);
+  // const [isLogged, setIsLogged] = useState(false);
   const auth = async () => {
     const access = await SecureStore.getItemAsync("token");
 
     const token = JSON.parse(access);
     if (token === null) {
-      setIsLogged(null);
+      return false;
     } else {
-      setIsLogged(token);
+      return true;
     }
   };
-  auth();
-  console.warn(isLogged);
+
   return (
     <Provider>
       <NavigationContainer style={styles.app}>
@@ -30,14 +30,17 @@ export default function App() {
           initialRouteName="Login"
           screenOptions={{ headerShown: false }}
         >
-          {isLogged != null ? (
+          <Stack.Screen name="Navbar" component={Navbar} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
+          {/* {null === null ? (
             <Stack.Screen name="Navbar" component={Navbar} />
           ) : (
             <>
               <Stack.Screen name="Login" component={Login} />
               <Stack.Screen name="Register" component={Register} />
             </>
-          )}
+          )} */}
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

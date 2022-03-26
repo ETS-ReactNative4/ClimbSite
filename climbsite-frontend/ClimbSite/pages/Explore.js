@@ -24,11 +24,7 @@ export default function Explore({ navigation }) {
 
   const url = "http://192.168.1.54:7000/api/crags/";
   async function getInfo() {
-    const access = await SecureStore.getItemAsync("token");
-    // .then((token) => {
-    //   var access = JSON.parse(token);
-    // });
-    const token = JSON.parse(access);
+    const token = await SecureStore.getItemAsync("token");
 
     try {
       const response = await axios.get(url, {

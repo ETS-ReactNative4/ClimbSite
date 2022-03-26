@@ -44,18 +44,21 @@ export default function Login({ navigation }) {
       try {
         const response = await axios.post(url, data);
         const data_received = await response.data;
-        // console.warn(data_received);
-        // console.warn("loggedin");
-        const token = data_received.access;
-        await SecureStore.setItemAsync("token", JSON.stringify(token));
-        navigation.navigate("Navbar");
+
+        // const token = data_received.access;
+        // await SecureStore.setItemAsync("token", JSON.stringify(token));s
+        save("token", data_received.access);
         console.warn(await SecureStore.getItemAsync("token"));
+        navigation.navigate("Navbar");
       } catch (error) {
         console.warn(error);
         setError("wrong");
       }
     }
   };
+  async function save(key, value) {
+    await SecureStore.setItemAsync(key, value);
+  }
 
   return (
     <View style={styles.container}>
