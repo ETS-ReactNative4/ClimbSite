@@ -9,13 +9,15 @@ import {
   Button,
   TouchableOpacity,
   useWindowDimensions,
+  ImageBackground,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as SecureStore from "expo-secure-store";
 
 export default function Login({ navigation }) {
   const { height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const [error, setError] = useState(null);
-  const url = "http://192.168.1.5:7000/api/token/";
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -35,19 +37,21 @@ export default function Login({ navigation }) {
   };
 
   const handleSubmit = async () => {
+    const url = "http://192.168.1.54:7000/api/token/";
     if (!(data.email && data.password)) {
       setError("empty");
     } else {
       try {
         const response = await axios.post(url, data);
         const data_received = await response.data;
-        console.log(data_received);
+        // console.warn(data_received);
+        // console.warn("loggedin");
+        const token = data_received.access;
+        await SecureStore.setItemAsync("token", JSON.stringify(token));
         navigation.navigate("Navbar");
-        // localStorage.setItem("token", data_received.access_token);
-        // localStorage.setItem("name", data_received.user.name);
-        // localStorage.setItem("email", data_received.user.email);
+        console.warn(await SecureStore.getItemAsync("token"));
       } catch (error) {
-        console.log(error);
+        console.warn(error);
         setError("wrong");
       }
     }
@@ -58,6 +62,11 @@ export default function Login({ navigation }) {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
+      {/* <ImageBackground
+        source={require("../assets/background.jpeg")}
+        resizeMode="cover"
+        style={{ flex: 1, position: "relative", resizeMode: "cover" }}
+      > */}
       <Text style={[styles.climbsite, { height: height * 0.1 }]}>
         <Text style={{ color: "#1B8B6A" }}>Climb</Text>Site
       </Text>
@@ -97,6 +106,7 @@ export default function Login({ navigation }) {
       <TouchableOpacity style={{ alignSelf: "center", marginTop: 10 }}>
         <Text style={{ color: "#1B8B6A" }}>Forgot Password?</Text>
       </TouchableOpacity>
+      {/* </ImageBackground> */}
     </View>
   );
 }

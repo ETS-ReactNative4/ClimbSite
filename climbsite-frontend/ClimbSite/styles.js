@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
   },
+
   logContainer: {
     backgroundColor: "#122222",
     flex: 1,

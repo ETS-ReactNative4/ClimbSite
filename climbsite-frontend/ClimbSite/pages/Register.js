@@ -15,7 +15,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function Register({ navigation }) {
   const { height } = useWindowDimensions();
   const [error, setError] = useState(null);
-  const url = "http://192.168.1.5:7000/api/climbers/register";
+  const url = "http://192.168.1.54:7000/api/climbers/register";
   const [data, setData] = useState({
     email: "",
     full_name: "",

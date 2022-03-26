@@ -2,6 +2,9 @@ from rest_framework import serializers
 from .models import Crag, Route, Sector
 
 class CragSerializer(serializers.ModelSerializer):
+
+    longitude = serializers.DecimalField(max_digits=9, decimal_places=6)
+    latitude = serializers.DecimalField(max_digits=9, decimal_places=6)
     class Meta:
         fields = ('id', 'name', 'description', 'conditions', 'gear','longitude','latitude')
         model = Crag

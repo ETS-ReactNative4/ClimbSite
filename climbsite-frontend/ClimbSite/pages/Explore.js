@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
+import axios from "axios";
 import {
   Text,
   View,
@@ -14,55 +15,79 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import * as SecureStore from "expo-secure-store";
 
 export default function Explore({ navigation }) {
   const { height } = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedId, setSelectedId] = useState();
 
-  const [region, setRegion] = useState({
-    latitude: 33.787395,
-    longitude: 35.72789,
-  });
+  const url = "http://192.168.1.54:7000/api/crags/";
 
-  const [crag, setCrag] = useState([
-    {
-      id: 2,
-      name: "Beit merry",
-      description: "it's bet mery",
-      conditions: "hard boldery",
-      gear: "60m rope",
-      longitude: 33.890536626710244,
-      latitude: 35.489303601542964,
-    },
-    {
-      id: 3,
-      name: "Tannourine",
-      description: "it's Tannourine",
-      conditions: "hard tannourine",
-      gear: "80m rope",
-      longitude: 34.890536626710244,
-      latitude: 36.489303601542964,
-    },
-    {
-      id: 4,
-      name: "Chabrouh",
-      description: "it's Tannourine",
-      conditions: "hard tannourine",
-      gear: "80m rope",
-      longitude: 35.890536626710244,
-      latitude: 37.489303601542964,
-    },
-    {
-      id: 5,
-      name: "Chabrouh",
-      description: "it's bet mery",
-      conditions: "hard boldery",
-      gear: "60m rope",
-      longitude: 38.890536626710244,
-      latitude: 35.489303601542964,
-    },
-  ]);
+  useEffect(() => {
+    async function getInfo() {
+      const access = await SecureStore.getItemAsync("token");
+      // .then((token) => {
+      //   var access = JSON.parse(token);
+      // });
+      const token = JSON.parse(access);
+
+      try {
+        const response = await axios.get(url, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data_received = await response.data;
+        setCrag(data_received);
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+    getInfo();
+  }, []);
+
+  // const [region, setRegion] = useState({
+  //   latitude: 33.787395,
+  //   longitude: 35.72789,
+  // });
+  const [crag, setCrag] = useState();
+  // const [crag, setCrag] = useState([
+  //   {
+  //     id: 2,
+  //     name: "Beit merry",
+  //     description: "it's bet mery",
+  //     conditions: "hard boldery",
+  //     gear: "60m rope",
+  //     longitude: 33.890536626710244,
+  //     latitude: 35.489303601542964,
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Tannourine",
+  //     description: "it's Tannourine",
+  //     conditions: "hard tannourine",
+  //     gear: "80m rope",
+  //     longitude: 34.890536626710244,
+  //     latitude: 36.489303601542964,
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Chabrouh",
+  //     description: "it's Tannourine",
+  //     conditions: "hard tannourine",
+  //     gear: "80m rope",
+  //     longitude: 35.890536626710244,
+  //     latitude: 37.489303601542964,
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Chabrouh",
+  //     description: "it's bet mery",
+  //     conditions: "hard boldery",
+  //     gear: "60m rope",
+  //     longitude: 38.890536626710244,
+  //     latitude: 35.489303601542964,
+  //   },
+  // ]);
 
   return (
     <View
@@ -91,31 +116,25 @@ export default function Explore({ navigation }) {
           longitudeDelta: 1.8,
         }}
       >
-        <Marker
-          coordinate={{
-            latitude: region.latitude,
-            longitude: region.longitude,
-          }}
-        />
-
-        {crag.map((item) => {
-          return (
-            <View key={item.id}>
-              <MapView.Marker
-                onPress={() => {
-                  setSelectedId(item);
-                  setModalVisible(true);
-                }}
-                pinColor="#1B8B6A"
-                coordinate={{
-                  latitude: item.latitude,
-                  longitude: item.longitude,
-                }}
-                title={item.name}
-              />
-            </View>
-          );
-        })}
+        {crag &&
+          crag.map((item) => {
+            return (
+              <View key={item.id}>
+                <MapView.Marker
+                  onPress={() => {
+                    setSelectedId(item);
+                    setModalVisible(true);
+                  }}
+                  pinColor="#1B8B6A"
+                  coordinate={{
+                    latitude: parseFloat(item.latitude),
+                    longitude: parseFloat(item.longitude),
+                  }}
+                  title={item.name}
+                />
+              </View>
+            );
+          })}
       </MapView>
 
       <Modal
@@ -172,6 +191,7 @@ export default function Explore({ navigation }) {
     </View>
   );
 }
+
 const styles1 = StyleSheet.create({
   button: {
     borderRadius: 20,

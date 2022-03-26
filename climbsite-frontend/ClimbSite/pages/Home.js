@@ -155,7 +155,7 @@ export default function Home({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <SafeAreaView style={{ backgroundColor: "#1B8B6A" }}>
+      <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
       <Header navigation={navigation} />
