@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -14,32 +14,37 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import ProfileHeader from "../components/ProfileHeader";
 import EventContainer from "../components/EventContainer";
 import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../context/userContext";
 
 export default function Settings({ navigation }) {
   const { height } = useWindowDimensions();
+  const [authState, setAuthState] = useContext(AuthContext);
 
-  // const handleLogout = async () => {
-  //   SecureStore.deleteItemAsync("token").then(
-  //     console.warn(SecureStore.getItemAsync("token"))
-  //   );
-  //   const access = await SecureStore.getItemAsync("token");
-  //   // .then((token) => {
-  //   //   var access = JSON.parse(token);
-  //   // });
-  //   const token = JSON.parse(access);
-  //   if (token === null) {
-  //     console.warn(token);
-  //   } else {
-  //     console.warn(token);
-  //   }
-  // };
+  const handleLogout = async () => {
+    setAuthState({
+      signedIn: false,
+    });
+    // SecureStore.deleteItemAsync("token").then(
+    //   console.warn(SecureStore.getItemAsync("token"))
+    // );
+    // const access = await SecureStore.getItemAsync("token");
+    // // .then((token) => {
+    // //   var access = JSON.parse(token);
+    // // });
+    // const token = JSON.parse(access);
+    // if (token === null) {
+    //   console.warn(token);
+    // } else {
+    //   console.warn(token);
+    // }
+  };
   return (
     <View style={styles.container}>
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
       <Text>Settings</Text>
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogout}>
         <Text
           style={{
             alignSelf: "center",

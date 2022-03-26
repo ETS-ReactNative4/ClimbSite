@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
 import axios from "axios";
@@ -13,11 +13,13 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../context/userContext";
 
 export default function Login({ navigation }) {
   const { height } = useWindowDimensions();
   const { width } = useWindowDimensions();
   const [error, setError] = useState(null);
+  const [authState, setAuthState] = useContext(AuthContext);
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -44,11 +46,14 @@ export default function Login({ navigation }) {
       try {
         const response = await axios.post(url, data);
         const data_received = await response.data;
-
+        setAuthState({
+          signedIn: true,
+        });
         // const token = data_received.access;
         // await SecureStore.setItemAsync("token", JSON.stringify(token));s
         save("token", data_received.access);
         console.warn(await SecureStore.getItemAsync("token"));
+
         navigation.navigate("Navbar");
       } catch (error) {
         console.warn(error);
