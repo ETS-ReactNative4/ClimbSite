@@ -9,7 +9,7 @@ class Crag(models.Model):
     conditions = models.TextField(max_length=500)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
-    created_on = models.DateTimeField(auto_now_add=True)
+    created_on = models.DateField(auto_now_add=True)
 
 class Sector(models.Model):
     crag = models.ForeignKey(Crag, on_delete=models.CASCADE)
