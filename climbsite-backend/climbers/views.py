@@ -20,7 +20,14 @@ class UserCreate(generics.CreateAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    
+
+class GetUserInfo(generics.ListAPIView):
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = User.objects.filter(email=user)
+        return queryset
 
 class AddFollower(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]

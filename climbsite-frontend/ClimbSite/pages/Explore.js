@@ -23,32 +23,26 @@ export default function Explore({ navigation }) {
   const [selectedId, setSelectedId] = useState();
 
   const url = "http://192.168.1.54:7000/api/crags/";
+  async function getInfo() {
+    const access = await SecureStore.getItemAsync("token");
+    // .then((token) => {
+    //   var access = JSON.parse(token);
+    // });
+    const token = JSON.parse(access);
 
-  useEffect(() => {
-    async function getInfo() {
-      const access = await SecureStore.getItemAsync("token");
-      // .then((token) => {
-      //   var access = JSON.parse(token);
-      // });
-      const token = JSON.parse(access);
-
-      try {
-        const response = await axios.get(url, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data_received = await response.data;
-        setCrag(data_received);
-      } catch (error) {
-        console.warn(error);
-      }
+    try {
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data_received = await response.data;
+      setCrag(data_received);
+    } catch (error) {
+      console.warn(error);
     }
+  }
+  useEffect(() => {
     getInfo();
   }, []);
-
-  // const [region, setRegion] = useState({
-  //   latitude: 33.787395,
-  //   longitude: 35.72789,
-  // });
   const [crag, setCrag] = useState();
   // const [crag, setCrag] = useState([
   //   {

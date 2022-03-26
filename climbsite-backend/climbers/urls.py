@@ -1,9 +1,10 @@
 from django.urls import path
 from .views import (AddToClimbList, AddToFavorites, FavoriteList, GetAscents, 
-GetClimbList, LogAscent, UserCreate, Userfollowers, Userfollowings, AddFollower)
+GetClimbList, LogAscent, UserCreate, Userfollowers, Userfollowings, AddFollower,GetUserInfo)
 
 urlpatterns = [
     path('register', UserCreate.as_view()),
+    path('user_info', GetUserInfo.as_view()),
     path('followings', Userfollowings.as_view()),
     path('followers', Userfollowers.as_view()),
     path('follow', AddFollower.as_view()),

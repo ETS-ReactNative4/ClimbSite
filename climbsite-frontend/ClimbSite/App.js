@@ -1,5 +1,5 @@
 import Login from "./pages/Login";
-import React from "react";
+import React, { useState } from "react";
 import { styles } from "./styles";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -8,9 +8,21 @@ import { Provider } from "react-native-paper";
 import Navbar from "./navigations/Navbar";
 import * as SecureStore from "expo-secure-store";
 
-const Stack = createNativeStackNavigator();
-
 export default function App() {
+  const Stack = createNativeStackNavigator();
+  const [isLogged, setIsLogged] = useState(null);
+  const auth = async () => {
+    const access = await SecureStore.getItemAsync("token");
+
+    const token = JSON.parse(access);
+    if (token === null) {
+      setIsLogged(null);
+    } else {
+      setIsLogged(token);
+    }
+  };
+  auth();
+  console.warn(isLogged);
   return (
     <Provider>
       <NavigationContainer style={styles.app}>
@@ -18,7 +30,7 @@ export default function App() {
           initialRouteName="Login"
           screenOptions={{ headerShown: false }}
         >
-          {SecureStore.getItemAsync("token") ? (
+          {isLogged != null ? (
             <Stack.Screen name="Navbar" component={Navbar} />
           ) : (
             <>
