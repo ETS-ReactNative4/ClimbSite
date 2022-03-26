@@ -14,16 +14,16 @@ class UserSerializer(serializers.ModelSerializer):
             )
     full_name = serializers.CharField(min_length=2,max_length=32)       
     password = serializers.CharField(min_length=8, write_only=True)
-    dob = serializers.DateField()
+    # dob = serializers.DateField()
 
     def create(self, validated_data):
         user = User.objects.create_user( validated_data['email'],validated_data['full_name'],
-             validated_data['password'], validated_data['dob'])
+             validated_data['password'])
         return user
 
     class Meta:
         model = User 
-        fields = ('id', 'full_name', 'email', 'password','dob')
+        fields = ('id', 'full_name', 'email', 'password')
 
 class UserFollowingSerializer(serializers.ModelSerializer):
     class Meta:
