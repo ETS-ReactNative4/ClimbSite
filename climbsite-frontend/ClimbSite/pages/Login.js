@@ -17,7 +17,6 @@ import { AuthContext } from "../context/userContext";
 
 export default function Login({ navigation }) {
   const { height } = useWindowDimensions();
-  const { width } = useWindowDimensions();
   const [error, setError] = useState(null);
   const [authState, setAuthState] = useContext(AuthContext);
   const [data, setData] = useState({
@@ -50,6 +49,7 @@ export default function Login({ navigation }) {
           signedIn: true,
           token: data_received.access,
         });
+
         // const token = data_received.access;
         // await SecureStore.setItemAsync("token", JSON.stringify(token));s
         // save("token", data_received.access);
