@@ -40,7 +40,7 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
               color: "#1B8B6A",
             }}
           >
-            {item && item.name} ({item && item.grade})
+            {item && item.route.name} ({item && item.route.grade})
           </Text>
 
           <View style={{ marginVertical: 10 }}>

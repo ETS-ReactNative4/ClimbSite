@@ -37,7 +37,7 @@ export default function ClimblistRoutes({ data }) {
             }}
           >
             <Text style={{ fontSize: 18, flex: 0.9, marginLeft: 10 }}>
-              {item.name} ({item.grade})
+              {item.route.name} ({item.route.grade})
             </Text>
             <TouchableOpacity
               style={{ flex: 0.1 }}
