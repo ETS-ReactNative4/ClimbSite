@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { styles } from "../styles";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -17,19 +17,32 @@ import CragHeader from "../components/CragHeader";
 import CragEvents from "../pages/CragEvents";
 import TopTab from "./TopCargNavigatore";
 
+import { CragContext } from "../context/cragContext";
+
 const layout = createNativeStackNavigator();
 
 export default function ExploreNavigation() {
+  const [cragState, setCragState] = useState({
+    id: "",
+    name: "",
+    description: "",
+    conditions: "",
+    gear: "",
+    longitude: "",
+    latitude: "",
+  });
   return (
     <Provider>
-      <layout.Navigator
-        initialRouteName="Explore"
-        screenOptions={{ headerShown: false }}
-      >
-        <layout.Screen name="Explore" component={Explore} />
-        <layout.Screen name="Crag" component={Crag} />
-        <layout.Screen name="Profile" component={Profile} />
-      </layout.Navigator>
+      <CragContext.Provider value={[cragState, setCragState]}>
+        <layout.Navigator
+          initialRouteName="Explore"
+          screenOptions={{ headerShown: false }}
+        >
+          <layout.Screen name="Explore" component={Explore} />
+          <layout.Screen name="Crag" component={Crag} />
+          <layout.Screen name="Profile" component={Profile} />
+        </layout.Navigator>
+      </CragContext.Provider>
     </Provider>
   );
 }
