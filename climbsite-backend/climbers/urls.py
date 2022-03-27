@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import (AddToClimbList, AddToFavorites, FavoriteList,GetAscents,
+from .views import (AddToClimbList, AddToFavorites, FavoriteList,GetAscents,Unfollow,
 GetClimbList, LogAscent, UserCreate, Userfollowers, Userfollowings, AddFollower,GetUserInfo,GetMyAscents, DeleteFromFavorites)
 
 urlpatterns = [
@@ -8,6 +8,7 @@ urlpatterns = [
     path('followings', Userfollowings.as_view()),
     path('followers', Userfollowers.as_view()),
     path('follow', AddFollower.as_view()),
+    path('unfollow', Unfollow.as_view()),
     path('favorite', AddToFavorites.as_view()),
     path('delete_favorite', DeleteFromFavorites.as_view()),
     path('get_favorites', FavoriteList.as_view()),

@@ -49,6 +49,23 @@ class AddFollower(generics.CreateAPIView):
             UserFollowing.save(follow)
             return Response({'status':status.HTTP_200_OK})
 
+class Unfollow(generics.DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request):
+        user = self.request.user
+        following = User.objects.get(id=request.data.get('following'))
+
+        try:
+            UserFollowing.objects.get(follower = user ,following=following)
+            follow = UserFollowing.objects.filter(follower=user,following=following)
+            follow.delete()
+            return Response({'status':status.HTTP_200_OK})
+            
+        except UserFollowing.DoesNotExist:
+            return Response({'status':status.HTTP_400_BAD_REQUEST})
+
+
+
 # class AddFollower(generics.CreateAPIView):
 #     permission_classes = [IsAuthenticated]
 #     serializer_class = UserFollowSerializer
@@ -176,6 +193,7 @@ class AddToClimbList(generics.CreateAPIView):
             list = ClimbList.objects.create(user = user , route = route)
             ClimbList.save(list)
             return Response({'status':status.HTTP_200_OK})
+
 
 class GetClimbList(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
