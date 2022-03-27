@@ -20,7 +20,7 @@ import Posts from "../components/Posts";
 export default function ProfilePosts({ navigation }) {
   const { height } = useWindowDimensions();
   const [authState, setAuthState] = useContext(AuthContext);
-  const url = "http://192.168.1.54:7000/api/climbers/get_ascents";
+  const url = "http://192.168.1.54:7000/api/climbers/get_my_ascents";
   async function getMyPosts() {
     const token = authState.token;
 
