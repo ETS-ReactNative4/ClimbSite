@@ -134,6 +134,23 @@ class AddToFavorites(generics.CreateAPIView):
             Favorite.save(favorite)
             return Response({'status':status.HTTP_200_OK})
 
+class DeleteFromFavorites(generics.DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request):
+        user = self.request.user
+        crag = Crag.objects.get(id=request.data.get('crag'))
+
+        try:
+            Favorite.objects.get(user = user , crag = crag)
+            favorite = Favorite.objects.filter(user = user , crag = crag)
+            favorite.delete()
+            return Response({'status':status.HTTP_200_OK})
+            
+        except Favorite.DoesNotExist:
+            return Response({'status':status.HTTP_400_BAD_REQUEST})
+            
+    
+
 class FavoriteList(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UserFavoritesSerializer

@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (AddToClimbList, AddToFavorites, FavoriteList,GetAscents,
-GetClimbList, LogAscent, UserCreate, Userfollowers, Userfollowings, AddFollower,GetUserInfo,GetMyAscents)
+GetClimbList, LogAscent, UserCreate, Userfollowers, Userfollowings, AddFollower,GetUserInfo,GetMyAscents, DeleteFromFavorites)
 
 urlpatterns = [
     path('register', UserCreate.as_view()),
@@ -9,6 +9,7 @@ urlpatterns = [
     path('followers', Userfollowers.as_view()),
     path('follow', AddFollower.as_view()),
     path('favorite', AddToFavorites.as_view()),
+    path('delete_favorite', DeleteFromFavorites.as_view()),
     path('get_favorites', FavoriteList.as_view()),
     path('add_to_climblist', AddToClimbList.as_view()),
     path('climblist', GetClimbList.as_view()),
