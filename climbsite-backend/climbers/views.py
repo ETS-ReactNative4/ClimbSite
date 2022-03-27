@@ -184,12 +184,16 @@ class LogAscent(generics.CreateAPIView):
 
         try:
             Ascending.objects.get(user = user , route = route)
-            return Response({'status':status.HTTP_400_BAD_REQUEST})
+            return Response({'status':status.HTTP_400_BAD_REQUEST,'message':'already climbed'})
         except Ascending.DoesNotExist:
 
             ascent = Ascending.objects.create(user = user , route = route, 
             tries = tries, rating = rating, comment=comment)
             Ascending.save(ascent)
+            if (ClimbList.objects.filter(route=route)):
+                route_inlist = ClimbList.objects.filter(route=route)
+                route_inlist.delete()
+                
             return Response({'status':status.HTTP_200_OK})
 
 class GetMyAscents(generics.ListAPIView):
