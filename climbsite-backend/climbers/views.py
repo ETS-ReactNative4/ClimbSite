@@ -197,7 +197,7 @@ class GetMyAscents(generics.ListAPIView):
     serializer_class = AscendingSerializer
 
     
-    def get_queryset(self): #Check it when you come back to back end
+    def get_queryset(self): 
         user = self.request.user
         # queryset= super().get_queryset().filter(user = user).filter(user = UserFollowing.objects.filter(follower= user).values_list('id'))
         # return queryset
