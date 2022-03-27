@@ -9,6 +9,7 @@ import Navbar from "./navigations/Navbar";
 import * as SecureStore from "expo-secure-store";
 
 import { AuthContext } from "./context/userContext";
+import { CragContext } from "./context/cragContext";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
