@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
+import axios from "axios";
+import { AuthContext } from "../context/userContext";
 import {
   Text,
   View,
@@ -17,62 +19,27 @@ import ClimblistRoutes from "../components/ClimblistRoutes";
 
 export default function Climblist({ navigation }) {
   const { height } = useWindowDimensions();
-  const [route, setRoute] = useState([
-    {
-      id: 1,
-      name: "For Charlotte",
-      sector: {
-        id: 1,
-        name: "sector 1",
-        crag: {
-          id: 2,
-          name: "beit merry",
-          description: "it's bet mery",
-          conditions: "hard boldery",
-          gear: "60m rope",
-          longitude: "448.484000",
-          latitude: "841.286000",
-        },
-      },
-      grade: "6a",
-    },
-    {
-      id: 2,
-      name: "tesy2",
-      sector: {
-        id: 1,
-        name: "sector 1",
-        crag: {
-          id: 2,
-          name: "beit merry",
-          description: "it's bet mery",
-          conditions: "hard boldery",
-          gear: "60m rope",
-          longitude: "448.484000",
-          latitude: "841.286000",
-        },
-      },
-      grade: "5a",
-    },
-    {
-      id: 3,
-      name: "lol",
-      sector: {
-        id: 1,
-        name: "sector 1",
-        crag: {
-          id: 2,
-          name: "beit merry",
-          description: "it's bet mery",
-          conditions: "hard boldery",
-          gear: "60m rope",
-          longitude: "448.484000",
-          latitude: "841.286000",
-        },
-      },
-      grade: "5",
-    },
-  ]);
+  const [authState, setAuthState] = useContext(AuthContext);
+
+  const url = "http://192.168.1.54:7000/api/climbers/climblist";
+  async function getClimblist() {
+    const token = authState.token;
+
+    try {
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data_received = await response.data;
+      setRoute(data_received);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+  useEffect(() => {
+    getClimblist();
+  }, []);
+
+  const [route, setRoute] = useState();
 
   return (
     <View style={styles.container}>
