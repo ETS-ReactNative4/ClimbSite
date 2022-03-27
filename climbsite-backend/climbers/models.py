@@ -36,7 +36,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     full_name = models.CharField(max_length=150, blank=True)
     # profile_pic = models.ImageField(_("Image"),upload_to = upload_to, null=True, blank = True)
-    dob = models.DateField(null=True)
+    # dob = models.DateField(null=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6,null=True, blank=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6,null=True, blank=True)
     start_date = models.DateTimeField(auto_now_add=True)

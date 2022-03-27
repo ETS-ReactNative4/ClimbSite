@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import (AddToClimbList, AddToFavorites, FavoriteList, GetAscents, 
-GetClimbList, LogAscent, UserCreate, Userfollowers, Userfollowings, AddFollower,GetUserInfo)
+from .views import (AddToClimbList, AddToFavorites, FavoriteList,GetAscents,
+GetClimbList, LogAscent, UserCreate, Userfollowers, Userfollowings, AddFollower,GetUserInfo,GetMyAscents)
 
 urlpatterns = [
     path('register', UserCreate.as_view()),
@@ -13,5 +13,7 @@ urlpatterns = [
     path('add_to_climblist', AddToClimbList.as_view()),
     path('climblist', GetClimbList.as_view()),
     path('logascent', LogAscent.as_view()),
+    path('get_my_ascents', GetMyAscents.as_view()),
     path('get_ascents', GetAscents.as_view()),
+
 ]

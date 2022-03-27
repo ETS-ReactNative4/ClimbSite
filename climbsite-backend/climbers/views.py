@@ -192,7 +192,7 @@ class LogAscent(generics.CreateAPIView):
             Ascending.save(ascent)
             return Response({'status':status.HTTP_200_OK})
 
-class GetAscents(generics.ListAPIView):
+class GetMyAscents(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = AscendingSerializer
 
@@ -204,5 +204,16 @@ class GetAscents(generics.ListAPIView):
         #         sub =UserFollowing.objects.filter(follower= user).values_list('id')
         # queryset = Ascending.objects.filter(user = user).filter(user = sub)
         # return queryset
+        # queryset = Ascending.objects.filter(user__following__follower= user)
         queryset = Ascending.objects.filter(user=user)
+        # queryset = Ascending.objects.all()
+        return queryset
+
+class GetAscents(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = AscendingSerializer
+    
+    def get_queryset(self): 
+        user = self.request.user
+        queryset = Ascending.objects.filter(user__following__follower= user)
         return queryset
