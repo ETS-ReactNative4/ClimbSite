@@ -17,11 +17,13 @@ import Header from "../components/Header";
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as SecureStore from "expo-secure-store";
 import { AuthContext } from "../context/userContext";
+import { CragContext } from "../context/cragContext";
 
 export default function Explore({ navigation }) {
   const { height } = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedId, setSelectedId] = useState();
+  const [cragState, setCragState] = useContext(CragContext);
   const [authState, setAuthState] = useContext(AuthContext);
 
   const url = "http://192.168.1.54:7000/api/crags/";
@@ -42,44 +44,6 @@ export default function Explore({ navigation }) {
     getInfo();
   }, []);
   const [crag, setCrag] = useState();
-  // const [crag, setCrag] = useState([
-  //   {
-  //     id: 2,
-  //     name: "Beit merry",
-  //     description: "it's bet mery",
-  //     conditions: "hard boldery",
-  //     gear: "60m rope",
-  //     longitude: 33.890536626710244,
-  //     latitude: 35.489303601542964,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Tannourine",
-  //     description: "it's Tannourine",
-  //     conditions: "hard tannourine",
-  //     gear: "80m rope",
-  //     longitude: 34.890536626710244,
-  //     latitude: 36.489303601542964,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Chabrouh",
-  //     description: "it's Tannourine",
-  //     conditions: "hard tannourine",
-  //     gear: "80m rope",
-  //     longitude: 35.890536626710244,
-  //     latitude: 37.489303601542964,
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Chabrouh",
-  //     description: "it's bet mery",
-  //     conditions: "hard boldery",
-  //     gear: "60m rope",
-  //     longitude: 38.890536626710244,
-  //     latitude: 35.489303601542964,
-  //   },
-  // ]);
 
   return (
     <View
@@ -114,7 +78,16 @@ export default function Explore({ navigation }) {
               <View key={item.id}>
                 <MapView.Marker
                   onPress={() => {
-                    setSelectedId(item);
+                    setCragState({
+                      id: item.id,
+                      name: item.name,
+                      description: item.description,
+                      conditions: item.conditions,
+                      gear: item.gear,
+                      longitude: item.longitude,
+                      latitude: item.latitude,
+                    });
+
                     setModalVisible(true);
                   }}
                   pinColor="#1B8B6A"
@@ -173,7 +146,7 @@ export default function Explore({ navigation }) {
               </View>
               <View style={{ flex: 0.8, marginLeft: 20 }}>
                 <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                  {selectedId && selectedId.name}
+                  {cragState && cragState.name}
                 </Text>
               </View>
             </View>
