@@ -18,6 +18,9 @@ class Event(models.Model):
     def incerement_seats(self):
         self.current_seats += 1
 
+    def decerement_seats(self):
+        self.current_seats -= 1
+
 class Attendee(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)

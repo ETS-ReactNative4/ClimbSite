@@ -63,6 +63,26 @@ class JoinEvent(generics.CreateAPIView):
             event.incerement_seats()
             event.save()
             return Response({'status':status.HTTP_200_OK})
+            
+class UnjoinEvent(generics.DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = self.request.user
+        event = Event.objects.get(id=request.data.get('event'))
+        if(event.user == user):
+            event.delete()
+            return Response({'status':status.HTTP_200_OK,'message':'event deleted'})
+        try:
+            Attendee.objects.get(user = user , event = event)
+            unjoin = Attendee.objects.filter(user = user , event = event)
+            unjoin.delete()
+            event.decerement_seats()
+            event.save()
+            return Response({'status':status.HTTP_200_OK})
+            
+        except Attendee.DoesNotExist:
+            return Response({'status':status.HTTP_400_BAD_REQUEST,'message':'you are not joining the event'})
 
 class GetAttendees(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
