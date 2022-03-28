@@ -31,9 +31,6 @@ class UserFollowingSerializer(serializers.ModelSerializer):
         model = UserFollowing
 
 class UserClimbListSerializer(serializers.ModelSerializer):
-    route = RouteSerializer(read_only=True)
-    user = UserSerializer(read_only = True)
-
     class Meta:
         fields = ('id','user','route')
         model = ClimbList
