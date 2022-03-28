@@ -10,8 +10,7 @@ class SectorList(generics.ListAPIView):
 
     serializer_class = SectorSerializer
     def get_queryset(self):
-        crag = Crag.objects.get(id=self.request.data.get('crag'))
-        print(crag)
+        crag = Crag.objects.get(id = self.request.query_params.get('crag_id'))
         queryset = Sector.objects.filter(crag=crag)
         return queryset
 
