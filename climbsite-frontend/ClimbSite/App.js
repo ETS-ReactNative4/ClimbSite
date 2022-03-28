@@ -7,23 +7,10 @@ import Register from "./pages/Register";
 import { Provider } from "react-native-paper";
 import Navbar from "./navigations/Navbar";
 import * as SecureStore from "expo-secure-store";
-
 import { AuthContext } from "./context/userContext";
-import { CragContext } from "./context/cragContext";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
-  // const [isLogged, setIsLogged] = useState(false);
-  // const auth = async () => {
-  //   const access = await SecureStore.getItemAsync("token");
-
-  //   const token = JSON.parse(access);
-  //   if (token === null) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // };
   const [authState, setAuthState] = useState({
     signedIn: false,
   });
@@ -44,14 +31,6 @@ export default function App() {
                 <Stack.Screen name="Register" component={Register} />
               </>
             )}
-            {/* {null === null ? (
-            <Stack.Screen name="Navbar" component={Navbar} />
-          ) : (
-            <>
-              <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="Register" component={Register} />
-            </>
-          )} */}
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

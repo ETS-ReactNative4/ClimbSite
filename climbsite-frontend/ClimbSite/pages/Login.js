@@ -44,6 +44,7 @@ export default function Login({ navigation }) {
     } else {
       try {
         const response = await axios.post(url, data);
+
         const data_received = await response.data;
         setAuthState({
           signedIn: true,

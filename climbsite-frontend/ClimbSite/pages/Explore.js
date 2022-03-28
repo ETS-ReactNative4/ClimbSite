@@ -31,9 +31,7 @@ export default function Explore({ navigation }) {
     const token = authState.token;
 
     try {
-      const response = await axios.get(url, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(url);
       const data_received = await response.data;
       setCrag(data_received);
     } catch (error) {
