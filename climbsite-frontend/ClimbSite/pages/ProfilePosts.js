@@ -36,7 +36,7 @@ export default function ProfilePosts({ navigation }) {
   }
   useEffect(() => {
     getMyPosts();
-  }, []);
+  });
   const [posts, setPost] = useState();
 
   // const [posts, setPost] = useState([

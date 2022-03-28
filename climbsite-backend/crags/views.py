@@ -18,7 +18,6 @@ class RouteList(generics.ListAPIView):
 
     serializer_class = RouteSerializer
     def get_queryset(self):
-        sector = Sector.objects.get(id=self.request.data.get('sector'))
-        print(sector)
+        sector = Sector.objects.get(id=self.request.query_params.get('sector_id'))
         queryset = Route.objects.filter(sector=sector)
         return queryset

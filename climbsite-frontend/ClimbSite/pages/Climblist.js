@@ -37,7 +37,7 @@ export default function Climblist({ navigation }) {
   }
   useEffect(() => {
     getClimblist();
-  }, []);
+  });
 
   const [route, setRoute] = useState();
 
@@ -46,7 +46,7 @@ export default function Climblist({ navigation }) {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
-      <ClimblistRoutes data={route} />
+      <ClimblistRoutes data={route && route} />
     </View>
   );
 }

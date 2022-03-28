@@ -1,11 +1,80 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { styles } from "../styles";
-import { Text, View, TouchableOpacity, Modal, TextInput } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Modal,
+  TextInput,
+  Easing,
+  images,
+} from "react-native";
+
 import { FontAwesome5 } from "@expo/vector-icons";
-import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
+
+import Rating from "react-native-rating";
+import { AuthContext } from "../context/userContext";
+import axios from "axios";
 
 export default function AscentModal({ setModalVisible, modalVisible, item }) {
-  const { height } = useWindowDimensions();
+  const images = {
+    starFilled: require("../assets/star_filled.png"),
+    starUnfilled: require("../assets/star_unfilled.png"),
+  };
+  const [authState, setAuthState] = useContext(AuthContext);
+
+  const [data, setData] = useState({
+    route: item ? item.route.id : item.route.id,
+    tries: "",
+    comment: "",
+    rating: "",
+  });
+
+  const handleRouteId = (value) => {
+    setData({
+      ...data,
+      route: value,
+    });
+  };
+
+  const handleTries = (value) => {
+    setData({
+      ...data,
+      tries: parseInt(value),
+    });
+  };
+  const handleComment = (value) => {
+    setData({
+      ...data,
+      comment: value,
+    });
+  };
+  const handleRanking = (value) => {
+    setData({
+      ...data,
+      rating: value,
+    });
+  };
+
+  const handleSubmit = async () => {
+    handleRouteId(item ? item.route.id : item.route.id);
+
+    const token = authState.token;
+    const url = "http://192.168.1.54:7000/api/climbers/logascent";
+    if (!(data.route && data.tries && data.comment && data.rating)) {
+      setError("empty");
+    } else {
+      try {
+        const response = await axios.post(url, data, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data_received = await response.data;
+      } catch (error) {
+        console.warn(error);
+        setError("wrong");
+      }
+    }
+  };
   return (
     <Modal
       animationType="slide"
@@ -40,7 +109,7 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
               color: "#1B8B6A",
             }}
           >
-            {item && item.route.name} ({item && item.route.grade})
+            {item && item.route.name} ({item && item.route.grade}){" "}
           </Text>
 
           <View style={{ marginVertical: 10 }}>
@@ -49,6 +118,7 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
               style={styles.input}
               keyboardType="numeric"
               placeholder="How many Tries?"
+              onChangeText={(value) => handleTries(value)}
             />
           </View>
           <View style={{ marginVertical: 10 }}>
@@ -57,17 +127,31 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
               multiline
               style={styles.input}
               placeholder="Add Comment"
+              onChangeText={(value) => handleComment(value)}
             />
           </View>
           <View style={{ marginVertical: 10 }}>
             <Text style={{ fontSize: 18 }}>Rating</Text>
-            <TextInput
-              style={styles.input}
-              keyboardType="numeric"
-              placeholder="How do you rate this route?"
-            />
+            <View>
+              <Rating
+                onChange={(value) => handleRanking(value)}
+                selectedStar={images.starFilled}
+                unselectedStar={images.starUnfilled}
+                config={{
+                  easing: Easing.inOut(Easing.ease),
+                  duration: 350,
+                }}
+                stagger={80}
+                maxScale={1.4}
+                starStyle={{
+                  width: 40,
+                  height: 40,
+                }}
+              />
+            </View>
           </View>
           <TouchableOpacity
+            onPress={handleSubmit}
             style={{
               width: 80,
               height: 35,
