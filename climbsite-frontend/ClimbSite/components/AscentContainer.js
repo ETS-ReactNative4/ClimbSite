@@ -62,7 +62,7 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
     const token = authState.token;
     const url = "http://192.168.1.54:7000/api/climbers/logascent";
     if (!(data.route && data.tries && data.comment && data.rating)) {
-      setError("empty");
+      // setError("empty");
     } else {
       try {
         const response = await axios.post(url, data, {
@@ -71,7 +71,7 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
         const data_received = await response.data;
       } catch (error) {
         console.warn(error);
-        setError("wrong");
+        // setError("wrong");
       }
     }
   };

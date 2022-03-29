@@ -30,7 +30,6 @@ export default function Rankings({ navigation }) {
       });
       const data_received = await response.data;
       setRanking(data_received);
-      console.warn(rankings.result);
     } catch (error) {
       console.warn(error);
     }
@@ -38,39 +37,8 @@ export default function Rankings({ navigation }) {
   useEffect(() => {
     getInfo();
   }, []);
-  let count = 1;
+
   const [rankings, setRanking] = useState();
-  //   {
-  //     id: 1,
-  //     user: {
-  //       id: 8,
-  //       full_name: "Cyril Asmar",
-  //       email: "cyro@hotmail.com",
-  //       dob: "1990-12-04",
-  //     },
-  //     asc: 5,
-  //   },
-  //   {
-  //     id: 2,
-  //     user: {
-  //       id: 8,
-  //       full_name: "Cyril Asmar",
-  //       email: "cyro@hotmail.com",
-  //       dob: "1990-12-04",
-  //     },
-  //     asc: 5,
-  //   },
-  //   {
-  //     id: 3,
-  //     user: {
-  //       id: 8,
-  //       full_name: "Cyril Asmar",
-  //       email: "cyro@hotmail.com",
-  //       dob: "1990-12-04",
-  //     },
-  //     asc: 5,
-  //   },
-  // ]);
 
   return (
     <View style={styles.container}>

@@ -37,7 +37,7 @@ export default function Climblist({ navigation }) {
   }
   useEffect(() => {
     getClimblist();
-  });
+  }, []);
 
   const [route, setRoute] = useState();
 

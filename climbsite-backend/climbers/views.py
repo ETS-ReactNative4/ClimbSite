@@ -1,8 +1,6 @@
 from itertools import count
 import json
 from multiprocessing import context
-from urllib import response
-from xml.etree.ElementTree import Comment
 from django.forms import ValidationError
 from django.http import HttpResponse, JsonResponse
 from rest_framework import filters
