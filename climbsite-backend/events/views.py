@@ -36,10 +36,10 @@ class GetEvents(generics.ListAPIView):
     queryset = Event.objects.all()
 
     def get_queryset(self):
-        if self.request.data.get('crag') == None:
+        if self.request.query_params.get('crag_id') == None:
             return super().get_queryset()
         else:
-            crag = self.request.data.get('crag')
+            crag =  self.request.query_params.get('crag_id')
             return super().get_queryset().filter(crag = crag)
 
 class JoinEvent(generics.CreateAPIView):
