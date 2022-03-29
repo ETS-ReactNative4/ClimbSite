@@ -1,11 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { styles } from "../styles";
 import { Text, View, TouchableOpacity, Modal, FlatList } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
+import axios from "axios";
+import { AuthContext } from "../context/userContext";
 
 export default function EventModal({ setModalVisible, modalVisible, item }) {
   const { height } = useWindowDimensions();
+  const [authState, setAuthState] = useContext(AuthContext);
+
+  const eventId = {
+    event: item && item.id,
+  };
+
+  const handleJoin = async () => {
+    console.warn(eventId);
+    const token = authState.token;
+    const url = "http://192.168.1.54:7000/api/events/join_event";
+
+    // setError("empty");
+
+    try {
+      const response = await axios.post(url, eventId, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data_received = await response.data;
+      console.warn(data_received);
+    } catch (error) {
+      console.warn(error);
+      // setError("wrong");
+    }
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -37,6 +64,7 @@ export default function EventModal({ setModalVisible, modalVisible, item }) {
           </Text>
           <Text>{item && item.description}</Text>
           <TouchableOpacity
+            onPress={handleJoin}
             style={{
               width: 80,
               height: 35,
