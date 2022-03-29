@@ -38,7 +38,7 @@ export default function Rankings({ navigation }) {
   useEffect(() => {
     getInfo();
   }, []);
-  var count = 1;
+  let count = 1;
   const [rankings, setRanking] = useState();
   //   {
   //     id: 1,
@@ -84,9 +84,9 @@ export default function Rankings({ navigation }) {
       <FlatList
         key={(item) => item.id}
         data={rankings && rankings.result}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <View style={styles.rankings}>
-            <Text style={{ flex: 0.1, fontSize: 18 }}>{count++}</Text>
+            <Text style={{ flex: 0.1, fontSize: 18 }}>{index + 1}</Text>
             <View style={{ flex: 0.2, marginRight: 10 }}>
               <Image
                 style={{
