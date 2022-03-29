@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -13,41 +13,64 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
+import axios from "axios";
+import { AuthContext } from "../context/userContext";
 
 export default function Rankings({ navigation }) {
   const { height } = useWindowDimensions();
-  const [rankings, setPost] = useState([
-    {
-      id: 1,
-      user: {
-        id: 8,
-        full_name: "Cyril Asmar",
-        email: "cyro@hotmail.com",
-        dob: "1990-12-04",
-      },
-      asc: 5,
-    },
-    {
-      id: 2,
-      user: {
-        id: 8,
-        full_name: "Cyril Asmar",
-        email: "cyro@hotmail.com",
-        dob: "1990-12-04",
-      },
-      asc: 5,
-    },
-    {
-      id: 3,
-      user: {
-        id: 8,
-        full_name: "Cyril Asmar",
-        email: "cyro@hotmail.com",
-        dob: "1990-12-04",
-      },
-      asc: 5,
-    },
-  ]);
+  const [authState, setAuthState] = useContext(AuthContext);
+
+  const url = "http://192.168.1.54:7000/api/climbers/rankings";
+  async function getInfo() {
+    const token = authState.token;
+
+    try {
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data_received = await response.data;
+      setRanking(data_received);
+      console.warn(rankings.result);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+  useEffect(() => {
+    getInfo();
+  }, []);
+  var count = 1;
+  const [rankings, setRanking] = useState();
+  //   {
+  //     id: 1,
+  //     user: {
+  //       id: 8,
+  //       full_name: "Cyril Asmar",
+  //       email: "cyro@hotmail.com",
+  //       dob: "1990-12-04",
+  //     },
+  //     asc: 5,
+  //   },
+  //   {
+  //     id: 2,
+  //     user: {
+  //       id: 8,
+  //       full_name: "Cyril Asmar",
+  //       email: "cyro@hotmail.com",
+  //       dob: "1990-12-04",
+  //     },
+  //     asc: 5,
+  //   },
+  //   {
+  //     id: 3,
+  //     user: {
+  //       id: 8,
+  //       full_name: "Cyril Asmar",
+  //       email: "cyro@hotmail.com",
+  //       dob: "1990-12-04",
+  //     },
+  //     asc: 5,
+  //   },
+  // ]);
 
   return (
     <View style={styles.container}>
@@ -60,10 +83,10 @@ export default function Rankings({ navigation }) {
       </Text>
       <FlatList
         key={(item) => item.id}
-        data={rankings}
+        data={rankings && rankings.result}
         renderItem={({ item }) => (
           <View style={styles.rankings}>
-            <Text style={{ flex: 0.1, fontSize: 18 }}>{item.id}</Text>
+            <Text style={{ flex: 0.1, fontSize: 18 }}>{count++}</Text>
             <View style={{ flex: 0.2, marginRight: 10 }}>
               <Image
                 style={{
@@ -75,9 +98,7 @@ export default function Rankings({ navigation }) {
               ></Image>
             </View>
 
-            <Text style={{ flex: 0.6, fontSize: 16 }}>
-              {item.user.full_name}
-            </Text>
+            <Text style={{ flex: 0.6, fontSize: 16 }}>{item.user}</Text>
             <Text
               style={{
                 flex: 0.2,
@@ -86,7 +107,7 @@ export default function Rankings({ navigation }) {
                 fontWeight: "bold",
               }}
             >
-              {item.asc} asc
+              {item.ascents} asc
             </Text>
           </View>
         )}
