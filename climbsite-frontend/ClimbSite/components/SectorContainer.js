@@ -9,20 +9,36 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   Pressable,
+  Modal,
+  FlatList,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SelectDropdown from "react-native-select-dropdown";
 import { AntDesign } from "@expo/vector-icons";
+import axios from "axios";
 
 export default function SectorContainer({
   data,
-  rowData,
+
   Buttontext,
-  icon,
-  test,
 }) {
   const { height } = useWindowDimensions();
   const [selectedSector, setSelectedSector] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
+
+  async function getRoute(sector_id) {
+    const url_route = `http://192.168.1.54:7000/api/crags/routes?sector_id=${sector_id}`;
+    try {
+      const response = await axios.get(url_route);
+      const data_received = await response.data;
+      setRoute(data_received);
+      setModalVisible(true);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+
+  const [route, setRoute] = useState();
 
   return (
     <View>
@@ -36,6 +52,9 @@ export default function SectorContainer({
               }}
             >
               <TouchableOpacity
+                onPress={() => {
+                  getRoute(item && item.id);
+                }}
                 style={{
                   backgroundColor: "#2F3F4A",
                   borderRadius: 15,
@@ -70,6 +89,70 @@ export default function SectorContainer({
             </View>
           );
         })}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={setModalVisible}
+      >
+        <TouchableOpacity
+          onPress={() => setModalVisible(false)}
+          style={{
+            flex: 1,
+            backgroundColor: "rgba(0, 0, 0,0.6)",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <View
+            style={{
+              margin: 20,
+              backgroundColor: "#2F3F4A",
+              borderRadius: 15,
+
+              width: 320,
+              alignItems: "center",
+              flexDirection: "row",
+            }}
+          >
+            <FlatList
+              key={(item) => item.id}
+              data={route && route}
+              renderItem={({ item }) => (
+                <Pressable>
+                  <View
+                    style={{
+                      height: 50,
+                      marginLeft: 20,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <View style={{ flexDirection: "row" }}>
+                      <Text style={{ fontSize: 18, flex: 0.8 }}>
+                        {item.name}
+                      </Text>
+                      <TouchableOpacity
+                        onPress={() => {
+                          addToClimblist(item && item.id);
+                        }}
+                        style={{ flex: 0.2 }}
+                      >
+                        <AntDesign name="plus" size={24} color="black" />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                  <View
+                    style={{
+                      borderBottomColor: "rgba(255, 255, 255, 0.25)",
+                      borderBottomWidth: 1,
+                    }}
+                  />
+                </Pressable>
+              )}
+            />
+          </View>
+        </TouchableOpacity>
+      </Modal>
     </View>
 
     // <View>
