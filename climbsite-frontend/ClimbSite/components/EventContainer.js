@@ -49,9 +49,7 @@ export default function EventContainer({ data }) {
                   <Text style={{ fontSize: 20, color: "#1B8B6A", flex: 0.7 }}>
                     {item.crag.name}
                   </Text>
-                  <Text style={{ color: "white", flex: 0.3 }}>
-                    {item.date}{" "}
-                  </Text>
+                  <Text style={{ color: "white", flex: 0.3 }}>{item.date}</Text>
                 </View>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <Text style={{ fontSize: 16, color: "white", flex: 0.7 }}>
@@ -65,7 +63,7 @@ export default function EventContainer({ data }) {
                       flex: 0.6,
                     }}
                   >
-                    Places Available: {item.current_seats}
+                    Places Available: {item.total_seats - item.current_seats}
                   </Text>
                 </View>
               </View>
