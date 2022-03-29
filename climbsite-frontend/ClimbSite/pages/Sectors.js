@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -14,10 +14,32 @@ import SelectDropdown from "react-native-select-dropdown";
 import { AntDesign } from "@expo/vector-icons";
 import SectorContainer from "../components/SectorContainer";
 import ProfileHeader from "../components/ProfileHeader";
+import { CragContext } from "../context/cragContext";
+import axios from "axios";
 
 export default function Sectors({ navigation }) {
   const { height } = useWindowDimensions();
-  const [route, setRoute] = useState([
+  const [cragState, setCragState] = useContext(CragContext);
+
+  const selectedCragId = cragState.id;
+
+  const url = `http://192.168.1.54:7000/api/crags/sectors?crag_id=${selectedCragId}`;
+  async function getSectors() {
+    try {
+      const response = await axios.get(url);
+      const data_received = await response.data;
+      setSector(data_received);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+  useEffect(() => {
+    getSectors();
+  }, []);
+
+  const [sector, setSector] = useState();
+
+  const [routes, setRoute] = useState([
     {
       id: 1,
       name: "test",
@@ -73,47 +95,47 @@ export default function Sectors({ navigation }) {
       grade: "5",
     },
   ]);
-  const [sector, setSector] = useState([
-    {
-      id: 3,
-      name: "sector3",
-      crag: {
-        id: 1,
-        name: "tanourine",
-        description: "it is in tanourine and has 5 routes",
-        conditions: "very hard",
-        gear: "90 m",
-        longitude: "585.454000",
-        latitude: "355.544000",
-      },
-    },
-    {
-      id: 4,
-      name: "sector4",
-      crag: {
-        id: 1,
-        name: "tanourine",
-        description: "it is in tanourine and has 5 routes",
-        conditions: "very hard",
-        gear: "90 m",
-        longitude: "585.454000",
-        latitude: "355.544000",
-      },
-    },
-    {
-      id: 5,
-      name: "sector1",
-      crag: {
-        id: 1,
-        name: "tanourine",
-        description: "it is in tanourine and has 5 routes",
-        conditions: "very hard",
-        gear: "90 m",
-        longitude: "585.454000",
-        latitude: "355.544000",
-      },
-    },
-  ]);
+  // const [sector, setSector] = useState([
+  //   {
+  //     id: 3,
+  //     name: "sector3",
+  //     crag: {
+  //       id: 1,
+  //       name: "tanourine",
+  //       description: "it is in tanourine and has 5 routes",
+  //       conditions: "very hard",
+  //       gear: "90 m",
+  //       longitude: "585.454000",
+  //       latitude: "355.544000",
+  //     },
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "sector4",
+  //     crag: {
+  //       id: 1,
+  //       name: "tanourine",
+  //       description: "it is in tanourine and has 5 routes",
+  //       conditions: "very hard",
+  //       gear: "90 m",
+  //       longitude: "585.454000",
+  //       latitude: "355.544000",
+  //     },
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "sector1",
+  //     crag: {
+  //       id: 1,
+  //       name: "tanourine",
+  //       description: "it is in tanourine and has 5 routes",
+  //       conditions: "very hard",
+  //       gear: "90 m",
+  //       longitude: "585.454000",
+  //       latitude: "355.544000",
+  //     },
+  //   },
+  // ]);
 
   return (
     <View style={styles.container}>
@@ -123,8 +145,8 @@ export default function Sectors({ navigation }) {
       <ProfileHeader title="Sectors" navigation={navigation} />
       <View style={{ marginVertical: 10 }}>
         <SectorContainer
-          data={sector}
-          rowData={route}
+          data={sector && sector}
+          rowData={routes}
           Buttontext="Select Route Climbed:"
           icon={<AntDesign name="check" size={24} color="black" />}
         />
