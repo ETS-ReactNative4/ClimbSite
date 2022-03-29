@@ -29,7 +29,6 @@ export default function CragSectors({ navigation }) {
   const [authState, setAuthState] = useContext(AuthContext);
   const [modalVisible, setModalVisible] = useState(false);
   const selectedCragId = cragState.id;
-  const [test, SetTest] = useState("test1");
 
   const url = `http://192.168.1.54:7000/api/crags/sectors?crag_id=${selectedCragId}`;
   async function getSectors() {
