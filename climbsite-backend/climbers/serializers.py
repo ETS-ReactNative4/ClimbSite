@@ -38,6 +38,9 @@ class UserClimbListSerializer(serializers.ModelSerializer):
         model = ClimbList
 
 class UserFavoritesSerializer(serializers.ModelSerializer):
+    
+    crag = CragSerializer(read_only = True)
+    user = UserSerializer(read_only = True)
     class Meta:
         fields = ('id','user','crag')
         model = Favorite
