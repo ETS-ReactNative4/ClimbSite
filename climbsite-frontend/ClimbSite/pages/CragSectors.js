@@ -11,6 +11,7 @@ import {
   useWindowDimensions,
   Modal,
   FlatList,
+  Pressable,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SelectDropdown from "react-native-select-dropdown";
@@ -32,8 +33,6 @@ export default function CragSectors({ navigation }) {
 
   const url = `http://192.168.1.54:7000/api/crags/sectors?crag_id=${selectedCragId}`;
   async function getSectors() {
-    const token = authState.token;
-
     try {
       const response = await axios.get(url);
       const data_received = await response.data;
@@ -60,103 +59,26 @@ export default function CragSectors({ navigation }) {
   }
 
   const [route, setRoute] = useState();
-  // const [route, setRoute] = useState([
-  //   {
-  //     id: 1,
-  //     name: "test",
-  //     sector: {
-  //       id: 1,
-  //       name: "sector 1",
-  //       crag: {
-  //         id: 2,
-  //         name: "beit merry",
-  //         description: "it's bet mery",
-  //         conditions: "hard boldery",
-  //         gear: "60m rope",
-  //         longitude: "448.484000",
-  //         latitude: "841.286000",
-  //       },
-  //     },
-  //     grade: "6a",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "tesy2",
-  //     sector: {
-  //       id: 1,
-  //       name: "sector 1",
-  //       crag: {
-  //         id: 2,
-  //         name: "beit merry",
-  //         description: "it's bet mery",
-  //         conditions: "hard boldery",
-  //         gear: "60m rope",
-  //         longitude: "448.484000",
-  //         latitude: "841.286000",
-  //       },
-  //     },
-  //     grade: "5a",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "lol",
-  //     sector: {
-  //       id: 1,
-  //       name: "sector 1",
-  //       crag: {
-  //         id: 2,
-  //         name: "beit merry",
-  //         description: "it's bet mery",
-  //         conditions: "hard boldery",
-  //         gear: "60m rope",
-  //         longitude: "448.484000",
-  //         latitude: "841.286000",
-  //       },
-  //     },
-  //     grade: "5",
-  //   },
-  // ]);
-  // const [sector, setSector] = useState([
-  //   {
-  //     id: 3,
-  //     name: "sector3",
-  //     crag: {
-  //       id: 1,
-  //       name: "tanourine",
-  //       description: "it is in tanourine and has 5 routes",
-  //       conditions: "very hard",
-  //       gear: "90 m",
-  //       longitude: "585.454000",
-  //       latitude: "355.544000",
-  //     },
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "sector4",
-  //     crag: {
-  //       id: 1,
-  //       name: "tanourine",
-  //       description: "it is in tanourine and has 5 routes",
-  //       conditions: "very hard",
-  //       gear: "90 m",
-  //       longitude: "585.454000",
-  //       latitude: "355.544000",
-  //     },
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "sector1",
-  //     crag: {
-  //       id: 1,
-  //       name: "tanourine",
-  //       description: "it is in tanourine and has 5 routes",
-  //       conditions: "very hard",
-  //       gear: "90 m",
-  //       longitude: "585.454000",
-  //       latitude: "355.544000",
-  //     },
-  //   },
-  // ]);
+
+  async function addToClimblist(item_id) {
+    console.warn(item_id);
+    const token = authState.token;
+    const url_add_to_climblist =
+      "http://192.168.1.54:7000/api/climbers/add_to_climblist";
+    const route_id = {
+      route: item_id,
+    };
+
+    try {
+      const response = await axios.post(url_add_to_climblist, route_id, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data_received = await response.data;
+      console.warn(data_received);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -245,15 +167,27 @@ export default function CragSectors({ navigation }) {
               key={(item) => item.id}
               data={route && route}
               renderItem={({ item }) => (
-                <TouchableOpacity>
+                <Pressable>
                   <View
                     style={{
                       height: 50,
+                      marginLeft: 20,
                       justifyContent: "center",
-                      alignItems: "center",
                     }}
                   >
-                    <Text>{item.name} </Text>
+                    <View style={{ flexDirection: "row" }}>
+                      <Text style={{ fontSize: 18, flex: 0.8 }}>
+                        {item.name}
+                      </Text>
+                      <TouchableOpacity
+                        onPress={() => {
+                          addToClimblist(item && item.id);
+                        }}
+                        style={{ flex: 0.2 }}
+                      >
+                        <AntDesign name="plus" size={24} color="black" />
+                      </TouchableOpacity>
+                    </View>
                   </View>
                   <View
                     style={{
@@ -261,7 +195,7 @@ export default function CragSectors({ navigation }) {
                       borderBottomWidth: 1,
                     }}
                   />
-                </TouchableOpacity>
+                </Pressable>
               )}
             />
           </View>
