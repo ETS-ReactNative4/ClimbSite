@@ -14,7 +14,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import SelectDropdown from "react-native-select-dropdown";
 import { AntDesign } from "@expo/vector-icons";
 
-export default function SectorContainer({ data, rowData, Buttontext, icon }) {
+export default function SectorContainer({
+  data,
+  rowData,
+  Buttontext,
+  icon,
+  test,
+}) {
   const { height } = useWindowDimensions();
   const [selectedSector, setSelectedSector] = useState();
 
@@ -29,7 +35,7 @@ export default function SectorContainer({ data, rowData, Buttontext, icon }) {
                 alignItems: "center",
               }}
             >
-              <Pressable
+              <TouchableOpacity
                 style={{
                   backgroundColor: "#2F3F4A",
                   borderRadius: 15,
@@ -60,7 +66,7 @@ export default function SectorContainer({ data, rowData, Buttontext, icon }) {
                 >
                   {Buttontext}
                 </Text>
-              </Pressable>
+              </TouchableOpacity>
             </View>
           );
         })}
