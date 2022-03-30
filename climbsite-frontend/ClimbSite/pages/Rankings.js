@@ -50,7 +50,9 @@ export default function Rankings({ navigation }) {
         Ascents Ranking
       </Text>
       <FlatList
-        key={(item) => item.id}
+        keyExtractor={(item, index) => {
+          item.user + index;
+        }}
         data={rankings && rankings.result}
         renderItem={({ item, index }) => (
           <View style={styles.rankings}>
