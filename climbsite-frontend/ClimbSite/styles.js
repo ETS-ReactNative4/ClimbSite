@@ -40,8 +40,7 @@ export const styles = StyleSheet.create({
     borderColor: "#777",
     padding: 10,
     margin: 10,
-    width: 300,
-    height: 65,
+    width: 275,
   },
   headerinput: {
     alignSelf: "center",
