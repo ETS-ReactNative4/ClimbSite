@@ -14,10 +14,33 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import { CragContext } from "../context/cragContext";
+import { AuthContext } from "../context/userContext";
+import axios from "axios";
 
 export default function Info() {
   const { height } = useWindowDimensions();
   const [cragState, setCragState] = useContext(CragContext);
+  const [authState, setAuthState] = useContext(AuthContext);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  async function addToFavorites(item_id) {
+    const token = authState.token;
+    const url_add_to_favorites =
+      "http://192.168.1.54:7000/api/climbers/favorite";
+    const crag_id = {
+      crag: item_id,
+    };
+
+    try {
+      const response = await axios.post(url_add_to_favorites, crag_id, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data_received = await response.data;
+      console.warn(data_received);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -46,12 +69,20 @@ export default function Info() {
                 <Text style={{ fontSize: 20, fontWeight: "bold", flex: 0.9 }}>
                   {cragState.name}
                 </Text>
-                <MaterialIcons
+
+                <TouchableOpacity
+                  onPress={() => {
+                    console.warn(cragState.id);
+                    addToFavorites(cragState.id);
+                  }}
                   style={{ flex: 0.1 }}
-                  name="favorite-border"
-                  size={24}
-                  color="black"
-                />
+                >
+                  <MaterialIcons
+                    name="favorite-border"
+                    size={24}
+                    color="black"
+                  />
+                </TouchableOpacity>
               </View>
               <View
                 style={{
