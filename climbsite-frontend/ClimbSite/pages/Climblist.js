@@ -20,6 +20,7 @@ import ClimblistRoutes from "../components/ClimblistRoutes";
 export default function Climblist({ navigation }) {
   const { height } = useWindowDimensions();
   const [authState, setAuthState] = useContext(AuthContext);
+  const [route, setRoute] = useState();
 
   const url = "http://192.168.1.54:7000/api/climbers/climblist";
   async function getClimblist() {
@@ -35,11 +36,14 @@ export default function Climblist({ navigation }) {
       console.warn(error);
     }
   }
-  useEffect(() => {
-    getClimblist();
-  }, []);
 
-  const [route, setRoute] = useState();
+  useEffect(() => {
+    let abortController = new AbortController();
+    getClimblist();
+    return () => {
+      abortController.abort();
+    };
+  }, []);
 
   return (
     <View style={styles.container}>
