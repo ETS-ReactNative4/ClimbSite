@@ -1,117 +1,97 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
+import { format } from "date-fns";
 import {
   Text,
   View,
   TextInput,
-  Button,
   TouchableOpacity,
   useWindowDimensions,
-  Modal,
-  FlatList,
   ScrollView,
   Pressable,
 } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import { SafeAreaView } from "react-native-safe-area-context";
-import DropDown from "react-native-paper-dropdown";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import ProfileHeader from "../components/ProfileHeader";
-import ModalComponent from "../components/ModalComponent";
 import Map from "../components/MapComponent";
 import { AntDesign } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import axios from "axios";
+import { AuthContext } from "../context/userContext";
 
 export default function LogEvent(navigation) {
-  const { height } = useWindowDimensions();
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  // const [modalVisible1, setModalVisible1] = useState(false);
   const [date, setDate] = useState();
   const [selectedCrag, setSelectedCrag] = useState();
   const [selectedSector, setSelectedSector] = useState();
   const [location, setLocation] = useState();
+  const [crag, setCrag] = useState("");
+  const [authState, setAuthState] = useContext(AuthContext);
 
-  const [crag, setCrag] = useState([
-    {
-      id: 2,
-      name: "Beit merry",
-      description: "it's bet mery",
-      conditions: "hard boldery",
-      gear: "60m rope",
-      longitude: 33.890536626710244,
-      latitude: 35.489303601542964,
-    },
-    {
-      id: 3,
-      name: "Tannourine",
-      description: "it's Tannourine",
-      conditions: "hard tannourine",
-      gear: "80m rope",
-      longitude: 34.890536626710244,
-      latitude: 36.489303601542964,
-    },
-    {
-      id: 4,
-      name: "Tannourine",
-      description: "it's Tannourine",
-      conditions: "hard tannourine",
-      gear: "80m rope",
-      longitude: 35.890536626710244,
-      latitude: 37.489303601542964,
-    },
-    {
-      id: 5,
-      name: "Chabrouh",
-      description: "it's bet mery",
-      conditions: "hard boldery",
-      gear: "60m rope",
-      longitude: 38.890536626710244,
-      latitude: 35.489303601542964,
-    },
-  ]);
+  const [data, setData] = useState({
+    crag: "",
+    sector: "",
+    description: "",
+    date: "",
+    total_seats: "",
+    longitude: "",
+    latitude: "",
+  });
+  const url = "http://192.168.1.54:7000/api/crags/";
+  async function getInfo() {
+    try {
+      const response = await axios.get(url);
+      const data_received = await response.data;
+      setCrag(data_received);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
 
-  const [sector, setSector] = useState([
-    {
-      id: 3,
-      name: "sector3",
-      crag: {
-        id: 1,
-        name: "tanourine",
-        description: "it is in tanourine and has 5 routes",
-        conditions: "very hard",
-        gear: "90 m",
-        longitude: "585.454000",
-        latitude: "355.544000",
-      },
-    },
-    {
-      id: 4,
-      name: "sector4",
-      crag: {
-        id: 1,
-        name: "tanourine",
-        description: "it is in tanourine and has 5 routes",
-        conditions: "very hard",
-        gear: "90 m",
-        longitude: "585.454000",
-        latitude: "355.544000",
-      },
-    },
-    {
-      id: 5,
-      name: "sector1",
-      crag: {
-        id: 1,
-        name: "tanourine",
-        description: "it is in tanourine and has 5 routes",
-        conditions: "very hard",
-        gear: "90 m",
-        longitude: "585.454000",
-        latitude: "355.544000",
-      },
-    },
-  ]);
+  useEffect(() => {
+    getInfo();
+  }, []);
+
+  async function getSectors(id) {
+    const url_sector = `http://192.168.1.54:7000/api/crags/sectors?crag_id=${id}`;
+    try {
+      const response = await axios.get(url_sector);
+      const data_received = await response.data;
+      setSector(data_received);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+  const handleCrag = (value) => {
+    setData({
+      ...data,
+      crag: value,
+    });
+  };
+
+  const handleSector = (value) => {
+    setData({
+      ...data,
+      sector: value,
+    });
+  };
+  const handleDescription = (value) => {
+    setData({
+      ...data,
+      description: value,
+    });
+  };
+  const handlePlaces = (value) => {
+    setData({
+      ...data,
+      total_seats: value,
+    });
+  };
+
+  const [sector, setSector] = useState("");
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -121,16 +101,55 @@ export default function LogEvent(navigation) {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = (date) => {
-    setDate(
-      date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear()
-    );
+  const handleConfirm = (value) => {
+    const formattedDate = format(value, "yyyy-MM-dd");
+    console.warn(formattedDate);
+    setDate(formattedDate);
 
     hideDatePicker();
+    setData({
+      ...data,
+      date: formattedDate,
+    });
   };
 
   const handleLocation = (value) => {
+    setData({
+      ...data,
+      longitude: value.longitude,
+      latitude: value.latitude,
+    });
     setLocation(value);
+  };
+
+  const handleSubmit = async () => {
+    const token = authState.token;
+    const url = "http://192.168.1.54:7000/api/events/log_event";
+    if (
+      !(
+        data.crag &&
+        data.sector &&
+        data.date &&
+        data.description &&
+        data.latitude &&
+        data.longitude &&
+        data.total_seats
+      )
+    ) {
+      // setError("empty");
+      console.warn("field not available");
+    } else {
+      try {
+        const response = await axios.post(url, data, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data_received = await response.data;
+        console.warn(data_received);
+      } catch (error) {
+        console.warn(error);
+        // setError("wrong");
+      }
+    }
   };
 
   return (
@@ -145,7 +164,7 @@ export default function LogEvent(navigation) {
         <StatusBar />
       </SafeAreaView>
       <ProfileHeader navigation={navigation} title="Log Event" />
-      <ScrollView style={{ marginBottom: 5, marginTop: 5 }}>
+      <ScrollView style={{ marginBottom: 5, marginTop: 15 }}>
         <View
           style={{
             padding: 10,
@@ -155,64 +174,9 @@ export default function LogEvent(navigation) {
             marginTop: 5,
           }}
         >
-          {/* <View style={{ marginVertical: 10 }}>
-            <TouchableOpacity
-              onPress={() => {
-                setModalVisible(true);
-              }}
-              style={{
-                width: 280,
-                height: 50,
-                padding: 5,
-                backgroundColor: "#122222",
-                borderRadius: 5,
-                marginVertical: 10,
-                elevation: 2,
-                shadowColor: "gray",
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 17,
-                  flex: 1,
-                  marginTop: 7,
-                }}
-              >
-                Pick Crag
-              </Text>
-            </TouchableOpacity>
-          </View> */}
-          {/* <View style={{ marginVertical: 10 }}>
-            <TouchableOpacity
-              onPress={() => {
-                setModalVisible1(true);
-              }}
-              style={{
-                width: 280,
-                height: 50,
-                padding: 5,
-                backgroundColor: "#122222",
-                borderRadius: 5,
-                marginVertical: 10,
-                elevation: 2,
-                shadowColor: "gray",
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 17,
-                  flex: 1,
-                  marginTop: 7,
-                }}
-              >
-                Pick Sector
-              </Text>
-            </TouchableOpacity>
-          </View> */}
           <View style={{ marginTop: -15 }}>
             <SelectDropdown
+              data={crag && crag}
               renderDropdownIcon={() => {
                 return (
                   <View style={{ marginRight: 15 }}>
@@ -233,7 +197,7 @@ export default function LogEvent(navigation) {
                 borderRadius: 15,
                 padding: 20,
                 width: 320,
-                height: 65,
+                height: 60,
                 alignSelf: "center",
                 marginTop: 20,
                 alignItems: "center",
@@ -242,10 +206,11 @@ export default function LogEvent(navigation) {
                 borderBottomColor: "rgba(255, 255, 255, 0.25)",
               }}
               rowStyle={{ borderBottomColor: "rgba(255, 255, 255, 0.25)" }}
-              data={crag}
               onSelect={(selectedItem, index) => {
                 // console.warn(selectedItem, index);
                 setSelectedCrag(selectedItem);
+                getSectors(selectedItem.id);
+                handleCrag(selectedItem.id);
               }}
               renderCustomizedButtonChild={(selectedItem, index) => {
                 return (
@@ -273,15 +238,8 @@ export default function LogEvent(navigation) {
                 );
               }}
               buttonTextAfterSelection={(selectedItem, index) => {
-                // text represented after item is selected
-                // if data array is an array of objects then return selectedItem.property to render after item is selected
                 return item.name;
               }}
-              // rowTextForSelection={(item, index) => {
-              //   // text represented for each item in dropdown
-              //   // if data array is an array of objects then return item.property to represent item in dropdown
-              //   return item.name;
-              // }}
               renderCustomizedRowChild={(item, index) => {
                 return (
                   <View style={{ flexDirection: "row" }}>
@@ -301,100 +259,151 @@ export default function LogEvent(navigation) {
             />
           </View>
           <View>
-            <SelectDropdown
-              renderDropdownIcon={() => {
-                return (
-                  <View style={{ marginRight: 15 }}>
-                    <AntDesign name="down" size={24} color="black" />
-                  </View>
-                );
-              }}
-              dropdownIconPosition="right"
-              dropdownStyle={{
-                backgroundColor: "#2F3F4A",
-                width: 320,
-                alignSelf: "center",
-                borderRadius: 15,
-                marginTop: -25,
-              }}
-              buttonStyle={{
-                backgroundColor: "#2F3F4A",
-                borderRadius: 15,
-                padding: 20,
-                width: 320,
-                height: 65,
-                alignSelf: "center",
-                marginTop: 20,
-                alignItems: "center",
-                justifyContent: "center",
-                borderBottomWidth: 1,
-                borderBottomColor: "rgba(255, 255, 255, 0.25)",
-              }}
-              rowStyle={{ borderBottomColor: "rgba(255, 255, 255, 0.25)" }}
-              data={sector}
-              onSelect={(selectedItem, index) => {
-                // console.warn(selectedItem, index);
-                setSelectedSector(selectedItem);
-              }}
-              renderCustomizedButtonChild={(selectedItem, index) => {
-                return (
-                  <Pressable>
-                    <Text
-                      style={{
-                        textAlign: "left",
+            {selectedCrag ? (
+              <SelectDropdown
+                renderDropdownIcon={() => {
+                  return (
+                    <View style={{ marginRight: 15 }}>
+                      <AntDesign name="down" size={24} color="black" />
+                    </View>
+                  );
+                }}
+                dropdownIconPosition="right"
+                dropdownStyle={{
+                  backgroundColor: "#2F3F4A",
+                  width: 320,
+                  alignSelf: "center",
+                  borderRadius: 15,
+                  marginTop: -25,
+                }}
+                buttonStyle={{
+                  backgroundColor: "#2F3F4A",
+                  borderRadius: 15,
+                  padding: 20,
+                  width: 320,
+                  height: 60,
+                  alignSelf: "center",
+                  marginTop: 10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderBottomWidth: 1,
+                  borderBottomColor: "rgba(255, 255, 255, 0.25)",
+                }}
+                rowStyle={{ borderBottomColor: "rgba(255, 255, 255, 0.25)" }}
+                data={sector && sector}
+                onSelect={(selectedItem, index) => {
+                  // console.warn(selectedItem, index);
+                  setSelectedSector(selectedItem);
+                  handleSector(selectedItem.id);
+                }}
+                renderCustomizedButtonChild={(selectedItem, index) => {
+                  return (
+                    <Pressable>
+                      <Text
+                        style={{
+                          textAlign: "left",
 
-                        fontWeight: "bold",
-                        fontSize: 18,
-                      }}
-                    >
-                      Select Sector:
-                    </Text>
-                    <Text
-                      style={{
-                        textAlign: "left",
+                          fontWeight: "bold",
+                          fontSize: 18,
+                        }}
+                      >
+                        Select Sector:
+                      </Text>
+                      <Text
+                        style={{
+                          textAlign: "left",
 
-                        fontSize: 12,
+                          fontSize: 12,
+                        }}
+                      >
+                        {selectedItem && selectedItem.name}
+                      </Text>
+                    </Pressable>
+                  );
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return item.name;
+                }}
+                renderCustomizedRowChild={(item, index) => {
+                  return (
+                    <View style={{ flexDirection: "row" }}>
+                      <Text
+                        style={{
+                          color: "white",
+                          fontSize: 18,
+                          marginLeft: 20,
+                          flex: 1,
+                        }}
+                      >
+                        {item.name}
+                      </Text>
+                    </View>
+                  );
+                }}
+              />
+            ) : (
+              <SelectDropdown
+                renderDropdownIcon={() => {
+                  return (
+                    <View style={{ marginRight: 15 }}>
+                      <AntDesign name="down" size={24} color="black" />
+                    </View>
+                  );
+                }}
+                dropdownIconPosition="right"
+                buttonStyle={{
+                  backgroundColor: "#2F3F4A",
+                  borderRadius: 15,
+                  padding: 20,
+                  width: 320,
+                  height: 60,
+                  alignSelf: "center",
+                  marginTop: 10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderBottomWidth: 1,
+                  borderBottomColor: "rgba(255, 255, 255, 0.25)",
+                }}
+                data={sector}
+                renderCustomizedButtonChild={(selectedItem, index) => {
+                  return (
+                    <Pressable
+                      onPress={() => {
+                        console.warn("select a crag first");
                       }}
                     >
-                      {selectedItem && selectedItem.name}
-                    </Text>
-                  </Pressable>
-                );
-              }}
-              buttonTextAfterSelection={(selectedItem, index) => {
-                // text represented after item is selected
-                // if data array is an array of objects then return selectedItem.property to render after item is selected
-                return item.name;
-              }}
-              // rowTextForSelection={(item, index) => {
-              //   // text represented for each item in dropdown
-              //   // if data array is an array of objects then return item.property to represent item in dropdown
-              //   return item.name;
-              // }}
-              renderCustomizedRowChild={(item, index) => {
-                return (
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        color: "white",
-                        fontSize: 18,
-                        marginLeft: 20,
-                        flex: 1,
-                      }}
-                    >
-                      {item.name}
-                    </Text>
-                  </View>
-                );
-              }}
-            />
+                      <Text
+                        style={{
+                          textAlign: "left",
+
+                          fontWeight: "bold",
+                          fontSize: 18,
+                        }}
+                      >
+                        Select Sector:
+                      </Text>
+                      <Text
+                        style={{
+                          textAlign: "left",
+
+                          fontSize: 12,
+                        }}
+                      >
+                        {selectedItem && selectedItem.name}
+                      </Text>
+                    </Pressable>
+                  );
+                }}
+                disabled
+              />
+            )}
           </View>
 
-          <View style={{ marginVertical: 10 }}>
+          <View style={{ marginTop: 10 }}>
             <TouchableOpacity
               style={{
                 width: 320,
-                height: 65,
+                height: 60,
                 backgroundColor: "#2F3F4A",
                 padding: 10,
                 borderRadius: 15,
@@ -437,14 +446,15 @@ export default function LogEvent(navigation) {
                 mode="date"
                 onConfirm={handleConfirm}
                 onCancel={hideDatePicker}
+                minimumDate={new Date()}
               />
             </TouchableOpacity>
           </View>
-          <View style={{ marginVertical: 10 }}>
+          <View style={{ marginTop: 10 }}>
             <TouchableOpacity
               style={{
                 width: 320,
-                height: 65,
+                height: 60,
                 backgroundColor: "#2F3F4A",
                 padding: 10,
                 borderRadius: 15,
@@ -466,7 +476,7 @@ export default function LogEvent(navigation) {
                     fontSize: 18,
                   }}
                 >
-                  Select Location:
+                  Select Departure Location:
                 </Text>
                 <Text
                   style={{
@@ -479,9 +489,15 @@ export default function LogEvent(navigation) {
                   {location && location.longitude}
                 </Text>
               </View>
+              <MaterialIcons
+                style={{ flex: 0.1, marginRight: 7 }}
+                name="add-location-alt"
+                size={24}
+                color="black"
+              />
             </TouchableOpacity>
           </View>
-          <View style={{ marginVertical: 10, alignSelf: "center", width: 320 }}>
+          <View style={{ marginTop: 10, alignSelf: "center", width: 320 }}>
             <Text
               style={{
                 color: "white",
@@ -501,12 +517,13 @@ export default function LogEvent(navigation) {
                 padding: 10,
                 margin: 10,
                 width: 300,
-                height: 65,
+                height: 60,
               }}
               placeholder="Write a description for more info..."
+              onChangeText={(value) => handleDescription(value)}
             />
           </View>
-          <View style={{ marginVertical: 10, alignSelf: "center", width: 320 }}>
+          <View style={{ marginTop: 10, alignSelf: "center", width: 320 }}>
             <Text
               style={{
                 color: "white",
@@ -525,14 +542,20 @@ export default function LogEvent(navigation) {
                 padding: 10,
                 margin: 10,
                 width: 300,
-                height: 65,
+                height: 60,
               }}
               keyboardType="numeric"
-              placeholder="Select number of places are available..."
+              placeholder="Select number of places available..."
+              onChangeText={(value) => handlePlaces(value)}
             />
           </View>
 
-          <TouchableOpacity style={styles.loginButton}>
+          <TouchableOpacity
+            onPress={() => {
+              handleSubmit();
+            }}
+            style={styles.loginButton}
+          >
             <Text
               style={{
                 alignSelf: "center",
@@ -553,17 +576,6 @@ export default function LogEvent(navigation) {
         }}
         modalVisible={modalVisible}
       />
-      {/* <ModalComponent
-        item={crag}
-        
-      />
-      <ModalComponent
-        item={sector}
-        setModalVisible={() => {
-          setModalVisible1(!modalVisible1);
-        }}
-        modalVisible={modalVisible1}
-      /> */}
     </View>
   );
 }
