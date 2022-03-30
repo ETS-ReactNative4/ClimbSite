@@ -11,20 +11,25 @@ import {
   Modal,
   FlatList,
   ScrollView,
+  Pressable,
 } from "react-native";
+import SelectDropdown from "react-native-select-dropdown";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DropDown from "react-native-paper-dropdown";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import ProfileHeader from "../components/ProfileHeader";
 import ModalComponent from "../components/ModalComponent";
 import Map from "../components/MapComponent";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function LogEvent(navigation) {
   const { height } = useWindowDimensions();
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible1, setModalVisible1] = useState(false);
-  const [date, setDate] = useState("Pick Date");
+  const [date, setDate] = useState();
+  const [selectedCrag, setSelectedCrag] = useState();
+  const [selectedSector, setSelectedSector] = useState();
 
   const [crag, setCrag] = useState([
     {
@@ -135,17 +140,17 @@ export default function LogEvent(navigation) {
         <StatusBar />
       </SafeAreaView>
       <ProfileHeader navigation={navigation} title="Log Event" />
-      <ScrollView style={{ marginBottom: 5 }}>
+      <ScrollView style={{ marginBottom: 5, marginTop: 5 }}>
         <View
           style={{
-            padding: 20,
+            padding: 10,
             backgroundColor: "#2F3F4A",
             borderRadius: 15,
-            width: 320,
+            width: 350,
             marginTop: 20,
           }}
         >
-          <View style={{ marginVertical: 10 }}>
+          {/* <View style={{ marginVertical: 10 }}>
             <TouchableOpacity
               onPress={() => {
                 setModalVisible(true);
@@ -172,8 +177,8 @@ export default function LogEvent(navigation) {
                 Pick Crag
               </Text>
             </TouchableOpacity>
-          </View>
-          <View style={{ marginVertical: 10 }}>
+          </View> */}
+          {/* <View style={{ marginVertical: 10 }}>
             <TouchableOpacity
               onPress={() => {
                 setModalVisible1(true);
@@ -200,34 +205,228 @@ export default function LogEvent(navigation) {
                 Pick Sector
               </Text>
             </TouchableOpacity>
+          </View> */}
+          <View style={{ marginTop: -15 }}>
+            <SelectDropdown
+              renderDropdownIcon={() => {
+                return (
+                  <View style={{ marginRight: 15 }}>
+                    <AntDesign name="down" size={24} color="black" />
+                  </View>
+                );
+              }}
+              dropdownIconPosition="right"
+              dropdownStyle={{
+                backgroundColor: "#2F3F4A",
+                width: 320,
+                alignSelf: "center",
+                borderRadius: 15,
+                marginTop: -25,
+              }}
+              buttonStyle={{
+                backgroundColor: "#2F3F4A",
+                borderRadius: 15,
+                padding: 20,
+                width: 320,
+                height: 65,
+                alignSelf: "center",
+                marginTop: 20,
+                alignItems: "center",
+                justifyContent: "center",
+                borderBottomWidth: 1,
+                borderBottomColor: "rgba(255, 255, 255, 0.25)",
+              }}
+              rowStyle={{ borderBottomColor: "rgba(255, 255, 255, 0.25)" }}
+              data={crag}
+              onSelect={(selectedItem, index) => {
+                // console.warn(selectedItem, index);
+                setSelectedCrag(selectedItem);
+              }}
+              renderCustomizedButtonChild={(selectedItem, index) => {
+                return (
+                  <Pressable>
+                    <Text
+                      style={{
+                        textAlign: "left",
+
+                        fontWeight: "bold",
+                        fontSize: 18,
+                      }}
+                    >
+                      Select Crag:
+                    </Text>
+                    <Text
+                      style={{
+                        textAlign: "left",
+
+                        fontSize: 12,
+                      }}
+                    >
+                      {selectedItem && selectedItem.name}
+                    </Text>
+                  </Pressable>
+                );
+              }}
+              buttonTextAfterSelection={(selectedItem, index) => {
+                // text represented after item is selected
+                // if data array is an array of objects then return selectedItem.property to render after item is selected
+                return item.name;
+              }}
+              // rowTextForSelection={(item, index) => {
+              //   // text represented for each item in dropdown
+              //   // if data array is an array of objects then return item.property to represent item in dropdown
+              //   return item.name;
+              // }}
+              renderCustomizedRowChild={(item, index) => {
+                return (
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        color: "white",
+                        fontSize: 18,
+                        marginLeft: 20,
+                        flex: 1,
+                      }}
+                    >
+                      {item.name}
+                    </Text>
+                  </View>
+                );
+              }}
+            />
+          </View>
+          <View>
+            <SelectDropdown
+              renderDropdownIcon={() => {
+                return (
+                  <View style={{ marginRight: 15 }}>
+                    <AntDesign name="down" size={24} color="black" />
+                  </View>
+                );
+              }}
+              dropdownIconPosition="right"
+              dropdownStyle={{
+                backgroundColor: "#2F3F4A",
+                width: 320,
+                alignSelf: "center",
+                borderRadius: 15,
+                marginTop: -25,
+              }}
+              buttonStyle={{
+                backgroundColor: "#2F3F4A",
+                borderRadius: 15,
+                padding: 20,
+                width: 320,
+                height: 65,
+                alignSelf: "center",
+                marginTop: 20,
+                alignItems: "center",
+                justifyContent: "center",
+                borderBottomWidth: 1,
+                borderBottomColor: "rgba(255, 255, 255, 0.25)",
+              }}
+              rowStyle={{ borderBottomColor: "rgba(255, 255, 255, 0.25)" }}
+              data={sector}
+              onSelect={(selectedItem, index) => {
+                // console.warn(selectedItem, index);
+                setSelectedSector(selectedItem);
+              }}
+              renderCustomizedButtonChild={(selectedItem, index) => {
+                return (
+                  <Pressable>
+                    <Text
+                      style={{
+                        textAlign: "left",
+
+                        fontWeight: "bold",
+                        fontSize: 18,
+                      }}
+                    >
+                      Select Sector:
+                    </Text>
+                    <Text
+                      style={{
+                        textAlign: "left",
+
+                        fontSize: 12,
+                      }}
+                    >
+                      {selectedItem && selectedItem.name}
+                    </Text>
+                  </Pressable>
+                );
+              }}
+              buttonTextAfterSelection={(selectedItem, index) => {
+                // text represented after item is selected
+                // if data array is an array of objects then return selectedItem.property to render after item is selected
+                return item.name;
+              }}
+              // rowTextForSelection={(item, index) => {
+              //   // text represented for each item in dropdown
+              //   // if data array is an array of objects then return item.property to represent item in dropdown
+              //   return item.name;
+              // }}
+              renderCustomizedRowChild={(item, index) => {
+                return (
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        color: "white",
+                        fontSize: 18,
+                        marginLeft: 20,
+                        flex: 1,
+                      }}
+                    >
+                      {item.name}
+                    </Text>
+                  </View>
+                );
+              }}
+            />
           </View>
 
           <View style={{ marginVertical: 10 }}>
             <TouchableOpacity
               style={{
-                width: 280,
-                height: 50,
-                backgroundColor: "#122222",
-                padding: 5,
-                borderRadius: 5,
-                justifyContent: "center",
+                width: 320,
+                height: 65,
+                backgroundColor: "#2F3F4A",
+                padding: 10,
+                borderRadius: 15,
                 alignSelf: "center",
                 marginVertical: 10,
-                elevation: 2,
-                shadowColor: "gray",
+                borderBottomWidth: 1,
+                borderBottomColor: "rgba(255, 255, 255, 0.25)",
+                flexDirection: "row",
               }}
               onPress={showDatePicker}
             >
-              <Text
-                style={{
-                  textAlign: "center",
-                  alignSelf: "center",
-                  color: "white",
-                  fontSize: 16,
-                }}
-              >
-                {date}
-              </Text>
+              <View style={{ flex: 0.9 }}>
+                <Text
+                  style={{
+                    color: "white",
+                    fontWeight: "bold",
+                    fontSize: 18,
+                  }}
+                >
+                  Select Date:
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "left",
+
+                    fontSize: 12,
+                  }}
+                >
+                  {date}
+                </Text>
+              </View>
+              <AntDesign
+                style={{ flex: 0.1, marginRight: 7 }}
+                name="calendar"
+                size={24}
+                color="black"
+              />
               <DateTimePickerModal
                 isVisible={isDatePickerVisible}
                 mode="date"
@@ -236,18 +435,40 @@ export default function LogEvent(navigation) {
               />
             </TouchableOpacity>
           </View>
-          <View style={{ marginVertical: 10 }}>
+          <View style={{ marginVertical: 10, alignSelf: "center", width: 320 }}>
+            <Text
+              style={{
+                color: "white",
+                fontWeight: "bold",
+                fontSize: 18,
+                width: 300,
+                alignSelf: "center",
+              }}
+            >
+              Description:
+            </Text>
             <TextInput
               multiline
               style={styles.input}
-              placeholder="Description"
+              placeholder="Write a description for more info..."
             />
           </View>
-          <View style={{ marginVertical: 10 }}>
+          <View style={{ marginVertical: 10, alignSelf: "center", width: 320 }}>
+            <Text
+              style={{
+                color: "white",
+                fontWeight: "bold",
+                fontSize: 18,
+                width: 300,
+                alignSelf: "center",
+              }}
+            >
+              Places Available:
+            </Text>
             <TextInput
               style={styles.input}
               keyboardType="numeric"
-              placeholder="Places Available"
+              placeholder="Select number of places are available..."
             />
           </View>
           <Map />
