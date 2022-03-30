@@ -16,6 +16,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import SelectDropdown from "react-native-select-dropdown";
 import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
+import AscentModal from "./AscentContainer";
 
 export default function SectorContainer({
   data,
@@ -25,6 +26,8 @@ export default function SectorContainer({
   const { height } = useWindowDimensions();
   const [selectedSector, setSelectedSector] = useState();
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible2, setModalVisible2] = useState(false);
+  const [selectedItem, setSelectedItem] = useState();
 
   async function getRoute(sector_id) {
     const url_route = `http://192.168.1.54:7000/api/crags/routes?sector_id=${sector_id}`;
@@ -132,12 +135,13 @@ export default function SectorContainer({
                         {item.name}
                       </Text>
                       <TouchableOpacity
+                        style={{ flex: 0.1 }}
                         onPress={() => {
-                          addToClimblist(item && item.id);
+                          setSelectedItem(item);
+                          setModalVisible2(true);
                         }}
-                        style={{ flex: 0.2 }}
                       >
-                        <AntDesign name="plus" size={24} color="black" />
+                        <AntDesign name="check" size={24} color="black" />
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -153,6 +157,13 @@ export default function SectorContainer({
           </View>
         </TouchableOpacity>
       </Modal>
+      <AscentModal
+        setModalVisible={() => {
+          setModalVisible2(!modalVisible);
+        }}
+        modalVisible={modalVisible2}
+        item={selectedItem && selectedItem}
+      />
     </View>
 
     // <View>
