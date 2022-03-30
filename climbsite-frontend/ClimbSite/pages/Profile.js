@@ -36,22 +36,60 @@ export default function Profile({ navigation }) {
       console.warn(error);
     }
   }
+
+  const url_ascents =
+    "http://192.168.1.54:7000/api/climbers/get_number_ascents";
+  async function getNumberOfAscents() {
+    const token = authState.token;
+
+    try {
+      const response = await axios.get(url_ascents, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data_received = await response.data;
+      setNum_asc(data_received);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+  const url_followings = "http://192.168.1.54:7000/api/climbers/followings";
+  async function getFollowings() {
+    const token = authState.token;
+
+    try {
+      const response = await axios.get(url_followings, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data_received = await response.data;
+      setFollowings(data_received);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+  const url_followers = "http://192.168.1.54:7000/api/climbers/followers";
+  async function getFollowers() {
+    const token = authState.token;
+
+    try {
+      const response = await axios.get(url_followers, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data_received = await response.data;
+      setFollowers(data_received);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
   useEffect(() => {
     getInfo();
+    getNumberOfAscents();
+    getFollowings();
+    getFollowers();
   }, []);
   const [profile, setProfile] = useState();
-  // const [profile, setProfile] = useState([
-  //   {
-  //     id: 8,
-  //     full_name: "Cyril Asmar",
-  //     email: "cyro@hotmail.com",
-  //     dob: "1990-12-04",
-  //     followers: "25",
-  //     followings: "50",
-  //     country: "Lebanese",
-  //     asc: "34",
-  //   },
-  // ]);
+  const [num_asc, setNum_asc] = useState();
+  const [followings, setFollowings] = useState();
+  const [followers, setFollowers] = useState();
 
   return (
     <View style={styles.container}>
@@ -95,9 +133,15 @@ export default function Profile({ navigation }) {
               width: 350,
             }}
           >
-            <Text style={{ flex: 0.3, fontSize: 14 }}>25 Followers</Text>
-            <Text style={{ flex: 0.3, fontSize: 14 }}>50 Followings</Text>
-            <Text style={{ flex: 0.3, fontSize: 14 }}>34 Ascents</Text>
+            <Text style={{ flex: 0.3, fontSize: 14 }}>
+              {followers && followers.length} Followers
+            </Text>
+            <Text style={{ flex: 0.3, fontSize: 14 }}>
+              {followings && followings.length} Followings
+            </Text>
+            <Text style={{ flex: 0.3, fontSize: 14 }}>
+              {num_asc && num_asc.ascents} Ascents
+            </Text>
           </View>
         </View>
       </View>
