@@ -56,7 +56,7 @@ export default function ClimblistRoutes({ data }) {
           setModalVisible(!modalVisible);
         }}
         modalVisible={modalVisible}
-        item={selectedItem && selectedItem}
+        item={selectedItem && selectedItem.route}
       />
     </View>
   );

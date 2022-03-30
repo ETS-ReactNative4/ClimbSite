@@ -24,7 +24,7 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
   const [authState, setAuthState] = useContext(AuthContext);
 
   const [data, setData] = useState({
-    route: item && item.route.id,
+    route: item && item.id,
     tries: "",
     comment: "",
     rating: "",
@@ -57,7 +57,7 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
   };
 
   const handleSubmit = async () => {
-    handleRouteId(item && item.route.id);
+    handleRouteId(item && item.id);
 
     const token = authState.token;
     const url = "http://192.168.1.54:7000/api/climbers/logascent";
@@ -69,6 +69,7 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data_received = await response.data;
+        console.warn(data_received);
       } catch (error) {
         console.warn(error);
         // setError("wrong");
@@ -109,7 +110,7 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
               color: "#1B8B6A",
             }}
           >
-            {item && item.route.name} ({item && item.route.grade})
+            {item && item.name} ({item && item.grade})
           </Text>
 
           <View style={{ marginVertical: 10 }}>
