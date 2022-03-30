@@ -1,5 +1,6 @@
 from itertools import count
 import json
+from django.db.models import Subquery
 from multiprocessing import context
 from django.forms import ValidationError
 from django.http import HttpResponse, JsonResponse
@@ -90,15 +91,42 @@ class Userfollowings(generics.ListAPIView):
 
         user = self.request.user
         queryset = UserFollowing.objects.filter(follower=user)
-        count = UserFollowing.objects.filter(follower=user).count()
-        print(type(count))
-        print(type(queryset))
+        # count = UserFollowing.objects.filter(follower=user).count()
+        # print(type(count))
+        # print(type(queryset))
+        return queryset
+    # def get_context_data(self, **kwargs):
+    #     context = super(Userfollowings, self).get_context_data(**kwargs)
+    #     context['following'] = self.get_queryset.count()
+    #     return context
+
+class UserNonfollowings(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+
+        user = self.request.user
+        
+        queryset = User.objects.exclude(user__in=(User.objects.filter(follower=user.id)))
+
         return queryset
 
-    def get_context_data(self, **kwargs):
-        context = super(Userfollowings, self).get_context_data(**kwargs)
-        context['following'] = self.get_queryset.count()
-        return context
+class CheckIfFollowing(generics.CreateAPIView):
+
+    permission_classes = [IsAuthenticated]
+
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        other = User.objects.get(id= self.request.query_params.get('other_id'))
+
+        try:
+            UserFollowing.objects.get(follower = user , following = other)
+            return Response({'message': 'following'})
+        except UserFollowing.DoesNotExist:
+            return Response({'message':"not following"})
+
 
 # class Userfollowings(generics.ListAPIView):
 #     model = UserFollowing
@@ -153,6 +181,22 @@ class AddToFavorites(generics.CreateAPIView):
             favorite = Favorite.objects.create(user = user , crag = crag)
             Favorite.save(favorite)
             return Response({'status':status.HTTP_200_OK})
+
+
+class CheckIfFavorite(generics.CreateAPIView):
+
+    permission_classes = [IsAuthenticated]
+
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        crag = Crag.objects.get(id= self.request.query_params.get('crag_id'))
+
+        try:
+            Favorite.objects.get(user = user , crag = crag)
+            return Response({'message': 'is favorite'})
+        except Favorite.DoesNotExist:
+            return Response({'message':"not favorite"})
 
 class DeleteFromFavorites(generics.DestroyAPIView):
     permission_classes = [IsAuthenticated]
