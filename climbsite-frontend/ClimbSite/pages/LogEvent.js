@@ -26,10 +26,11 @@ export default function LogEvent(navigation) {
   const { height } = useWindowDimensions();
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalVisible1, setModalVisible1] = useState(false);
+  // const [modalVisible1, setModalVisible1] = useState(false);
   const [date, setDate] = useState();
   const [selectedCrag, setSelectedCrag] = useState();
   const [selectedSector, setSelectedSector] = useState();
+  const [location, setLocation] = useState();
 
   const [crag, setCrag] = useState([
     {
@@ -128,6 +129,10 @@ export default function LogEvent(navigation) {
     hideDatePicker();
   };
 
+  const handleLocation = (value) => {
+    setLocation(value);
+  };
+
   return (
     <View
       style={{
@@ -147,7 +152,7 @@ export default function LogEvent(navigation) {
             backgroundColor: "#2F3F4A",
             borderRadius: 15,
             width: 350,
-            marginTop: 20,
+            marginTop: 5,
           }}
         >
           {/* <View style={{ marginVertical: 10 }}>
@@ -435,6 +440,47 @@ export default function LogEvent(navigation) {
               />
             </TouchableOpacity>
           </View>
+          <View style={{ marginVertical: 10 }}>
+            <TouchableOpacity
+              style={{
+                width: 320,
+                height: 65,
+                backgroundColor: "#2F3F4A",
+                padding: 10,
+                borderRadius: 15,
+                alignSelf: "center",
+                marginVertical: 10,
+                borderBottomWidth: 1,
+                borderBottomColor: "rgba(255, 255, 255, 0.25)",
+                flexDirection: "row",
+              }}
+              onPress={() => {
+                setModalVisible(true);
+              }}
+            >
+              <View style={{ flex: 0.9 }}>
+                <Text
+                  style={{
+                    color: "white",
+                    fontWeight: "bold",
+                    fontSize: 18,
+                  }}
+                >
+                  Select Location:
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "left",
+
+                    fontSize: 12,
+                  }}
+                >
+                  {location && location.latitude}{" "}
+                  {location && location.longitude}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
           <View style={{ marginVertical: 10, alignSelf: "center", width: 320 }}>
             <Text
               style={{
@@ -449,7 +495,14 @@ export default function LogEvent(navigation) {
             </Text>
             <TextInput
               multiline
-              style={styles.input}
+              style={{
+                borderWidth: 1,
+                borderColor: "#777",
+                padding: 10,
+                margin: 10,
+                width: 300,
+                height: 65,
+              }}
               placeholder="Write a description for more info..."
             />
           </View>
@@ -466,20 +519,43 @@ export default function LogEvent(navigation) {
               Places Available:
             </Text>
             <TextInput
-              style={styles.input}
+              style={{
+                borderWidth: 1,
+                borderColor: "#777",
+                padding: 10,
+                margin: 10,
+                width: 300,
+                height: 65,
+              }}
               keyboardType="numeric"
               placeholder="Select number of places are available..."
             />
           </View>
-          <Map />
+
+          <TouchableOpacity style={styles.loginButton}>
+            <Text
+              style={{
+                alignSelf: "center",
+                fontSize: 17,
+                flex: 1,
+                fontWeight: "bold",
+              }}
+            >
+              Log Event
+            </Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
-      <ModalComponent
-        item={crag}
+      <Map
+        setCoordinates={handleLocation}
         setModalVisible={() => {
           setModalVisible(!modalVisible);
         }}
         modalVisible={modalVisible}
+      />
+      {/* <ModalComponent
+        item={crag}
+        
       />
       <ModalComponent
         item={sector}
@@ -487,7 +563,7 @@ export default function LogEvent(navigation) {
           setModalVisible1(!modalVisible1);
         }}
         modalVisible={modalVisible1}
-      />
+      /> */}
     </View>
   );
 }

@@ -1,15 +1,28 @@
 import React, { useState } from "react";
+import { styles } from "../styles";
 import MapView, { Callout, Marker } from "react-native-maps";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Modal,
+  TouchableOpacity,
+} from "react-native";
 
-export default function Map() {
+export default function Map(prop) {
   const [pin, setPin] = useState({
     latitude: 33.890536626710244,
     longitude: 35.489303601542964,
   });
 
   return (
-    <View>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={prop.modalVisible}
+      onRequestClose={prop.setModalVisible}
+    >
       <MapView
         style={{ height: 300 }}
         initialRegion={{
@@ -30,6 +43,7 @@ export default function Map() {
                 latitude: e.nativeEvent.coordinate.latitude,
                 longitude: e.nativeEvent.coordinate.longitude,
               });
+            prop.setCoordinates(e && e.nativeEvent.coordinate);
           }}
         >
           <Callout>
@@ -37,6 +51,21 @@ export default function Map() {
           </Callout>
         </Marker>
       </MapView>
-    </View>
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={() => prop.setModalVisible(false)}
+      >
+        <Text
+          style={{
+            alignSelf: "center",
+            fontSize: 17,
+            flex: 1,
+            fontWeight: "bold",
+          }}
+        >
+          close
+        </Text>
+      </TouchableOpacity>
+    </Modal>
   );
 }
