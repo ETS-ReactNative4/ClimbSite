@@ -30,6 +30,7 @@ export default function LogEvent(navigation) {
   const [location, setLocation] = useState();
   const [crag, setCrag] = useState("");
   const [authState, setAuthState] = useContext(AuthContext);
+  const [status, setStatus] = useState(null);
 
   const [data, setData] = useState({
     crag: "",
@@ -136,8 +137,7 @@ export default function LogEvent(navigation) {
         data.total_seats
       )
     ) {
-      // setError("empty");
-      console.warn("field not available");
+      setStatus("empty");
     } else {
       try {
         const response = await axios.post(url, data, {
@@ -145,7 +145,9 @@ export default function LogEvent(navigation) {
         });
         const data_received = await response.data;
         console.warn(data_received);
+        setStatus("success");
       } catch (error) {
+        setStatus("fail");
         console.warn(error);
         // setError("wrong");
       }
@@ -164,7 +166,7 @@ export default function LogEvent(navigation) {
         <StatusBar />
       </SafeAreaView>
       <ProfileHeader navigation={navigation} title="Log Event" />
-      <ScrollView style={{ marginBottom: 5, marginTop: 15 }}>
+      <ScrollView style={{ marginBottom: 5, marginTop: 10 }}>
         <View
           style={{
             padding: 10,
@@ -174,6 +176,46 @@ export default function LogEvent(navigation) {
             marginTop: 5,
           }}
         >
+          {status == "success" ? (
+            <View
+              style={{
+                alignSelf: "center",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <AntDesign name="checkcircle" size={20} color="#1B8B6A" />
+              <Text style={{ fontSize: 16, marginLeft: 5 }}>Event Created</Text>
+            </View>
+          ) : status == "fail" ? (
+            <View
+              style={{
+                alignSelf: "center",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <AntDesign name="closecircle" size={20} color="#A05B5B" />
+              <Text style={{ fontSize: 16, marginLeft: 5 }}>
+                You already created an event in this date
+              </Text>
+            </View>
+          ) : status == "empty" ? (
+            <View
+              style={{
+                alignSelf: "center",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <AntDesign name="closecircle" size={20} color="#A05B5B" />
+              <Text style={{ fontSize: 16, marginLeft: 5 }}>Empty Field</Text>
+            </View>
+          ) : (
+            <View></View>
+          )}
+
           <View style={{ marginTop: -15 }}>
             <SelectDropdown
               data={crag && crag}
@@ -195,7 +237,7 @@ export default function LogEvent(navigation) {
               buttonStyle={{
                 backgroundColor: "#2F3F4A",
                 borderRadius: 15,
-                padding: 20,
+                padding: 10,
                 width: 320,
                 height: 60,
                 alignSelf: "center",
@@ -279,7 +321,7 @@ export default function LogEvent(navigation) {
                 buttonStyle={{
                   backgroundColor: "#2F3F4A",
                   borderRadius: 15,
-                  padding: 20,
+                  padding: 10,
                   width: 320,
                   height: 60,
                   alignSelf: "center",
