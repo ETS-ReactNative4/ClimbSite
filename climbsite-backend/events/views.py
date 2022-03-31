@@ -93,11 +93,11 @@ class JoinEvent(generics.CreateAPIView):
 class CheckIfJoined(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
+    def get(self, request, *args, **kwargs):
         user = self.request.user
-        event = Event.objects.get(id=request.data.get('event'))
+        event = Event.objects.get(id= self.request.query_params.get('event_id'))
         if(event.user == user):
-            return Response({'message':'Delete'})
+            return Response({'message':'delete'})
         try:
             Attendee.objects.get(user = user , event = event)
             return Response({'message':'unjoin'})
