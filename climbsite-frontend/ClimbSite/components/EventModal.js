@@ -1,12 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { styles } from "../styles";
 import { Text, View, TouchableOpacity, Modal, FlatList } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
 import axios from "axios";
 import { AuthContext } from "../context/userContext";
+import fetch_url from "../host";
+import { useFocusEffect } from "@react-navigation/native";
 
-export default function EventModal({ setModalVisible, modalVisible, item }) {
+export default function EventModal({
+  setModalVisible,
+  modalVisible,
+  item,
+  state,
+}) {
   const { height } = useWindowDimensions();
   const [authState, setAuthState] = useContext(AuthContext);
 
@@ -17,7 +24,7 @@ export default function EventModal({ setModalVisible, modalVisible, item }) {
   const handleJoin = async () => {
     console.warn(eventId);
     const token = authState.token;
-    const url = "http://192.168.1.54:7000/api/events/join_event";
+    const url = `${fetch_url}/api/events/join_event`;
 
     // setError("empty");
 
@@ -26,12 +33,39 @@ export default function EventModal({ setModalVisible, modalVisible, item }) {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data_received = await response.data;
-      console.warn(data_received);
+      console.warn(await data_received);
+      // checkEvent;
     } catch (error) {
       console.warn(error);
       // setError("wrong");
     }
   };
+
+  // async function checkEvent() {
+  //   console.warn(item.id);
+  //   const token = authState.token;
+  //   const url = `${fetch_url}/api/events/check_event_status?event_id=${item.id}`;
+
+  //   try {
+  //     const response = await axios.get(url, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+  //     const data_received = await response.data;
+
+  //     if (data_received.message === "delete") {
+  //       setState("delete");
+  //     } else if (data_received.message === "join") {
+  //       setState("join");
+  //     } else if (data_received.message === "unjoin") {
+  //       setState("unjoin");
+  //     }
+  //   } catch (error) {
+  //     console.warn(error);
+  //   }
+  // }
+  // useEffect(() => {
+  //   checkEvent();
+  // }, [modalVisible]);
 
   return (
     <Modal
@@ -77,16 +111,42 @@ export default function EventModal({ setModalVisible, modalVisible, item }) {
               marginTop: 20,
             }}
           >
-            <Text
-              style={{
-                alignSelf: "center",
-                fontSize: 17,
-                flex: 1,
-                fontWeight: "bold",
-              }}
-            >
-              Join
-            </Text>
+            {state === "delete" ? (
+              <Text
+                style={{
+                  alignSelf: "center",
+                  fontSize: 17,
+                  flex: 1,
+                  fontWeight: "bold",
+                }}
+              >
+                Delete
+              </Text>
+            ) : state === "join" ? (
+              <Text
+                style={{
+                  alignSelf: "center",
+                  fontSize: 17,
+                  flex: 1,
+                  fontWeight: "bold",
+                }}
+              >
+                Join
+              </Text>
+            ) : state === "unjoin" ? (
+              <Text
+                style={{
+                  alignSelf: "center",
+                  fontSize: 17,
+                  flex: 1,
+                  fontWeight: "bold",
+                }}
+              >
+                Unjoin
+              </Text>
+            ) : (
+              <></>
+            )}
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
