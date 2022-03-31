@@ -45,13 +45,15 @@ class AddFollower(generics.CreateAPIView):
 
         try:
             UserFollowing.objects.get(follower = user ,following=following)
-            return Response({'status':status.HTTP_400_BAD_REQUEST})
-        except UserFollowing.DoesNotExist:
+            follow = UserFollowing.objects.filter(follower=user,following=following)
+            follow.delete()
+            return Response({'status':status.HTTP_200_OK, 'message':'unfollowed'})
 
+        except UserFollowing.DoesNotExist:
             follow = UserFollowing.objects.create(follower=user,
                              following=following)
             UserFollowing.save(follow)
-            return Response({'status':status.HTTP_200_OK})
+            return Response({'status':status.HTTP_200_OK, 'message':'followed'})
 
 class Unfollow(generics.DestroyAPIView):
     permission_classes = [IsAuthenticated]
@@ -175,12 +177,15 @@ class AddToFavorites(generics.CreateAPIView):
 
         try:
             Favorite.objects.get(user = user , crag = crag)
-            return Response({'status':status.HTTP_400_BAD_REQUEST})
+            favorite = Favorite.objects.filter(user = user , crag = crag)
+            favorite.delete()
+            return Response({'status':status.HTTP_200_OK,'message':'unfavorite'})
+          
         except Favorite.DoesNotExist:
 
             favorite = Favorite.objects.create(user = user , crag = crag)
             Favorite.save(favorite)
-            return Response({'status':status.HTTP_200_OK})
+            return Response({'status':status.HTTP_200_OK,'message':'favorite'})
 
 
 class CheckIfFavorite(generics.CreateAPIView):

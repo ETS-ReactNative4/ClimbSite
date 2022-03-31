@@ -12,6 +12,7 @@ urlpatterns = [
     path('follow', AddFollower.as_view()),
     path('unfollow', Unfollow.as_view()),
     path('favorite', AddToFavorites.as_view()),
+    path('if_favorite', CheckIfFavorite.as_view()),
     path('favorite_check', CheckIfFavorite.as_view()),
     path('delete_favorite', DeleteFromFavorites.as_view()),
     path('get_favorites', FavoriteList.as_view()),
