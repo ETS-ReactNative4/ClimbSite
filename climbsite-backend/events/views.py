@@ -51,38 +51,60 @@ class JoinEvent(generics.CreateAPIView):
         print(event.user)
         if(event.user == user):
             return Response({'status':status.HTTP_400_BAD_REQUEST,'message':'you created this event'})
-        if(event.current_seats >= event.total_seats):
-            return Response({'status':status.HTTP_400_BAD_REQUEST, 'message':'full'})
-        try:
-            Attendee.objects.get(user = user , event = event)
-            return Response({'status':status.HTTP_400_BAD_REQUEST,'message':'you already joined'})
 
-        except Attendee.DoesNotExist:
-            join = Attendee.objects.create(user = user , event = event)
-            Attendee.save(join)
-            event.incerement_seats()
-            event.save()
-            return Response({'status':status.HTTP_200_OK})
-            
-class UnjoinEvent(generics.DestroyAPIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        user = self.request.user
-        event = Event.objects.get(id=request.data.get('event'))
-        if(event.user == user):
-            event.delete()
-            return Response({'status':status.HTTP_200_OK,'message':'event deleted'})
         try:
             Attendee.objects.get(user = user , event = event)
             unjoin = Attendee.objects.filter(user = user , event = event)
             unjoin.delete()
             event.decerement_seats()
             event.save()
-            return Response({'status':status.HTTP_200_OK})
+       
+            return Response({'status':status.HTTP_200_OK,'message':'you unjoined the event'})
+
+        except Attendee.DoesNotExist:
+            if(event.current_seats >= event.total_seats):
+                return Response({'status':status.HTTP_400_BAD_REQUEST, 'message':'full'})
+            join = Attendee.objects.create(user = user , event = event)
+            Attendee.save(join)
+            event.incerement_seats()
+            event.save()
+            return Response({'status':status.HTTP_200_OK,'message':'you joined the event'})
+            
+# class UnjoinEvent(generics.DestroyAPIView):
+#     permission_classes = [IsAuthenticated]
+
+#     def post(self, request):
+#         user = self.request.user
+#         event = Event.objects.get(id=request.data.get('event'))
+#         if(event.user == user):
+#             event.delete()
+#             return Response({'status':status.HTTP_200_OK,'message':'event deleted'})
+#         try:
+#             Attendee.objects.get(user = user , event = event)
+#             unjoin = Attendee.objects.filter(user = user , event = event)
+#             unjoin.delete()
+#             event.decerement_seats()
+#             event.save()
+#             return Response({'status':status.HTTP_200_OK})
+            
+#         except Attendee.DoesNotExist:
+#             return Response({'status':status.HTTP_400_BAD_REQUEST,'message':'you are not joining the event'})
+
+class CheckIfJoined(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = self.request.user
+        event = Event.objects.get(id=request.data.get('event'))
+        if(event.user == user):
+            return Response({'message':'Delete'})
+        try:
+            Attendee.objects.get(user = user , event = event)
+            return Response({'message':'unjoin'})
             
         except Attendee.DoesNotExist:
-            return Response({'status':status.HTTP_400_BAD_REQUEST,'message':'you are not joining the event'})
+            return Response({'message':'join'})
+
 
 class GetAttendees(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
@@ -91,5 +113,6 @@ class GetAttendees(generics.ListAPIView):
 
     def get_queryset(self):
 
-        event = self.request.data.get('event')
-        return super().get_queryset().filter( event = event)
+        
+        user = self.request.user
+        return super().get_queryset().filter(  user = user)
