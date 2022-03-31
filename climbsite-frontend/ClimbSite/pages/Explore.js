@@ -11,6 +11,7 @@ import {
   StyleSheet,
   Pressable,
   Image,
+  useFocusEffect,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
@@ -18,6 +19,7 @@ import MapView, { Callout, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as SecureStore from "expo-secure-store";
 import { AuthContext } from "../context/userContext";
 import { CragContext } from "../context/cragContext";
+import fetch_url from "../host";
 
 export default function Explore({ navigation }) {
   const { height } = useWindowDimensions();
@@ -27,7 +29,7 @@ export default function Explore({ navigation }) {
   const [authState, setAuthState] = useContext(AuthContext);
 
   async function getInfo() {
-    const url = "http://192.168.1.54:7000/api/crags/";
+    const url = `${fetch_url}/api/crags/`;
     try {
       const response = await axios.get(url);
       const data_received = await response.data;
@@ -43,7 +45,7 @@ export default function Explore({ navigation }) {
 
   async function getEvents() {
     const token = authState.token;
-    const url = "http://192.168.1.54:7000/api/events/get_attendees";
+    const url = `${fetch_url}/api/events/get_attendees`;
 
     try {
       const response = await axios.get(url, {
@@ -57,7 +59,8 @@ export default function Explore({ navigation }) {
   }
   useEffect(() => {
     getEvents();
-  });
+  }, []);
+
   const [event, setEvent] = useState();
 
   return (

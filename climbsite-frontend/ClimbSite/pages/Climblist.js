@@ -16,13 +16,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import ProfileHeader from "../components/ProfileHeader";
 import EventContainer from "../components/EventContainer";
 import ClimblistRoutes from "../components/ClimblistRoutes";
+import fetch_url from "../host";
 
 export default function Climblist({ navigation }) {
   const { height } = useWindowDimensions();
   const [authState, setAuthState] = useContext(AuthContext);
   const [route, setRoute] = useState();
 
-  const url = "http://192.168.1.54:7000/api/climbers/climblist";
+  const url = `${fetch_url}/api/climbers/climblist`;
   async function getClimblist() {
     const token = authState.token;
 
@@ -50,7 +51,19 @@ export default function Climblist({ navigation }) {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
-      <ClimblistRoutes data={route && route} />
+      {route && !route.length == 0 ? (
+        <ClimblistRoutes data={route && route} />
+      ) : (
+        <Text
+          style={{
+            marginVertical: 20,
+            fontSize: 20,
+            alignSelf: "center",
+          }}
+        >
+          No Routes to climb yet
+        </Text>
+      )}
     </View>
   );
 }

@@ -16,11 +16,12 @@ import ProfileHeader from "../components/ProfileHeader";
 import ImagePicker from "react-native-image-picker";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Posts from "../components/Posts";
+import fetch_url from "../host";
 
 export default function ProfilePosts({ navigation }) {
   const { height } = useWindowDimensions();
   const [authState, setAuthState] = useContext(AuthContext);
-  const url = "http://192.168.1.54:7000/api/climbers/get_my_ascents";
+  const url = `${fetch_url}/api/climbers/get_my_ascents`;
   async function getMyPosts() {
     const token = authState.token;
 
@@ -46,7 +47,19 @@ export default function ProfilePosts({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Posts navigation={navigation} data={posts} />
+      {posts && !posts.length == 0 ? (
+        <Posts navigation={navigation} data={posts} />
+      ) : (
+        <Text
+          style={{
+            marginVertical: 20,
+            fontSize: 20,
+            alignSelf: "center",
+          }}
+        >
+          No Posts yet
+        </Text>
+      )}
     </View>
   );
 }

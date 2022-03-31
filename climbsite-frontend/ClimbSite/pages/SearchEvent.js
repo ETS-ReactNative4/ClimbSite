@@ -14,13 +14,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import ProfileHeader from "../components/ProfileHeader";
 import EventContainer from "../components/EventContainer";
 import { AuthContext } from "../context/userContext";
+import fetch_url from "../host";
 
 export default function SearchEvent({ navigation }) {
   const [authState, setAuthState] = useContext(AuthContext);
 
   async function getEvents() {
     const token = authState.token;
-    const url = "http://192.168.1.54:7000/api/events/";
+    const url = `${fetch_url}/api/events/`;
 
     try {
       const response = await axios.get(url, {
@@ -43,7 +44,7 @@ export default function SearchEvent({ navigation }) {
         <StatusBar />
       </SafeAreaView>
       <ProfileHeader navigation={navigation} title="All Events" />
-      <View style={{ marginTop: 10 }}>
+      <View style={{ marginBottom: 100, marginTop: 5 }}>
         <EventContainer data={event && event} />
       </View>
     </View>

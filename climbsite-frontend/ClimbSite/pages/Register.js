@@ -11,11 +11,14 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { AntDesign } from "@expo/vector-icons";
+import fetch_url from "../host";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function Register({ navigation }) {
   const { height } = useWindowDimensions();
   const [error, setError] = useState(null);
-  const url = "http://192.168.1.54:7000/api/climbers/register";
+  const url = `${fetch_url}/api/climbers/register`;
   const [data, setData] = useState({
     email: "",
     full_name: "",
@@ -51,32 +54,26 @@ export default function Register({ navigation }) {
 
   async function handleSubmit() {
     if (!(data.email && data.password && data.full_name)) {
-      console.warn("empty");
       setError("empty");
     } else if (data.password.length < 8) {
       setError("weak");
-      console.warn("weak");
     } else if (!(data.password === data.confirm_password)) {
       setError("confirm");
-      console.warn("confirm");
     } else {
       const user_signup_info = {
         email: data.email,
         full_name: data.full_name,
         password: data.password,
       };
-      console.warn(user_signup_info);
 
       try {
         const response = await axios.post(url, user_signup_info);
         const data_received = await response.data;
         console.log(data_received);
         navigation.navigate("Login");
-        console.warn("loggedin");
       } catch (error) {
         console.log(error);
         setError("already exist");
-        console.warn("already exist");
       }
     }
   }
@@ -86,24 +83,83 @@ export default function Register({ navigation }) {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
-      <Text style={[styles.signupHeader, { height: height * 0.1 }]}>
+      <Text style={[styles.signupHeader, { height: height * 0.07 }]}>
         <Text style={{ color: "#1B8B6A" }}>Create</Text> Account
       </Text>
+      {error === "empty" ? (
+        <View
+          style={{
+            alignSelf: "center",
+            flexDirection: "row",
+            justifyContent: "center",
+            marginBottom: 5,
+          }}
+        >
+          <AntDesign name="closecircle" size={20} color="#A05B5B" />
+          <Text style={{ fontSize: 16, marginLeft: 5 }}>
+            One of the required field is empty.
+          </Text>
+        </View>
+      ) : error === "weak" ? (
+        <View
+          style={{
+            alignSelf: "center",
+            flexDirection: "row",
+            justifyContent: "center",
+            marginBottom: 5,
+          }}
+        >
+          <AntDesign name="closecircle" size={20} color="#A05B5B" />
+          <Text style={{ fontSize: 16, marginLeft: 5 }}>
+            Your password is weak.
+          </Text>
+        </View>
+      ) : error === "confirm" ? (
+        <View
+          style={{
+            alignSelf: "center",
+            flexDirection: "row",
+            justifyContent: "center",
+            marginBottom: 5,
+          }}
+        >
+          <AntDesign name="closecircle" size={20} color="#A05B5B" />
+          <Text style={{ fontSize: 16, marginLeft: 5 }}>
+            Your password doesnt match.
+          </Text>
+        </View>
+      ) : error === "already exist" ? (
+        <View
+          style={{
+            alignSelf: "center",
+            flexDirection: "row",
+            justifyContent: "center",
+            marginBottom: 5,
+          }}
+        >
+          <AntDesign name="closecircle" size={20} color="#A05B5B" />
+          <Text style={{ fontSize: 16, marginLeft: 5 }}>
+            This user already exists.
+          </Text>
+        </View>
+      ) : (
+        <Text></Text>
+      )}
       <View style={styles.inputRegister}>
         <Text style={styles.headerinput}>Sign Up </Text>
-        <Text style={styles.inputtext}>Enter your email: </Text>
+        <Text style={styles.inputtext}>Email: </Text>
         <TextInput
           style={styles.input}
           placeholder="Email..."
           onChangeText={(value) => handleEmail(value)}
         />
-        <Text style={styles.inputtext}>Enter your full name: </Text>
+        <Text style={styles.inputtext}>Full Name: </Text>
         <TextInput
           style={styles.input}
           placeholder="Full Name..."
           onChangeText={(value) => handleName(value)}
         />
-        <Text style={styles.inputtext}>Enter your password: </Text>
+        <Text style={styles.inputtext}>Password: </Text>
         <TextInput
           style={styles.input}
           placeholder="Password..."
@@ -117,6 +173,50 @@ export default function Register({ navigation }) {
           onChangeText={(value) => handleConfirmPassword(value)}
           secureTextEntry={true}
         />
+        <TouchableOpacity
+          style={{
+            width: 320,
+            height: 60,
+            backgroundColor: "#2F3F4A",
+            padding: 10,
+            borderRadius: 15,
+            alignSelf: "center",
+            marginVertical: 10,
+            borderBottomWidth: 1,
+            borderBottomColor: "rgba(255, 255, 255, 0.25)",
+            flexDirection: "row",
+          }}
+          onPress={() => {
+            setModalVisible(true);
+          }}
+        >
+          <View style={{ flex: 0.9 }}>
+            <Text
+              style={{
+                color: "white",
+                fontWeight: "bold",
+                fontSize: 18,
+              }}
+            >
+              Select Departure Location:
+            </Text>
+            <Text
+              style={{
+                textAlign: "left",
+
+                fontSize: 12,
+              }}
+            >
+              {/* {location && location.latitude} {location && location.longitude} */}
+            </Text>
+          </View>
+          <MaterialIcons
+            style={{ flex: 0.1, marginRight: 7 }}
+            name="add-location-alt"
+            size={24}
+            color="black"
+          />
+        </TouchableOpacity>
         <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
           <Text
             style={{
@@ -129,10 +229,13 @@ export default function Register({ navigation }) {
             Sign Up
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-          <Text style={styles.noaccount}>Already have an account? Login.</Text>
-        </TouchableOpacity>
       </View>
+      <TouchableOpacity
+        style={{ alignSelf: "center" }}
+        onPress={() => navigation.navigate("Login")}
+      >
+        <Text style={styles.noaccount}>Already have an account? Login.</Text>
+      </TouchableOpacity>
     </View>
   );
 }
