@@ -18,11 +18,12 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import Posts from "../components/Posts";
 import TopTabProfile from "../navigations/TopProfileNavigator";
 import { AuthContext } from "../context/userContext";
+import fetch_url from "../host";
 
 export default function Profile({ navigation }) {
   const { height } = useWindowDimensions();
   const [authState, setAuthState] = useContext(AuthContext);
-  const url = "http://192.168.1.54:7000/api/climbers/user_info";
+  const url = `${fetch_url}/api/climbers/user_info`;
   async function getInfo() {
     const token = authState.token;
 
@@ -37,8 +38,7 @@ export default function Profile({ navigation }) {
     }
   }
 
-  const url_ascents =
-    "http://192.168.1.54:7000/api/climbers/get_number_ascents";
+  const url_ascents = `${fetch_url}/api/climbers/get_number_ascents`;
   async function getNumberOfAscents() {
     const token = authState.token;
 
@@ -52,7 +52,7 @@ export default function Profile({ navigation }) {
       console.warn(error);
     }
   }
-  const url_followings = "http://192.168.1.54:7000/api/climbers/followings";
+  const url_followings = `${fetch_url}/api/climbers/followings`;
   async function getFollowings() {
     const token = authState.token;
 
@@ -66,7 +66,7 @@ export default function Profile({ navigation }) {
       console.warn(error);
     }
   }
-  const url_followers = "http://192.168.1.54:7000/api/climbers/followers";
+  const url_followers = `${fetch_url}/api/climbers/followers`;
   async function getFollowers() {
     const token = authState.token;
 

@@ -16,6 +16,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { CragContext } from "../context/cragContext";
 import { AuthContext } from "../context/userContext";
 import axios from "axios";
+import fetch_url from "../host";
 
 export default function Info() {
   const { height } = useWindowDimensions();
@@ -25,8 +26,7 @@ export default function Info() {
 
   async function addToFavorites(item_id) {
     const token = authState.token;
-    const url_add_to_favorites =
-      "http://192.168.1.54:7000/api/climbers/favorite";
+    const url_add_to_favorites = `${fetch_url}/api/climbers/favorite`;
     const crag_id = {
       crag: item_id,
     };
@@ -45,7 +45,7 @@ export default function Info() {
 
   async function checkFavorite() {
     const token = authState.token;
-    const check_favorite = `http://192.168.1.54:7000/api/climbers/if_favorite?crag_id=${cragState.id}`;
+    const check_favorite = `${fetch_url}/api/climbers/if_favorite?crag_id=${cragState.id}`;
 
     try {
       const response = await axios.get(check_favorite, {

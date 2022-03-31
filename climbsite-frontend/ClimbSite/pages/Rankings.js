@@ -15,12 +15,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
 import axios from "axios";
 import { AuthContext } from "../context/userContext";
+import fetch_url from "../host";
 
 export default function Rankings({ navigation }) {
   const { height } = useWindowDimensions();
   const [authState, setAuthState] = useContext(AuthContext);
 
-  const url = "http://192.168.1.54:7000/api/climbers/rankings";
+  const url = `${fetch_url}/api/climbers/rankings`;
   async function getInfo() {
     const token = authState.token;
 

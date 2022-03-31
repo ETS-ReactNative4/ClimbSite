@@ -15,6 +15,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import Rating from "react-native-rating";
 import { AuthContext } from "../context/userContext";
 import axios from "axios";
+import fetch_url from "../host";
 
 export default function AscentModal({ setModalVisible, modalVisible, item }) {
   const images = {
@@ -60,7 +61,7 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
     handleRouteId(item && item.id);
 
     const token = authState.token;
-    const url = "http://192.168.1.54:7000/api/climbers/logascent";
+    const url = `${fetch_url}/api/climbers/logascent`;
     if (!(data.route && data.tries && data.comment && data.rating)) {
       // setError("empty");
     } else {

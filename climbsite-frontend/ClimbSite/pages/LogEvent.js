@@ -20,6 +20,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import axios from "axios";
 import { AuthContext } from "../context/userContext";
+import fetch_url from "../host";
 
 export default function LogEvent(navigation) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -41,7 +42,7 @@ export default function LogEvent(navigation) {
     longitude: "",
     latitude: "",
   });
-  const url = "http://192.168.1.54:7000/api/crags/";
+  const url = `${fetch_url}/api/crags/`;
   async function getInfo() {
     try {
       const response = await axios.get(url);
@@ -57,7 +58,7 @@ export default function LogEvent(navigation) {
   }, []);
 
   async function getSectors(id) {
-    const url_sector = `http://192.168.1.54:7000/api/crags/sectors?crag_id=${id}`;
+    const url_sector = `${fetch_url}/api/crags/sectors?crag_id=${id}`;
     try {
       const response = await axios.get(url_sector);
       const data_received = await response.data;
@@ -125,7 +126,7 @@ export default function LogEvent(navigation) {
 
   const handleSubmit = async () => {
     const token = authState.token;
-    const url = "http://192.168.1.54:7000/api/events/log_event";
+    const url = `${fetch_url}/api/events/log_event`;
     if (
       !(
         data.crag &&

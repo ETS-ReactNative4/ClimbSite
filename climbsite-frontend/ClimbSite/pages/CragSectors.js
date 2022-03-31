@@ -21,6 +21,7 @@ import ProfileHeader from "../components/ProfileHeader";
 import { CragContext } from "../context/cragContext";
 import { AuthContext } from "../context/userContext";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import fetch_url from "../host";
 
 export default function CragSectors({ navigation }) {
   const { height } = useWindowDimensions();
@@ -30,7 +31,7 @@ export default function CragSectors({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const selectedCragId = cragState.id;
 
-  const url = `http://192.168.1.54:7000/api/crags/sectors?crag_id=${selectedCragId}`;
+  const url = `${fetch_url}/api/crags/sectors?crag_id=${selectedCragId}`;
   async function getSectors() {
     try {
       const response = await axios.get(url);
@@ -46,7 +47,7 @@ export default function CragSectors({ navigation }) {
   const [sector, setSector] = useState();
 
   async function getRoute(sector_id) {
-    const url_route = `http://192.168.1.54:7000/api/crags/routes?sector_id=${sector_id}`;
+    const url_route = `${fetch_url}/api/crags/routes?sector_id=${sector_id}`;
     try {
       const response = await axios.get(url_route);
       const data_received = await response.data;
@@ -62,8 +63,7 @@ export default function CragSectors({ navigation }) {
   async function addToClimblist(item_id) {
     console.warn(item_id);
     const token = authState.token;
-    const url_add_to_climblist =
-      "http://192.168.1.54:7000/api/climbers/add_to_climblist";
+    const url_add_to_climblist = `${fetch_url}/api/climbers/add_to_climblist`;
     const route_id = {
       route: item_id,
     };

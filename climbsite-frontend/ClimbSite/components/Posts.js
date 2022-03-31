@@ -44,7 +44,16 @@ export default function Posts({ navigation, data, image }) {
             </View>
             <View style={{ flex: 0.3 }}>
               <Text style={{ color: "white" }}>{item.date} </Text>
-              <View style={{ marginVertical: 8 }}>{star}</View>
+              <View
+                style={{
+                  marginVertical: 8,
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                {star}
+                <Text style={{ marginLeft: 3 }}>{item.rating}/5</Text>
+              </View>
               <Text style={{ fontSize: 14, fontWeight: "100", color: "white" }}>
                 Tries: {item.tries}
               </Text>

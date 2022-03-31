@@ -7,6 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import EventContainer from "../components/EventContainer";
 import { CragContext } from "../context/cragContext";
 import { AuthContext } from "../context/userContext";
+import fetch_url from "../host";
 
 export default function CragEvents() {
   const [cragState, setCragState] = useContext(CragContext);
@@ -14,9 +15,7 @@ export default function CragEvents() {
 
   async function getEvents() {
     const token = authState.token;
-    const url = `http://192.168.1.54:7000/api/events/?crag_id=${
-      cragState && cragState.id
-    }`;
+    const url = `${fetch_url}/api/events/?crag_id=${cragState && cragState.id}`;
 
     try {
       const response = await axios.get(url, {

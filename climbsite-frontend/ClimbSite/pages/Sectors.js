@@ -16,6 +16,7 @@ import SectorContainer from "../components/SectorContainer";
 import ProfileHeader from "../components/ProfileHeader";
 import { CragContext } from "../context/cragContext";
 import axios from "axios";
+import fetch_url from "../host";
 
 export default function Sectors({ navigation }) {
   const { height } = useWindowDimensions();
@@ -23,7 +24,7 @@ export default function Sectors({ navigation }) {
 
   const selectedCragId = cragState.id;
 
-  const url = `http://192.168.1.54:7000/api/crags/sectors?crag_id=${selectedCragId}`;
+  const url = `${fetch_url}/api/crags/sectors?crag_id=${selectedCragId}`;
   async function getSectors() {
     try {
       const response = await axios.get(url);

@@ -17,6 +17,7 @@ import { FlatList } from "react-native-gesture-handler";
 import ProfileHeader from "../components/ProfileHeader";
 import { CragContext } from "../context/cragContext";
 import { AuthContext } from "../context/userContext";
+import fetch_url from "../host";
 
 export default function LogClimb({ navigation }) {
   const { height } = useWindowDimensions();
@@ -24,7 +25,7 @@ export default function LogClimb({ navigation }) {
   const [authState, setAuthState] = useContext(AuthContext);
   const token = authState.token;
 
-  const url = "http://192.168.1.54:7000/api/crags/";
+  const url = `${fetch_url}/api/crags/`;
   async function getCrag() {
     try {
       const response = await axios.get(url);
@@ -40,7 +41,7 @@ export default function LogClimb({ navigation }) {
   const [crag, setCrag] = useState();
 
   async function getFavoriteCrags() {
-    const url_fav = "http://192.168.1.54:7000/api/climbers/get_favorites";
+    const url_fav = `${fetch_url}/api/climbers/get_favorites`;
 
     try {
       const response = await axios.get(url_fav, {
