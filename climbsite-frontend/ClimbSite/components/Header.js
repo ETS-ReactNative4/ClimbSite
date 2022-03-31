@@ -13,11 +13,6 @@ import { FontAwesome5 } from "@expo/vector-icons";
 export default function Header({ navigation }) {
   return (
     <View style={styles.header}>
-      <View style={{ alignSelf: "center", marginLeft: 15 }}>
-        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-          <FontAwesome5 name="user-circle" size={30} color="black" />
-        </TouchableOpacity>
-      </View>
       <Text
         style={{
           alignSelf: "center",
@@ -25,11 +20,16 @@ export default function Header({ navigation }) {
           fontWeight: "bold",
           flex: 1,
           textAlign: "center",
-          marginRight: 45,
+          marginLeft: 45,
         }}
       >
         <Text style={{ color: "#1B8B6A" }}>Climb</Text>Site
       </Text>
+      <View style={{ alignSelf: "center", marginRight: 15 }}>
+        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+          <FontAwesome5 name="user-circle" size={30} color="black" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
