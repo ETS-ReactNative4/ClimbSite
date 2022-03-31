@@ -21,7 +21,7 @@ export default function Info() {
   const { height } = useWindowDimensions();
   const [cragState, setCragState] = useContext(CragContext);
   const [authState, setAuthState] = useContext(AuthContext);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState();
 
   async function addToFavorites(item_id) {
     const token = authState.token;
@@ -36,12 +36,33 @@ export default function Info() {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data_received = await response.data;
-      console.warn(data_received);
+
+      checkFavorite();
     } catch (error) {
       console.warn(error);
     }
   }
 
+  async function checkFavorite() {
+    const token = authState.token;
+    const check_favorite = `http://192.168.1.54:7000/api/climbers/if_favorite?crag_id=${cragState.id}`;
+
+    try {
+      const response = await axios.get(check_favorite, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data_received = await response.data;
+
+      if (data_received.message === "is favorite") {
+        setIsFavorite(true);
+      } else if (data_received.message === "not favorite") {
+        setIsFavorite(false);
+      }
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+  checkFavorite();
   return (
     <View style={styles.container}>
       <SafeAreaView>
@@ -72,16 +93,21 @@ export default function Info() {
 
                 <TouchableOpacity
                   onPress={() => {
-                    console.warn(cragState.id);
                     addToFavorites(cragState.id);
                   }}
                   style={{ flex: 0.1 }}
                 >
-                  <MaterialIcons
-                    name="favorite-border"
-                    size={24}
-                    color="black"
-                  />
+                  {isFavorite === true ? (
+                    <MaterialIcons name="favorite" size={24} color="black" />
+                  ) : isFavorite === false ? (
+                    <MaterialIcons
+                      name="favorite-border"
+                      size={24}
+                      color="black"
+                    />
+                  ) : (
+                    <View></View>
+                  )}
                 </TouchableOpacity>
               </View>
               <View
