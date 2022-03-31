@@ -22,14 +22,12 @@ import { CragContext } from "../context/cragContext";
 export default function Explore({ navigation }) {
   const { height } = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedId, setSelectedId] = useState();
+  const [selectedEvent, setSelectedEvent] = useState();
   const [cragState, setCragState] = useContext(CragContext);
   const [authState, setAuthState] = useContext(AuthContext);
 
-  const url = "http://192.168.1.54:7000/api/crags/";
   async function getInfo() {
-    const token = authState.token;
-
+    const url = "http://192.168.1.54:7000/api/crags/";
     try {
       const response = await axios.get(url);
       const data_received = await response.data;
@@ -42,6 +40,25 @@ export default function Explore({ navigation }) {
     getInfo();
   }, []);
   const [crag, setCrag] = useState();
+
+  async function getEvents() {
+    const token = authState.token;
+    const url = "http://192.168.1.54:7000/api/events/get_attendees";
+
+    try {
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data_received = await response.data;
+      setEvent(data_received);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+  useEffect(() => {
+    getEvents();
+  });
+  const [event, setEvent] = useState();
 
   return (
     <View
@@ -94,6 +111,24 @@ export default function Explore({ navigation }) {
                     longitude: parseFloat(item.longitude),
                   }}
                   title={item.name}
+                />
+              </View>
+            );
+          })}
+        {event &&
+          event.map((item) => {
+            return (
+              <View key={item.id}>
+                <MapView.Marker
+                  onPress={() => {
+                    // setModalVisible(true);
+                  }}
+                  pinColor="purple"
+                  coordinate={{
+                    latitude: parseFloat(item.event.latitude),
+                    longitude: parseFloat(item.event.longitude),
+                  }}
+                  title={item.event.user.full_name}
                 />
               </View>
             );
