@@ -236,15 +236,20 @@ class AddToClimbList(generics.CreateAPIView):
     def post(self, request):
         user = self.request.user
         route = Route.objects.get(id=request.data.get('route'))
-
         try:
-            ClimbList.objects.get(user = user , route = route)
-            return Response({'status':status.HTTP_400_BAD_REQUEST})
-        except ClimbList.DoesNotExist:
+            if (Ascending.objects.get(user = user , route = route)):
 
-            list = ClimbList.objects.create(user = user , route = route)
-            ClimbList.save(list)
-            return Response({'status':status.HTTP_200_OK})
+                return Response({'status':status.HTTP_400_BAD_REQUEST,'message':'already climbed'})
+        except:
+
+            try:
+                ClimbList.objects.get(user = user , route = route)
+                return Response({'status':status.HTTP_400_BAD_REQUEST,'message':'already in list'})
+            except ClimbList.DoesNotExist:
+
+                list = ClimbList.objects.create(user = user , route = route)
+                ClimbList.save(list)
+                return Response({'status':status.HTTP_200_OK})
 
 
 class GetClimbList(generics.ListAPIView):
