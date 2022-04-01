@@ -22,7 +22,7 @@ import axios from "axios";
 import { AuthContext } from "../context/userContext";
 import fetch_url from "../host";
 
-export default function LogEvent(navigation) {
+export default function LogEvent({ navigation }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [date, setDate] = useState();
@@ -105,7 +105,6 @@ export default function LogEvent(navigation) {
 
   const handleConfirm = (value) => {
     const formattedDate = format(value, "yyyy-MM-dd");
-    console.warn(formattedDate);
     setDate(formattedDate);
 
     hideDatePicker();
@@ -345,7 +344,7 @@ export default function LogEvent(navigation) {
                       <Text
                         style={{
                           textAlign: "left",
-
+                          color: "white",
                           fontWeight: "bold",
                           fontSize: 18,
                         }}
@@ -389,7 +388,11 @@ export default function LogEvent(navigation) {
                 renderDropdownIcon={() => {
                   return (
                     <View style={{ marginRight: 15 }}>
-                      <AntDesign name="down" size={24} color="black" />
+                      <AntDesign
+                        name="down"
+                        size={24}
+                        color="rgba(255, 255, 255, 0.25)"
+                      />
                     </View>
                   );
                 }}
@@ -418,7 +421,7 @@ export default function LogEvent(navigation) {
                       <Text
                         style={{
                           textAlign: "left",
-
+                          color: "rgba(255, 255, 255, 0.25)",
                           fontWeight: "bold",
                           fontSize: 18,
                         }}
