@@ -25,72 +25,72 @@ export default function Log({ navigation }) {
       <View
         style={{
           flex: 1,
-          display: "flex",
-          alignContent: "center",
+
+          alignItems: "center",
           justifyContent: "center",
-          flexDirection: "row",
-          marginTop: height * 0.35,
+
+          // marginTop: height * 0.35,
         }}
       >
         <TouchableOpacity
           style={{
             backgroundColor: "#2F3F4A",
-            flex: 0.3,
-            width: 100,
-            margin: 10,
-            height: 100,
+
+            width: 120,
+            margin: 20,
+            height: 120,
             borderRadius: 10,
-            display: "flex",
+
             justifyContent: "center",
             alignItems: "center",
           }}
           onPress={() => navigation.navigate("LogClimb")}
         >
           <Image
-            style={{ width: 70, height: 70 }}
+            style={{ width: 90, height: 90 }}
             source={require("../assets/climbing.png")}
           ></Image>
-          <Text>Log Climb</Text>
+          <Text style={{ fontSize: 16 }}>Log Climb</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
             backgroundColor: "#2F3F4A",
-            flex: 0.3,
-            width: 100,
-            margin: 10,
-            height: 100,
+
+            width: 120,
+            margin: 20,
+            height: 120,
             borderRadius: 10,
-            display: "flex",
+
             justifyContent: "center",
             alignItems: "center",
           }}
           onPress={() => navigation.navigate("LogEvent")}
         >
           <Image
-            style={{ width: 70, height: 70 }}
+            style={{ width: 90, height: 90 }}
             source={require("../assets/calendar.png")}
           ></Image>
-          <Text>Log Event</Text>
+          <Text style={{ fontSize: 16 }}>Log Event</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
             backgroundColor: "#2F3F4A",
-            flex: 0.3,
-            width: 100,
-            margin: 10,
-            height: 100,
+
+            width: 120,
+            margin: 20,
+            height: 120,
             borderRadius: 10,
-            display: "flex",
+
             justifyContent: "center",
             alignItems: "center",
           }}
           onPress={() => navigation.navigate("SearchEvent")}
         >
           <Image
-            style={{ width: 70, height: 70 }}
+            style={{ width: 90, height: 90 }}
             source={require("../assets/schedule.png")}
           ></Image>
-          <Text>Search Event</Text>
+          <Text style={{ fontSize: 16 }}>Explore Event</Text>
         </TouchableOpacity>
       </View>
     </View>
