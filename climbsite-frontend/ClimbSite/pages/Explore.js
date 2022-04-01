@@ -38,9 +38,7 @@ export default function Explore({ navigation }) {
       console.warn(error);
     }
   }
-  useEffect(() => {
-    getInfo();
-  }, []);
+
   const [crag, setCrag] = useState();
 
   async function getEvents() {
@@ -57,8 +55,12 @@ export default function Explore({ navigation }) {
       console.warn(error);
     }
   }
+
   useEffect(() => {
-    getEvents();
+    navigation.addListener("focus", () => {
+      getEvents();
+      getInfo();
+    });
   }, []);
 
   const [event, setEvent] = useState();
