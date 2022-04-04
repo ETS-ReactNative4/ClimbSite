@@ -80,16 +80,27 @@ export default function Profile({ navigation }) {
       console.warn(error);
     }
   }
+
   useEffect(() => {
-    getInfo();
-    getNumberOfAscents();
-    getFollowings();
-    getFollowers();
+    navigation.addListener("focus", () => {
+      getInfo();
+      getNumberOfAscents();
+      getFollowings();
+      getFollowers();
+    });
   }, []);
   const [profile, setProfile] = useState();
   const [num_asc, setNum_asc] = useState();
-  const [followings, setFollowings] = useState();
-  const [followers, setFollowers] = useState();
+  const [followings, setFollowings] = useState([]);
+  const [followers, setFollowers] = useState([]);
+  const following = [];
+  followings.forEach((element) => {
+    following.push(element.following);
+  });
+  const follower = [];
+  followers.forEach((element) => {
+    follower.push(element.follower);
+  });
 
   return (
     <View style={styles.container}>
@@ -108,7 +119,7 @@ export default function Profile({ navigation }) {
                 borderRadius: 100,
                 marginRight: 10,
               }}
-              source={require("../assets/juan.jpeg")}
+              source={{ uri: profile && profile[0].profile_pic }}
             ></Image>
             <View>
               <Text
@@ -133,12 +144,32 @@ export default function Profile({ navigation }) {
               width: 350,
             }}
           >
-            <Text style={{ flex: 0.3, fontSize: 14 }}>
-              {followers && followers.length} Followers
-            </Text>
-            <Text style={{ flex: 0.3, fontSize: 14 }}>
-              {followings && followings.length} Followings
-            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Followings", {
+                  item: follower,
+                  otherParam: "Followers",
+                });
+              }}
+              style={{ flex: 0.3 }}
+            >
+              <Text style={{ fontSize: 14 }}>
+                {followers && followers.length} Followers
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ flex: 0.3 }}
+              onPress={() => {
+                navigation.navigate("Followings", {
+                  item: following,
+                  otherParam: "Followings",
+                });
+              }}
+            >
+              <Text style={{ fontSize: 14 }}>
+                {followings && followings.length} Followings
+              </Text>
+            </TouchableOpacity>
             <Text style={{ flex: 0.3, fontSize: 14 }}>
               {num_asc && num_asc.ascents} Ascents
             </Text>

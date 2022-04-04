@@ -36,8 +36,11 @@ export default function Home({ navigation }) {
       console.warn(error);
     }
   }
+
   useEffect(() => {
-    getPosts();
+    navigation.addListener("focus", () => {
+      getPosts();
+    });
   }, []);
   const [posts, setPost] = useState();
 
@@ -53,23 +56,7 @@ export default function Home({ navigation }) {
       <Header navigation={navigation} />
       <View style={{ flex: 1 }}>
         {posts && !posts.length == 0 ? (
-          <Posts
-            navigation={navigation}
-            data={posts}
-            image={
-              <View style={{ flex: 0.23 }}>
-                <Image
-                  style={{
-                    width: 50,
-                    height: 50,
-                    borderRadius: 100,
-                    marginRight: 10,
-                  }}
-                  source={require("../assets/juan.jpeg")}
-                ></Image>
-              </View>
-            }
-          />
+          <Posts navigation={navigation} data={posts} />
         ) : (
           <Text
             style={{

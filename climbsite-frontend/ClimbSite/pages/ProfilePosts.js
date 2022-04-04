@@ -37,7 +37,11 @@ export default function ProfilePosts({ navigation }) {
   }
   useEffect(() => {
     let abortController = new AbortController();
-    getMyPosts();
+
+    navigation.addListener("focus", () => {
+      getMyPosts();
+    });
+
     return () => {
       abortController.abort();
     };

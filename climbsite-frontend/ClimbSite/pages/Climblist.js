@@ -40,7 +40,10 @@ export default function Climblist({ navigation }) {
 
   useEffect(() => {
     let abortController = new AbortController();
-    getClimblist();
+    navigation.addListener("focus", () => {
+      getClimblist();
+    });
+
     return () => {
       abortController.abort();
     };
