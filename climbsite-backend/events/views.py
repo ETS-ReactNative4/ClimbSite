@@ -37,10 +37,10 @@ class GetEvents(generics.ListAPIView):
 
     def get_queryset(self):
         if self.request.query_params.get('crag_id') == None:
-            return super().get_queryset()
+            return super().get_queryset().order_by('-date')
         else:
             crag =  self.request.query_params.get('crag_id')
-            return super().get_queryset().filter(crag = crag)
+            return super().get_queryset().filter(crag = crag).order_by('-date')
 
 class JoinEvent(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
@@ -49,7 +49,8 @@ class JoinEvent(generics.CreateAPIView):
         user = self.request.user
         event = Event.objects.get(id=request.data.get('event'))
         print(event.user)
-        if(event.user == user):
+        if(event.user == user):           
+            event.delete()
             return Response({'status':status.HTTP_400_BAD_REQUEST,'message':'you created this event'})
 
         try:
