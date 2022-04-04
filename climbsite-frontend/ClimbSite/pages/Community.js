@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -10,38 +10,107 @@ import {
   useWindowDimensions,
   FlatList,
   Image,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import { forEach } from "react-native-axios/lib/utils";
+import axios from "axios";
+import { AuthContext } from "../context/userContext";
+import fetch_url from "../host";
 
 export default function Community({ navigation }) {
   const { height } = useWindowDimensions();
-  const [profile, setProfile] = useState([
-    {
-      id: 8,
-      full_name: "Cyril Asmar",
-      email: "cyro@hotmail.com",
-      country: "Lebanese",
-      asc: "34",
-    },
-    {
-      id: 2,
-      full_name: "Cyril Asmar",
-      email: "cyro@hotmail.com",
-      country: "Lebanese",
-      asc: "34",
-    },
-    {
-      id: 1,
-      full_name: "Cyril Asmar",
-      email: "cyro@hotmail.com",
-      country: "Lebanese",
-      asc: "34",
-    },
-  ]);
+  const [authState, setAuthState] = useContext(AuthContext);
+  const [followingState, setFollowingState] = useState(false);
 
+  const url_users = `${fetch_url}/api/climbers/get_users`;
+  async function getUsers() {
+    const token = authState.token;
+
+    try {
+      const response = await axios.get(url_users, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data_received = await response.data;
+      setUsers(data_received);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+
+  async function follow(item_id, name) {
+    const token = authState.token;
+    const url = `${fetch_url}/api/climbers/follow`;
+    const user = {
+      following: item_id,
+    };
+
+    try {
+      const response = await axios.post(url, user, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data_received = await response.data;
+      Alert.alert("You now follow " + name);
+      getFollowings();
+      getUsers();
+
+      // checkFollow();
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+
+  const [users, setUsers] = useState([]);
+
+  const url_followings = `${fetch_url}/api/climbers/followings`;
+  async function getFollowings() {
+    const token = authState.token;
+
+    try {
+      const response = await axios.get(url_followings, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data_received = await response.data;
+      setFollowings(data_received);
+    } catch (error) {
+      console.warn(error);
+    }
+  }
+  const [followings, setFollowings] = useState([]);
+
+  const following = [];
+  followings.forEach((element) => {
+    following.push(element.following);
+  });
+  // users.forEach((element) => {
+  //   if (!following.includes(element)) {
+  //     console.log(element.full_name + "not following");
+  //   }
+  // });
+
+  function getDifference(array1, array2) {
+    return array1.filter((object1) => {
+      return !array2.some((object2) => {
+        return object1.id === object2.id;
+      });
+    });
+  }
+  var notFollowing = getDifference(users, following);
+
+  useEffect(() => {
+    navigation.addListener("focus", () => {
+      getFollowings();
+      getUsers();
+    });
+  }, []);
+
+  // console.log(following);
+
+  // console.log(notFollowing);
+  console.log(notFollowing);
   return (
     <View style={styles.container}>
       <SafeAreaView>
@@ -53,10 +122,12 @@ export default function Community({ navigation }) {
       </Text>
       <FlatList
         key={(item) => item.id}
-        data={profile}
+        data={notFollowing}
         renderItem={({ item }) => (
-          <View
-            key={item.id}
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Others Profile", item.id);
+            }}
             style={{
               padding: 20,
               marginHorizontal: 30,
@@ -79,28 +150,27 @@ export default function Community({ navigation }) {
                     height: 60,
                     borderRadius: 100,
                   }}
-                  source={require("../assets/juan.jpeg")}
+                  source={{ uri: item.profile_pic }}
                 ></Image>
               </View>
               <View style={{ flex: 0.7 }}>
                 <Text style={{ fontSize: 20, fontWeight: "bold" }}>
                   {item.full_name}
                 </Text>
-                <Text style={{ fontSize: 14, fontWeight: "100" }}>
-                  {item.country}
-                </Text>
-                <Text style={{ fontSize: 14, fontWeight: "100" }}>
-                  {item.asc} Ascents
+                <Text style={{ fontSize: 13, fontWeight: "100" }}>
+                  {item.email}
                 </Text>
               </View>
             </View>
-            <Feather
+            <TouchableOpacity
+              onPress={() => {
+                follow(item.id, item.full_name);
+              }}
               style={{ flex: 0.1, alignSelf: "center" }}
-              name="user-plus"
-              size={24}
-              color="black"
-            />
-          </View>
+            >
+              <Feather name="user-plus" size={24} color="black" />
+            </TouchableOpacity>
+          </TouchableOpacity>
         )}
       />
     </View>
