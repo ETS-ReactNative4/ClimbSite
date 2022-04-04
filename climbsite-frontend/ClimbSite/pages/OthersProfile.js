@@ -168,7 +168,7 @@ export default function OthersProfile({ navigation, route }) {
                 borderRadius: 100,
                 marginRight: 10,
               }}
-              source={require("../assets/juan.jpeg")}
+              source={{ uri: profile && profile[0].profile_pic }}
             ></Image>
             <View style={{ flex: 0.7, alignSelf: "center" }}>
               <Text

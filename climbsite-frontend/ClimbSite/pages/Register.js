@@ -173,7 +173,7 @@ export default function Register({ navigation }) {
           onChangeText={(value) => handleConfirmPassword(value)}
           secureTextEntry={true}
         />
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             width: 320,
             height: 60,
@@ -208,7 +208,7 @@ export default function Register({ navigation }) {
               }}
             >
               {/* {location && location.latitude} {location && location.longitude} */}
-            </Text>
+        {/* </Text>
           </View>
           <MaterialIcons
             style={{ flex: 0.1, marginRight: 7 }}
@@ -216,7 +216,7 @@ export default function Register({ navigation }) {
             size={24}
             color="black"
           />
-        </TouchableOpacity>
+        </TouchableOpacity>  */}
         <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
           <Text
             style={{

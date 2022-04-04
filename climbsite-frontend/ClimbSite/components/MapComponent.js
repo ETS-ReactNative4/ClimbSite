@@ -62,11 +62,10 @@ export default function Map(prop) {
               pinColor="purple"
               draggable={true}
               onDragEnd={(e) => {
-                console.warn("Drag end", e.nativeEvent.coordinate),
-                  setPin({
-                    latitude: e.nativeEvent.coordinate.latitude,
-                    longitude: e.nativeEvent.coordinate.longitude,
-                  });
+                setPin({
+                  latitude: e.nativeEvent.coordinate.latitude,
+                  longitude: e.nativeEvent.coordinate.longitude,
+                });
                 prop.setCoordinates(e && e.nativeEvent.coordinate);
               }}
             >

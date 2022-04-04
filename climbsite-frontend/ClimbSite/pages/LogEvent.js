@@ -144,7 +144,7 @@ export default function LogEvent({ navigation }) {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data_received = await response.data;
-        console.warn(data_received);
+
         setStatus("success");
       } catch (error) {
         setStatus("fail");

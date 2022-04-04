@@ -116,45 +116,61 @@ export default function SectorContainer({
 
               width: 320,
               alignItems: "center",
-              flexDirection: "row",
             }}
           >
-            <FlatList
-              key={(item) => item.id}
-              data={route && route}
-              renderItem={({ item }) => (
-                <Pressable>
-                  <View
-                    style={{
-                      height: 50,
-                      marginLeft: 20,
-                      justifyContent: "center",
-                    }}
-                  >
-                    <View style={{ flexDirection: "row" }}>
-                      <Text style={{ fontSize: 18, flex: 0.8 }}>
-                        {item.name}
-                      </Text>
-                      <TouchableOpacity
-                        style={{ flex: 0.1 }}
-                        onPress={() => {
-                          setSelectedItem(item);
-                          setModalVisible2(true);
-                        }}
-                      >
-                        <AntDesign name="check" size={24} color="black" />
-                      </TouchableOpacity>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                marginVertical: 10,
+                color: "white",
+                alignSelf: "center",
+              }}
+            >
+              Log Climb
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+              }}
+            >
+              <FlatList
+                key={(item) => item.id}
+                data={route && route}
+                renderItem={({ item }) => (
+                  <Pressable>
+                    <View
+                      style={{
+                        height: 50,
+                        marginLeft: 20,
+                        justifyContent: "center",
+                      }}
+                    >
+                      <View style={{ flexDirection: "row" }}>
+                        <Text style={{ fontSize: 18, flex: 0.8 }}>
+                          {item.name}
+                        </Text>
+                        <TouchableOpacity
+                          style={{ flex: 0.1 }}
+                          onPress={() => {
+                            setSelectedItem(item);
+                            setModalVisible2(true);
+                          }}
+                        >
+                          <AntDesign name="check" size={24} color="black" />
+                        </TouchableOpacity>
+                      </View>
                     </View>
-                  </View>
-                  <View
-                    style={{
-                      borderBottomColor: "rgba(255, 255, 255, 0.25)",
-                      borderBottomWidth: 1,
-                    }}
-                  />
-                </Pressable>
-              )}
-            />
+                    <View
+                      style={{
+                        borderBottomColor: "rgba(255, 255, 255, 0.25)",
+                        borderBottomWidth: 1,
+                      }}
+                    />
+                  </Pressable>
+                )}
+              />
+            </View>
           </View>
         </TouchableOpacity>
       </Modal>
