@@ -9,6 +9,7 @@ export const CragContext = createContext({
     gear: "",
     longitude: "",
     latitude: "",
+    image: "",
   },
   setCragState: () => {},
 });

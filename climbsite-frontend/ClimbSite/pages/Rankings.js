@@ -56,7 +56,7 @@ export default function Rankings({ navigation }) {
         renderItem={({ item, index }) => (
           <View style={styles.rankings}>
             <Text style={{ flex: 0.1, fontSize: 18 }}>{index + 1}</Text>
-            <View style={{ flex: 0.2, marginRight: 10 }}>
+            {/* <View style={{ flex: 0.2, marginRight: 10 }}>
               <Image
                 style={{
                   width: 50,
@@ -65,18 +65,18 @@ export default function Rankings({ navigation }) {
                 }}
                 source={require("../assets/juan.jpeg")}
               ></Image>
-            </View>
+            </View> */}
 
             <Text style={{ flex: 0.6, fontSize: 16 }}>{item.user}</Text>
             <Text
               style={{
-                flex: 0.2,
+                flex: 0.3,
                 textAlign: "right",
                 fontSize: 16,
                 fontWeight: "bold",
               }}
             >
-              {item.ascents} asc
+              {item.ascents} ascents
             </Text>
           </View>
         )}

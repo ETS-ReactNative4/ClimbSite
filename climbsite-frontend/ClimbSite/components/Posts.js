@@ -15,7 +15,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign } from "@expo/vector-icons";
 import Header from "../components/Header";
 
-export default function Posts({ navigation, data, image }) {
+export default function Posts({ navigation, data }) {
   const { height } = useWindowDimensions();
 
   const [star, setStar] = useState(
@@ -30,7 +30,17 @@ export default function Posts({ navigation, data, image }) {
       renderItem={({ item }) => (
         <View style={styles.post}>
           <View style={{ display: "flex", flexDirection: "row" }}>
-            {image}
+            <View style={{ flex: 0.23 }}>
+              <Image
+                style={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: 100,
+                  marginRight: 10,
+                }}
+                source={{ uri: item.user.profile_pic }}
+              ></Image>
+            </View>
             <View style={{ flex: 0.7 }}>
               <Text style={{ fontSize: 18, color: "#1B8B6A" }}>
                 {item.route.name} {item.route.grade}

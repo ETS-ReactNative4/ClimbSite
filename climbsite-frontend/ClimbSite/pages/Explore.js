@@ -20,6 +20,7 @@ import * as SecureStore from "expo-secure-store";
 import { AuthContext } from "../context/userContext";
 import { CragContext } from "../context/cragContext";
 import fetch_url from "../host";
+import { format } from "date-fns";
 
 export default function Explore({ navigation }) {
   const { height } = useWindowDimensions();
@@ -27,6 +28,8 @@ export default function Explore({ navigation }) {
   const [selectedEvent, setSelectedEvent] = useState();
   const [cragState, setCragState] = useContext(CragContext);
   const [authState, setAuthState] = useContext(AuthContext);
+  const today = new Date();
+  const formattedDate = format(today, "yyyy-MM-dd");
 
   async function getInfo() {
     const url = `${fetch_url}/api/crags/`;
@@ -106,6 +109,7 @@ export default function Explore({ navigation }) {
                       gear: item.gear,
                       longitude: item.longitude,
                       latitude: item.latitude,
+                      image: item.image,
                     });
 
                     setModalVisible(true);
@@ -124,17 +128,23 @@ export default function Explore({ navigation }) {
           event.map((item) => {
             return (
               <View key={item.id}>
-                <MapView.Marker
-                  onPress={() => {
-                    // setModalVisible(true);
-                  }}
-                  pinColor="purple"
-                  coordinate={{
-                    latitude: parseFloat(item.event.latitude),
-                    longitude: parseFloat(item.event.longitude),
-                  }}
-                  title={item.event.user.full_name}
-                />
+                {item.event.date >= formattedDate ? (
+                  <View>
+                    <MapView.Marker
+                      onPress={() => {
+                        // setModalVisible(true);
+                      }}
+                      pinColor="purple"
+                      coordinate={{
+                        latitude: parseFloat(item.event.latitude),
+                        longitude: parseFloat(item.event.longitude),
+                      }}
+                      title={item.event.user.full_name}
+                    />
+                  </View>
+                ) : (
+                  <></>
+                )}
               </View>
             );
           })}
@@ -179,7 +189,7 @@ export default function Explore({ navigation }) {
               <View style={{ flex: 0.3 }}>
                 <Image
                   style={{ width: 80, height: 80 }}
-                  source={require("../assets/betmerry.jpg")}
+                  source={{ uri: cragState.image }}
                 ></Image>
               </View>
               <View style={{ flex: 0.8, marginLeft: 20 }}>
