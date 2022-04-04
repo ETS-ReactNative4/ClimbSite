@@ -31,8 +31,8 @@
 
 <img src="./readme/title3.svg"/>
 
-> This design was planned before on paper, then moved to Figma app for the fine details.
-Note that i didn't use any styling library or theme, all from scratch and using pure css modules
+> This design was planned before on figma for the fine details, then moved to the actual design.
+Those images are screenshots from figma to show my vision before starting with the actual app.
 
 | Landing  | Home/Search  |
 | -----------------| -----|
