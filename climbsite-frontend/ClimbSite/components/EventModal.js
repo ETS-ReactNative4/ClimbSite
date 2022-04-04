@@ -1,6 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { styles } from "../styles";
-import { Text, View, TouchableOpacity, Modal, FlatList } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Modal,
+  FlatList,
+  Alert,
+} from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import useWindowDimensions from "react-native/Libraries/Utilities/useWindowDimensions";
 import axios from "axios";
@@ -22,7 +29,6 @@ export default function EventModal({
   };
 
   const handleJoin = async () => {
-    console.warn(eventId);
     const token = authState.token;
     const url = `${fetch_url}/api/events/join_event`;
 
@@ -33,7 +39,17 @@ export default function EventModal({
         headers: { Authorization: `Bearer ${token}` },
       });
       const data_received = await response.data;
-      console.warn(await data_received);
+
+      setModalVisible(false);
+      if (data_received.message == "you joined the event") {
+        Alert.alert("You joined the event");
+      } else if (data_received.message == "you unjoined the event") {
+        Alert.alert("You unjoined the event");
+      } else if (data_received.message == "you created this event") {
+        Alert.alert("You deleted the event");
+      } else if (data_received.message == "full") {
+        Alert.alert("This event is full");
+      }
       // checkEvent;
     } catch (error) {
       console.warn(error);
@@ -93,12 +109,54 @@ export default function EventModal({
             alignItems: "flex-start",
           }}
         >
+          {state === "delete" ? (
+            <Text
+              style={{
+                alignSelf: "center",
+                fontSize: 17,
+                color: "#1B8B6A",
+                fontWeight: "bold",
+                marginBottom: 10,
+              }}
+            >
+              You created this event
+            </Text>
+          ) : state === "join" ? (
+            <Text
+              style={{
+                alignSelf: "center",
+                fontSize: 17,
+                color: "#1B8B6A",
+                fontWeight: "bold",
+                marginBottom: 10,
+              }}
+            >
+              Join Event
+            </Text>
+          ) : state === "unjoin" ? (
+            <Text
+              style={{
+                alignSelf: "center",
+                fontSize: 17,
+                color: "#1B8B6A",
+                fontWeight: "bold",
+                marginBottom: 10,
+              }}
+            >
+              You are joining this event
+            </Text>
+          ) : (
+            <></>
+          )}
+
           <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
             Description
           </Text>
           <Text>{item && item.description}</Text>
           <TouchableOpacity
-            onPress={handleJoin}
+            onPress={() => {
+              handleJoin();
+            }}
             style={{
               width: 80,
               height: 35,
