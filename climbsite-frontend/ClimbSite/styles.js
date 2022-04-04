@@ -24,6 +24,7 @@ export const styles = StyleSheet.create({
   inputLogin: {
     padding: 20,
     margin: 30,
+    marginBottom: 10,
     backgroundColor: "#2F3F4A",
     borderRadius: 15,
     alignSelf: "center",
