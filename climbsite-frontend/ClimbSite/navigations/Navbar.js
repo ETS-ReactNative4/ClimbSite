@@ -14,6 +14,7 @@ import Community from "../pages/Community";
 import LogNavigation from "./LogNavigation";
 import ExploreNavigation from "./ExploreNavigation";
 import HomeNavigation from "./HomeNavigation";
+import CommunityNavigation from "./CommunityStack";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -94,8 +95,8 @@ export default function Navbar() {
             <Feather name="users" size={24} color={color} />
           ),
         }}
-        name="Community"
-        component={Community}
+        name="Community Stack"
+        component={CommunityNavigation}
       />
     </Tab.Navigator>
   );
