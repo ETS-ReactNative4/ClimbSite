@@ -13,14 +13,19 @@
 
 <img src="./readme/title2.svg"/>
 
-> The Well app is a mental health and mindfulness app built on top of the science of positive psychology. The Well app is more than just another meditation or journaling app; it encourages you to enhance and reflect on your day with structured, guided activities.
+> it’s an app for climbers in Lebanon, it shows all the climbing and bouldering sites in Lebanon and shows all the routes and info needed for each one of them and climbers can track their progress; the routes they sent how many tries it took them put notes on them share their feedback and rate each one them etc…
 > 
-> There are 5 daily tasks that the Well app asks you to complete each day: record 3 gratitudes, write a journal entry, perform 3 acts of kindness, exercise for 20 minutes, and meditate for 15 minutes.
+> Knowing the situation in Lebanon it’s harder to buy a new climbing gear or doesn’t have a ride, for this reason climbers can post an event or schedule a day when they are going climbing and other people can ask to join and climb with. This way climbers can also connect with each other since it’s a growing community and will be helpful for the climbers unable to go without a ride or gear.
+
+
+
 
 ### User Stories
-- As a user, I want to browsse ablums, so that I can find quick links
-- As a user, I want to browsse ablums, so that I can find quick links
-- As a user, I want to browsse ablums, so that I can find quick links
+- As a climber, I need a map to explore climbing crags or indoors gym.
+- As a climber, I need to know the info of the crag I’ve picked.
+- As a climber, I need to track my progress.
+- As a climber I need to follow other climbers to check their progress.
+- As a climber I need to create a to do list on what to climb next.
 
 <br><br>
 
