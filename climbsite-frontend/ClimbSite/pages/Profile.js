@@ -24,6 +24,8 @@ export default function Profile({ navigation }) {
   const { height } = useWindowDimensions();
   const [authState, setAuthState] = useContext(AuthContext);
   const url = `${fetch_url}/api/climbers/user_info`;
+
+  const [profile, setProfile] = useState();
   async function getInfo() {
     const token = authState.token;
 
@@ -89,7 +91,7 @@ export default function Profile({ navigation }) {
       getFollowers();
     });
   }, []);
-  const [profile, setProfile] = useState();
+
   const [num_asc, setNum_asc] = useState();
   const [followings, setFollowings] = useState([]);
   const [followers, setFollowers] = useState([]);
