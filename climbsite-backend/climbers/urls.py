@@ -1,10 +1,12 @@
 from django.urls import path
-from .views import (AddToClimbList, AddToFavorites, CheckIfFavorite, CheckIfFollowing, FavoriteList,GetAscents, Rankings,Unfollow,GetNumberOfAscents,
-GetClimbList, LogAscent, UserCreate, UserNonfollowings, Userfollowers, Userfollowings, AddFollower,GetUserInfo,GetMyAscents, DeleteFromFavorites)
+from .views import (AddToClimbList, AddToFavorites, ChangePasswordView, CheckIfFavorite, CheckIfFollowing, FavoriteList,GetAscents, GetOthersInfo, GetUsers, Rankings,Unfollow,GetNumberOfAscents,
+GetClimbList, LogAscent, UpdateUserProfile, UserCreate, UserNonfollowings, Userfollowers, Userfollowings, AddFollower,GetUserInfo,GetMyAscents, DeleteFromFavorites)
 
 urlpatterns = [
     path('register', UserCreate.as_view()),
     path('user_info', GetUserInfo.as_view()),
+    path('others_info', GetOthersInfo.as_view()),
+    path('get_users', GetUsers.as_view()),
     path('followings', Userfollowings.as_view()),
     path('non_followings', UserNonfollowings.as_view()),
     path('follow_check', CheckIfFollowing.as_view()),
@@ -23,5 +25,7 @@ urlpatterns = [
     path('get_ascents', GetAscents.as_view()),
     path('get_number_ascents', GetNumberOfAscents.as_view()),
     path('rankings', Rankings.as_view()),
+    path('image_upload', UpdateUserProfile.as_view()),
+   
 
 ]

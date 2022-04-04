@@ -2,6 +2,9 @@ from django.db import models
 from crags.models import Crag, Sector
 from climbers.models import User
 
+
+
+
 class Event(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)

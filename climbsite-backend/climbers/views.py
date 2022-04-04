@@ -1,3 +1,4 @@
+import base64
 from itertools import count
 import json
 from django.db.models import Subquery
@@ -6,7 +7,7 @@ from django.forms import ValidationError
 from django.http import HttpResponse, JsonResponse
 from rest_framework import filters
 from rest_framework.views import APIView
-from .serializers import AscendingSerializer, UserClimbListSerializer, UserFavoritesSerializer, UserFollowingSerializer, UserSerializer
+from .serializers import AscendingSerializer, ChangePasswordSerializer, UpdateUserSerializer, UserClimbListSerializer, UserFavoritesSerializer, UserFollowingSerializer, UserSerializer
 from django.contrib.auth import get_user_model
 from .models import Ascending, ClimbList, Favorite, UserFollowing
 from rest_framework import generics
@@ -16,7 +17,7 @@ from rest_framework import status
 from crags.models import Crag, Route
 from django.db.models import Count, Sum
 from django.core import serializers
-
+from  django.core.files.base import ContentFile
 
 User = get_user_model()
 
@@ -24,6 +25,18 @@ class UserCreate(generics.CreateAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class UpdateProfileView(generics.UpdateAPIView):
+
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = UpdateUserSerializer
+
+class ChangePasswordView(generics.UpdateAPIView):
+
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ChangePasswordSerializer
 
 class GetUserInfo(generics.ListAPIView):
     serializer_class = UserSerializer
@@ -33,6 +46,53 @@ class GetUserInfo(generics.ListAPIView):
         queryset = User.objects.filter(email=user)
         return queryset
 
+class UpdateUserProfile(generics.UpdateAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+
+
+        user = self.request.user
+        image = request.data.get('image')
+      
+        try:
+            format, imgstr = image.split(';base64,') 
+            ext = format.split('/')[-1] 
+            print(ext)
+            print(base64.b64decode(imgstr))
+            image_file = ContentFile(base64.b64decode(imgstr), name='temp.' + ext)
+            # print(base64.b64decode(imgstr))
+            # # image_file = ContentFile(base64.b64decode(image),)
+            # print(base64.b64decode(image))
+            edit_profile = User.objects.filter(email=user)
+            edit_profile.update(profile_pic = image_file)
+           
+   
+        
+            return Response({'status':status.HTTP_200_OK, 'message':'image changed'})
+
+        except Exception as ex:
+            raise ex
+            
+
+class GetOthersInfo(generics.ListAPIView):
+    serializer_class = UserSerializer
+
+
+    def get_queryset(self):
+        user =  User.objects.get(id= self.request.query_params.get('user_id'))
+        queryset = User.objects.filter(email= user)
+        return queryset
+
+class GetUsers(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserSerializer
+    def get_queryset(self):
+        user = self.request.user
+        queryset = User.objects.exclude(email=user)
+        return queryset
+    
 class AddFollower(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
 
@@ -71,17 +131,6 @@ class Unfollow(generics.DestroyAPIView):
             return Response({'status':status.HTTP_400_BAD_REQUEST})
 
 
-
-# class AddFollower(generics.CreateAPIView):
-#     permission_classes = [IsAuthenticated]
-#     serializer_class = UserFollowSerializer
-#     def perform_create(self, serializer):
-#         queryset = UserFollowing.objects.filter(follower=self.request.user, following = self.request.data.get('following'))
-#         if queryset.exists():
-#             raise Exception('You have already followed')
-#         serializer.save(follower=self.request.user)
-
-
 class Userfollowings(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UserFollowingSerializer
@@ -90,17 +139,38 @@ class Userfollowings(generics.ListAPIView):
 
         # This view should return a list of all the followings
         # for the currently authenticated user.
+        if self.request.query_params.get('user_id') == None:
+            user = self.request.user
+            queryset = UserFollowing.objects.filter(follower=user)
+            return queryset
 
-        user = self.request.user
-        queryset = UserFollowing.objects.filter(follower=user)
-        # count = UserFollowing.objects.filter(follower=user).count()
-        # print(type(count))
-        # print(type(queryset))
-        return queryset
-    # def get_context_data(self, **kwargs):
-    #     context = super(Userfollowings, self).get_context_data(**kwargs)
-    #     context['following'] = self.get_queryset.count()
-    #     return context
+        else:
+            user =  self.request.query_params.get('user_id')
+            queryset = UserFollowing.objects.filter(follower=user)
+            return queryset
+
+
+        
+
+class Userfollowers(generics.ListAPIView):
+
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserFollowingSerializer
+
+    def get_queryset(self):
+        
+        if self.request.query_params.get('user_id') == None:
+            user = self.request.user
+            queryset = UserFollowing.objects.filter(following=user)
+            return queryset
+        # This view should return a list of all the followers
+        # for the currently authenticated user.
+
+        else:
+            user =  self.request.query_params.get('user_id')
+            queryset = UserFollowing.objects.filter(following=user)
+            return queryset
+
 
 class UserNonfollowings(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
@@ -130,42 +200,6 @@ class CheckIfFollowing(generics.CreateAPIView):
             return Response({'message':"not following"})
 
 
-# class Userfollowings(generics.ListAPIView):
-#     model = UserFollowing
-#     filter_backends = [filters.SearchFilter]
-#     search_fields = ['follower']
-#     serializer_class = UserFollowingSerializer
-
-#     def get_queryset(self):
-
-#         # This view should return a list of all the followings
-#         # for the currently authenticated user.
-
-#         user = self.request.user
-#         queryset = UserFollowing.objects.filter(follower=user)
-#         count = UserFollowing.objects.filter(follower=user).count()
-#         print(type(count))
-#         print(type(queryset))
-
-
-#     def followers(self, request, *args, **kwargs):
-#         queryset = self.get_queryset()
-#         count = queryset.annotate(count('follower'))
-#         return count
-
-class Userfollowers(generics.ListAPIView):
-
-    permission_classes = [IsAuthenticated]
-    serializer_class = UserFollowingSerializer
-
-    def get_queryset(self):
-
-        # This view should return a list of all the followers
-        # for the currently authenticated user.
-
-        user = self.request.user
-        queryset = UserFollowing.objects.filter(following=user)
-        return queryset
 
 class AddToFavorites(generics.CreateAPIView):
 
@@ -294,16 +328,17 @@ class GetMyAscents(generics.ListAPIView):
 
 
     def get_queryset(self):
-        user = self.request.user
-        # queryset= super().get_queryset().filter(user = user).filter(user = UserFollowing.objects.filter(follower= user).values_list('id'))
-        # return queryset
-        #         sub =UserFollowing.objects.filter(follower= user).values_list('id')
-        # queryset = Ascending.objects.filter(user = user).filter(user = sub)
-        # return queryset
-        # queryset = Ascending.objects.filter(user__following__follower= user)
-        queryset = Ascending.objects.filter(user=user)
-        # queryset = Ascending.objects.all()
-        return queryset
+        
+
+        if self.request.query_params.get('user_id') == None:
+            user = self.request.user
+            queryset = Ascending.objects.filter(user=user).order_by('-date')
+            return queryset
+        else:
+            user =  self.request.query_params.get('user_id')
+            queryset = Ascending.objects.filter(user=user).order_by('-date')
+            return queryset
+
 
 class GetAscents(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
@@ -311,7 +346,7 @@ class GetAscents(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        queryset = Ascending.objects.filter(user__following__follower= user)
+        queryset = Ascending.objects.filter(user__following__follower= user).order_by('-date')
         return queryset
 
 class GetNumberOfAscents(generics.ListAPIView):
@@ -328,37 +363,15 @@ class GetNumberOfAscents(generics.ListAPIView):
 class Rankings(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
-    
 
-# customers = Customer.objects.annotate(order_count=Count('order'), order_value_sum=Sum('order__value'))
-
-
-# for customer in customers:
-#     print(customer.name, customer.order_count, customer.order_value_sum)
     def get(self, request, *args, **kwargs):
         result = {}
-        # queryset = Ascending.objects.values('user')
-        # queryset = User.objects.annotate(Count('climber'))
-        # queryset = User.objects.annotate(asc_count=Count('climber'),route_sum=Sum('climber__route_id'))
-        # print(queryset.values_list('climber__user__full_name','asc_count','route_sum'))
-        # # queryset = queryset.values_list('climber__user__full_name','climber__count')
-        # # for user in queryset:
-        # #     print(user.full_name, user.asc_count, user.routes_sum)
-        # return queryset
-        # queryset = User.objects.raw('SELECT climbers_user.id,climbers_user.full_name, COUNT(climbers_ascending.id) as coun FROM `climbers_ascending` ,climbers_user WHERE climbers_ascending.user_id=climbers_user.id GROUP BY climbers_ascending.user_id ORDER BY coun; ')
-        # print(list(queryset))
-        # return HttpResponse(queryset, content_type='application/json')
-        # return  JsonResponse({'data': queryset})
-        # for p in queryset:
-        #     print(p.full_name , p.coun)
+
         queryset = User.objects.annotate(asc_count=Count('climber')).order_by('-asc_count')
         for user in queryset:
             result[user.full_name] = user.asc_count
-        # print(list(queryset))
+  
         print(result)
         array_result = [{'user' : i, 'ascents' : result[i]} for i in result]
         return Response({'result':array_result})
 
-# dictionary = {'Apple': 3, 'Grapes': 1}
-# array = [ {'key' : i, 'value' : dictionary[i]} for i in dictionary]
-# print(json.dumps(array))
