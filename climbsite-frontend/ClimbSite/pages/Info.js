@@ -83,7 +83,7 @@ export default function Info() {
               <View style={{ alignSelf: "center" }}>
                 <Image
                   style={{ width: 300, height: 180 }}
-                  source={require("../assets/betmerry.jpg")}
+                  source={{ uri: cragState.image }}
                 ></Image>
               </View>
               <View style={{ marginTop: 10, flexDirection: "row" }}>
