@@ -8,6 +8,7 @@ import {
   TextInput,
   Easing,
   images,
+  Alert,
 } from "react-native";
 
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -59,7 +60,6 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
 
   const handleSubmit = async () => {
     handleRouteId(item && item.id);
-
     const token = authState.token;
     const url = `${fetch_url}/api/climbers/logascent`;
     if (!(data.route && data.tries && data.comment && data.rating)) {
@@ -70,7 +70,9 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data_received = await response.data;
-        console.warn(data_received);
+
+        Alert.alert("Congratulations you climbed this route");
+        setModalVisible(false);
       } catch (error) {
         console.warn(error);
         // setError("wrong");
@@ -103,6 +105,17 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
             alignItems: "flex-start",
           }}
         >
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              marginBottom: 10,
+              color: "white",
+              alignSelf: "center",
+            }}
+          >
+            Log Climb
+          </Text>
           <Text
             style={{
               fontSize: 18,
