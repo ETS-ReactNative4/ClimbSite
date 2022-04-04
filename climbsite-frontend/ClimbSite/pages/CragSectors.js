@@ -12,6 +12,7 @@ import {
   Modal,
   FlatList,
   Pressable,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SelectDropdown from "react-native-select-dropdown";
@@ -61,7 +62,6 @@ export default function CragSectors({ navigation }) {
   const [route, setRoute] = useState();
 
   async function addToClimblist(item_id) {
-    console.warn(item_id);
     const token = authState.token;
     const url_add_to_climblist = `${fetch_url}/api/climbers/add_to_climblist`;
     const route_id = {
@@ -73,7 +73,14 @@ export default function CragSectors({ navigation }) {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data_received = await response.data;
-      console.warn(data_received);
+
+      if (data_received.message == "already climbed") {
+        Alert.alert("You already climbed this route");
+      } else if (data_received.message == "already in list") {
+        Alert.alert("This route is already in your Climblist");
+      } else {
+        Alert.alert("This route has been added to your Climblist");
+      }
     } catch (error) {
       console.warn(error);
     }
@@ -159,44 +166,60 @@ export default function CragSectors({ navigation }) {
 
               width: 320,
               alignItems: "center",
-              flexDirection: "row",
             }}
           >
-            <FlatList
-              key={(item) => item.id}
-              data={route && route}
-              renderItem={({ item }) => (
-                <Pressable>
-                  <View
-                    style={{
-                      height: 50,
-                      marginLeft: 20,
-                      justifyContent: "center",
-                    }}
-                  >
-                    <View style={{ flexDirection: "row" }}>
-                      <Text style={{ fontSize: 18, flex: 0.8 }}>
-                        {item.name}
-                      </Text>
-                      <TouchableOpacity
-                        onPress={() => {
-                          addToClimblist(item && item.id);
-                        }}
-                        style={{ flex: 0.2 }}
-                      >
-                        <AntDesign name="plus" size={24} color="black" />
-                      </TouchableOpacity>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                marginVertical: 10,
+                color: "white",
+                alignSelf: "center",
+              }}
+            >
+              Add to your list
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+              }}
+            >
+              <FlatList
+                key={(item) => item.id}
+                data={route && route}
+                renderItem={({ item }) => (
+                  <Pressable>
+                    <View
+                      style={{
+                        height: 50,
+                        marginLeft: 20,
+                        justifyContent: "center",
+                      }}
+                    >
+                      <View style={{ flexDirection: "row" }}>
+                        <Text style={{ fontSize: 18, flex: 0.8 }}>
+                          {item.name}
+                        </Text>
+                        <TouchableOpacity
+                          onPress={() => {
+                            addToClimblist(item && item.id);
+                          }}
+                          style={{ flex: 0.2 }}
+                        >
+                          <AntDesign name="plus" size={24} color="black" />
+                        </TouchableOpacity>
+                      </View>
                     </View>
-                  </View>
-                  <View
-                    style={{
-                      borderBottomColor: "rgba(255, 255, 255, 0.25)",
-                      borderBottomWidth: 1,
-                    }}
-                  />
-                </Pressable>
-              )}
-            />
+                    <View
+                      style={{
+                        borderBottomColor: "rgba(255, 255, 255, 0.25)",
+                        borderBottomWidth: 1,
+                      }}
+                    />
+                  </Pressable>
+                )}
+              />
+            </View>
           </View>
         </TouchableOpacity>
       </Modal>
