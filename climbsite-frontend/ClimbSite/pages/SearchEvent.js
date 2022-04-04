@@ -33,8 +33,11 @@ export default function SearchEvent({ navigation }) {
       console.warn(error);
     }
   }
+
   useEffect(() => {
-    getEvents();
+    navigation.addListener("focus", () => {
+      getEvents();
+    });
   }, []);
   const [event, setEvent] = useState();
 
