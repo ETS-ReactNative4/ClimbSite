@@ -17,6 +17,8 @@ import CragHeader from "../components/CragHeader";
 import CragEvents from "../pages/CragEvents";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import Followings from "../pages/MyFollowings";
+import OthersProfile from "../pages/OthersProfile";
 
 const layout = createNativeStackNavigator();
 
@@ -29,6 +31,8 @@ export default function HomeNavigation() {
       >
         <layout.Screen name="Home" component={Home} />
         <layout.Screen name="Profile" component={Profile} />
+        <layout.Screen name="Others Profile" component={OthersProfile} />
+        <layout.Screen name="Followings" component={Followings} />
       </layout.Navigator>
     </Provider>
   );
