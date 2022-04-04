@@ -8,14 +8,14 @@ from django.db import models
 class UserAdminConfig(UserAdmin):
     model = User
     search_fields = ('email', 'full_name')
-    list_filter = ('email', 'full_name','is_staff')
+    list_filter = ('email', 'full_name','is_staff','profile_pic')
     ordering = ('-start_date',)
     list_display = ('email', 'full_name',
                     'is_staff')
     fieldsets = (
         (None, {'fields': ('email', 'full_name',)}),
         ('Permissions', {'fields': ('is_staff',)}),
-        ('Personal', {'fields': ()}),
+        ('Personal', {'fields': ('profile_pic',)}),
     )
     formfield_overrides = {
         models.TextField: {'widget': Textarea(attrs={'rows': 20, 'cols': 60})},

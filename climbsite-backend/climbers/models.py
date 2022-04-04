@@ -1,4 +1,5 @@
 from asyncio.windows_events import NULL
+from email.policy import default
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.db import models
@@ -31,11 +32,14 @@ class CustomManager(BaseUserManager):
         user.save() 
         return user
 
+def upload_to(instance, filename):
+    return 'profile_pic/{filename}'.format(filename=filename)
+
 class User(AbstractBaseUser, PermissionsMixin):
     
     email = models.EmailField(_('email address'), unique=True)
     full_name = models.CharField(max_length=150, blank=True)
-    # profile_pic = models.ImageField(_("Image"),upload_to = upload_to, null=True, blank = True)
+    profile_pic = models.ImageField(_("Image"),upload_to = upload_to, null=True, blank = True,default='profile_pic/profile_avatar.jpg')
     # dob = models.DateField(null=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6,null=True, blank=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6,null=True, blank=True)

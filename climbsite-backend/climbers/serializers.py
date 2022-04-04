@@ -5,6 +5,7 @@ from .models import Ascending, ClimbList, UserFollowing, Favorite
 from crags.serializers import RouteSerializer, SectorSerializer, CragSerializer
 
 
+
 User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
@@ -14,6 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
             )
     full_name = serializers.CharField(min_length=2,max_length=32)       
     password = serializers.CharField(min_length=8, write_only=True)
+    # profile_pic = serializers.ImageField()
     # dob = serializers.DateField()
 
     def create(self, validated_data):
@@ -23,7 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User 
-        fields = ('id', 'full_name', 'email', 'password')
+        fields = ('id', 'full_name', 'email', 'password','profile_pic')
 
 class UserFollowingSerializer(serializers.ModelSerializer):
     following = UserSerializer(read_only = True)
@@ -53,3 +55,55 @@ class AscendingSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id','user','route', 'tries','rating','comment','date')
         model = Ascending
+
+class ChangePasswordSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=True)
+    password2 = serializers.CharField(write_only=True, required=True)
+    old_password = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        model = User
+        fields = ('old_password', 'password', 'password2')
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError({"password": "Password fields didn't match."})
+
+        return attrs
+
+    def validate_old_password(self, value):
+        user = self.context['request'].user
+        if not user.check_password(value):
+            raise serializers.ValidationError({"old_password": "Old password is not correct"})
+        return value
+
+    def update(self, instance, validated_data):
+
+        instance.set_password(validated_data['password'])
+        instance.save()
+
+        return instance
+
+class UpdateUserSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(required=True)
+    full_name = serializers.CharField(min_length=2,max_length=32)
+    class Meta:
+        model = User
+        fields = ( 'full_name', 'email')
+        extra_kwargs = {
+            'full_name': {'required': True},
+            
+        }
+
+    def validate_email(self, value):
+        user = self.context['request'].user
+        if User.objects.exclude(pk=user.pk).filter(email=value).exists():
+            raise serializers.ValidationError({"email": "This email is already in use."})
+        return value
+
+
+    def update(self, instance, validated_data):
+        instance.full_name = validated_data['full_name']
+        instance.email = validated_data['email']
+        instance.save()
+        return instance
