@@ -34,13 +34,13 @@
 > This design was planned before on figma for the fine details, then moved to the actual design.
 Those images are screenshots from figma to show my vision before starting with the actual app.
 
-| Landing  | Home/Search  |
+| Login/Home  | Log Climb  |
 | -----------------| -----|
-| ![Login/Home](https://github.com/joeri2k/ClimbSite/blob/master/readme/figma1.png) | ![Home/Search](https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg) |
+| ![Login/Home](https://github.com/joeri2k/ClimbSite/blob/master/readme/figma1.png) | ![Log Climb](https://github.com/joeri2k/ClimbSite/blob/master/readme/figma2.png) |
 
-| Artists results  | Artist's Albums  |
+| Explore  | Community/Climber's profile  |
 | -----------------| -----|
-| ![Artists results](https://github.com/julescript/spotifyndr/blob/master/demo/Artists_Page.jpg) | ![Artist's Albums](https://github.com/julescript/spotifyndr/blob/master/demo/Albums_Page.jpg) |
+| ![Explore](https://github.com/joeri2k/ClimbSite/blob/master/readme/figma3.png) | ![Community/Climber's profile](https://github.com/joeri2k/ClimbSite/blob/master/readme/figma5.png) |
 
 
 <br><br>
