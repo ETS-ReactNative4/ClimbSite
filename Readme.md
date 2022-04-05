@@ -36,7 +36,7 @@ Those images are screenshots from figma to show my vision before starting with t
 
 | Landing  | Home/Search  |
 | -----------------| -----|
-| ![Landing](https://github.com/julescript/spotifyndr/blob/master/demo/Landing_Page.jpg) | ![Home/Search](https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg) |
+| ![Login/Home](https://github.com/joeri2k/ClimbSite/blob/master/readme/figma1.png) | ![Home/Search](https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg) |
 
 | Artists results  | Artist's Albums  |
 | -----------------| -----|
