@@ -47,20 +47,20 @@ Those images are screenshots from figma to show my vision before starting with t
 
 <img src="./readme/title4.svg"/>
 
-Here's a brief high-level overview of the tech stack the Well app uses:
+Here's a brief high-level overview of the tech stack the ClimbSite app uses:
 
-- This project uses the [Flutter app development framework](https://flutter.dev/). Flutter is a cross-platform hybrid app development platform which allows us to use a single codebase for apps on mobile, desktop, and the web.
-- For persistent storage (database), the app uses the [Hive](https://hivedb.dev/) package which allows the app to create a custom storage schema and save it to a local database.
+- This project uses the [React Native framework](https://reactnative.dev/) for frontend development. React Native is an open-source UI software framework. It is used to develop applications for Android, Android TV, iOS, macOS, tvOS, Web, Windows and UWP by enabling developers to use the React framework along with native platform capabilities.
+- For persistent storage (database), the app uses [MySQL](https://www.mysql.com/). MySQL is a relational database management system based on SQL – Structured Query Language.
+- For the server side (backend), the app uses [Django framework](https://www.djangoproject.com/). Django is a high-level Python web framework, alongside [Django rest framework](https://www.django-rest-framework.org/) a powerful and flexible toolkit for building Web APIs
 - To send local push notifications, the app uses the [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) package which supports Android, iOS, and macOS.
-  - 🚨 Currently, notifications aren't working on macOS. This is a known issue that we are working to resolve!
-- The app uses the font ["Work Sans"](https://fonts.google.com/specimen/Work+Sans) as its main font, and the design of the app adheres to the material design guidelines.
+
 
 
 
 <br><br>
 <img src="./readme/title5.svg"/>
 
-> Uing the above mentioned tecch stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
+> Uing the above mentioned tech stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
 
 | Landing  | Home/Search  |
 | -----------------| -----|
