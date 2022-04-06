@@ -10,9 +10,9 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import * as SecureStore from "expo-secure-store";
 import { AuthContext } from "../context/userContext";
 import fetch_url from "../host";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function Login({ navigation }) {
   const { height } = useWindowDimensions();
@@ -57,9 +57,6 @@ export default function Login({ navigation }) {
       }
     }
   };
-  async function save(key, value) {
-    await SecureStore.setItemAsync(key, value);
-  }
 
   return (
     <View style={styles.container}>
@@ -70,6 +67,37 @@ export default function Login({ navigation }) {
         <Text style={{ color: "#1B8B6A" }}>Climb</Text>Site
       </Text>
       <View style={styles.inputLogin}>
+        {error === "empty" ? (
+          <View
+            style={{
+              alignSelf: "center",
+              flexDirection: "row",
+              justifyContent: "center",
+              marginBottom: 5,
+            }}
+          >
+            <AntDesign name="closecircle" size={20} color="#A05B5B" />
+            <Text style={{ fontSize: 16, marginLeft: 5 }}>
+              One of the required field is empty.
+            </Text>
+          </View>
+        ) : error === "wrong" ? (
+          <View
+            style={{
+              alignSelf: "center",
+              flexDirection: "row",
+              justifyContent: "center",
+              marginBottom: 5,
+            }}
+          >
+            <AntDesign name="closecircle" size={20} color="#A05B5B" />
+            <Text style={{ fontSize: 16, marginLeft: 5 }}>
+              Your email and password do not match
+            </Text>
+          </View>
+        ) : (
+          <Text></Text>
+        )}
         <Text style={styles.headerinput}>Login </Text>
         <Text style={styles.inputtext}>Email: </Text>
         <TextInput

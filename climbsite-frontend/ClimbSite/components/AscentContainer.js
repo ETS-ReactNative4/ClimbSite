@@ -7,16 +7,14 @@ import {
   Modal,
   TextInput,
   Easing,
-  images,
   Alert,
 } from "react-native";
-
-import { FontAwesome5 } from "@expo/vector-icons";
 
 import Rating from "react-native-rating";
 import { AuthContext } from "../context/userContext";
 import axios from "axios";
 import fetch_url from "../host";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function AscentModal({ setModalVisible, modalVisible, item }) {
   const images = {
@@ -24,7 +22,7 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
     starUnfilled: require("../assets/star_unfilled.png"),
   };
   const [authState, setAuthState] = useContext(AuthContext);
-
+  const [error, setError] = useState(null);
   const [data, setData] = useState({
     route: item && item.id,
     tries: "",
@@ -63,7 +61,7 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
     const token = authState.token;
     const url = `${fetch_url}/api/climbers/logascent`;
     if (!(data.route && data.tries && data.comment && data.rating)) {
-      // setError("empty");
+      setError("empty");
     } else {
       try {
         const response = await axios.post(url, data, {
@@ -73,9 +71,10 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
 
         Alert.alert("Congratulations you climbed this route");
         setModalVisible(false);
+        setError(null);
       } catch (error) {
         console.warn(error);
-        // setError("wrong");
+        setError("wrong");
       }
     }
   };
@@ -87,7 +86,10 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
       onRequestClose={setModalVisible}
     >
       <TouchableOpacity
-        onPress={() => setModalVisible(false)}
+        onPress={() => {
+          setModalVisible(false);
+          setError(null);
+        }}
         style={{
           flex: 1,
           backgroundColor: "rgba(0, 0, 0,0.6)",
@@ -116,6 +118,23 @@ export default function AscentModal({ setModalVisible, modalVisible, item }) {
           >
             Log Climb
           </Text>
+          {error === "empty" ? (
+            <View
+              style={{
+                alignSelf: "center",
+                flexDirection: "row",
+                justifyContent: "center",
+                marginBottom: 5,
+              }}
+            >
+              <AntDesign name="closecircle" size={20} color="#A05B5B" />
+              <Text style={{ fontSize: 16, marginLeft: 5 }}>
+                One of the required field is empty.
+              </Text>
+            </View>
+          ) : (
+            <Text></Text>
+          )}
           <Text
             style={{
               fontSize: 18,
