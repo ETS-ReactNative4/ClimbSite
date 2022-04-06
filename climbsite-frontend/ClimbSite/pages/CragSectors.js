@@ -5,29 +5,20 @@ import axios from "axios";
 import {
   Text,
   View,
-  TextInput,
-  Button,
   TouchableOpacity,
-  useWindowDimensions,
   Modal,
   FlatList,
   Pressable,
   Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SelectDropdown from "react-native-select-dropdown";
 import { AntDesign } from "@expo/vector-icons";
-import SectorContainer from "../components/SectorContainer";
-import ProfileHeader from "../components/ProfileHeader";
 import { CragContext } from "../context/cragContext";
 import { AuthContext } from "../context/userContext";
-import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import fetch_url from "../host";
 
 export default function CragSectors({ navigation }) {
-  const { height } = useWindowDimensions();
   const [cragState, setCragState] = useContext(CragContext);
-  const [selectedSector, setSelectedSector] = useState();
   const [authState, setAuthState] = useContext(AuthContext);
   const [modalVisible, setModalVisible] = useState(false);
   const selectedCragId = cragState.id;

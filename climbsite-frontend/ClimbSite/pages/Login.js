@@ -6,10 +6,8 @@ import {
   Text,
   View,
   TextInput,
-  Button,
   TouchableOpacity,
   useWindowDimensions,
-  ImageBackground,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as SecureStore from "expo-secure-store";
@@ -68,11 +66,6 @@ export default function Login({ navigation }) {
       <SafeAreaView>
         <StatusBar />
       </SafeAreaView>
-      {/* <ImageBackground
-        source={require("../assets/background.jpeg")}
-        resizeMode="cover"
-        style={{ flex: 1, position: "relative", resizeMode: "cover" }}
-      > */}
       <Text style={[styles.climbsite, { height: height * 0.1 }]}>
         <Text style={{ color: "#1B8B6A" }}>Climb</Text>Site
       </Text>
@@ -116,7 +109,6 @@ export default function Login({ navigation }) {
           Don't have an account? Register.
         </Text>
       </TouchableOpacity>
-      {/* </ImageBackground> */}
     </View>
   );
 }

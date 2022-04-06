@@ -6,14 +6,12 @@ import {
   Text,
   View,
   TextInput,
-  Button,
   TouchableOpacity,
   useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign } from "@expo/vector-icons";
 import fetch_url from "../host";
-import { MaterialIcons } from "@expo/vector-icons";
 
 export default function Register({ navigation }) {
   const { height } = useWindowDimensions();
@@ -173,50 +171,6 @@ export default function Register({ navigation }) {
           onChangeText={(value) => handleConfirmPassword(value)}
           secureTextEntry={true}
         />
-        {/* <TouchableOpacity
-          style={{
-            width: 320,
-            height: 60,
-            backgroundColor: "#2F3F4A",
-            padding: 10,
-            borderRadius: 15,
-            alignSelf: "center",
-            marginVertical: 10,
-            borderBottomWidth: 1,
-            borderBottomColor: "rgba(255, 255, 255, 0.25)",
-            flexDirection: "row",
-          }}
-          onPress={() => {
-            setModalVisible(true);
-          }}
-        >
-          <View style={{ flex: 0.9 }}>
-            <Text
-              style={{
-                color: "white",
-                fontWeight: "bold",
-                fontSize: 18,
-              }}
-            >
-              Select Departure Location:
-            </Text>
-            <Text
-              style={{
-                textAlign: "left",
-
-                fontSize: 12,
-              }}
-            >
-              {/* {location && location.latitude} {location && location.longitude} */}
-        {/* </Text>
-          </View>
-          <MaterialIcons
-            style={{ flex: 0.1, marginRight: 7 }}
-            name="add-location-alt"
-            size={24}
-            color="black"
-          />
-        </TouchableOpacity>  */}
         <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
           <Text
             style={{

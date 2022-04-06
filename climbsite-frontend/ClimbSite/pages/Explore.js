@@ -6,24 +6,21 @@ import {
   Text,
   View,
   TouchableOpacity,
-  useWindowDimensions,
   Modal,
   StyleSheet,
   Pressable,
   Image,
-  useFocusEffect,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
-import MapView, { Callout, Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import * as SecureStore from "expo-secure-store";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+
 import { AuthContext } from "../context/userContext";
 import { CragContext } from "../context/cragContext";
 import fetch_url from "../host";
 import { format } from "date-fns";
 
 export default function Explore({ navigation }) {
-  const { height } = useWindowDimensions();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState();
   const [cragState, setCragState] = useContext(CragContext);

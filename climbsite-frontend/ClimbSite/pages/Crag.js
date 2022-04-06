@@ -1,21 +1,12 @@
 import React, { useState } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
-import {
-  Text,
-  View,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  useWindowDimensions,
-} from "react-native";
+import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CragHeader from "../components/CragHeader";
 import TopTab from "../navigations/TopCargNavigatore";
 
 export default function Crag({ navigation }) {
-  const { height } = useWindowDimensions();
-
   return (
     <View style={styles.container}>
       <SafeAreaView>

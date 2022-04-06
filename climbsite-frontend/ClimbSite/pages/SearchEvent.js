@@ -1,14 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
-import {
-  Text,
-  View,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import { View } from "react-native";
 import axios from "axios";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ProfileHeader from "../components/ProfileHeader";

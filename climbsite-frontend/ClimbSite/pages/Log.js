@@ -1,21 +1,11 @@
 import React, { useState } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
-import {
-  Text,
-  View,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  useWindowDimensions,
-  Image,
-} from "react-native";
+import { Text, View, TouchableOpacity, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
 
 export default function Log({ navigation }) {
-  const { height } = useWindowDimensions();
-
   return (
     <View style={styles.container}>
       <SafeAreaView>
@@ -28,8 +18,6 @@ export default function Log({ navigation }) {
 
           alignItems: "center",
           justifyContent: "center",
-
-          // marginTop: height * 0.35,
         }}
       >
         <TouchableOpacity

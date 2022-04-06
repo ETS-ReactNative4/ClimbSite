@@ -1,26 +1,15 @@
 import React, { useState, useContext, useEffect } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
-import {
-  Text,
-  View,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  useWindowDimensions,
-  Image,
-  ScrollView,
-} from "react-native";
+import { Text, View, TouchableOpacity, Image, ScrollView } from "react-native";
 import axios from "axios";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { FlatList } from "react-native-gesture-handler";
 import ProfileHeader from "../components/ProfileHeader";
 import { CragContext } from "../context/cragContext";
 import { AuthContext } from "../context/userContext";
 import fetch_url from "../host";
 
 export default function LogClimb({ navigation }) {
-  const { height } = useWindowDimensions();
   const [cragState, setCragState] = useContext(CragContext);
   const [authState, setAuthState] = useContext(AuthContext);
   const token = authState.token;

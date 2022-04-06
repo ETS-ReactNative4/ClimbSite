@@ -4,27 +4,20 @@ import { StatusBar } from "expo-status-bar";
 import {
   Text,
   View,
-  TextInput,
-  Button,
   TouchableOpacity,
-  useWindowDimensions,
   FlatList,
   Image,
   Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
-import { FontAwesome5 } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { forEach } from "react-native-axios/lib/utils";
 import axios from "axios";
 import { AuthContext } from "../context/userContext";
 import fetch_url from "../host";
 
 export default function Community({ navigation }) {
-  const { height } = useWindowDimensions();
   const [authState, setAuthState] = useContext(AuthContext);
-  const [followingState, setFollowingState] = useState(false);
 
   const url_users = `${fetch_url}/api/climbers/get_users`;
   async function getUsers() {
@@ -56,8 +49,6 @@ export default function Community({ navigation }) {
       Alert.alert("You now follow " + name);
       getFollowings();
       getUsers();
-
-      // checkFollow();
     } catch (error) {
       console.warn(error);
     }
@@ -85,11 +76,6 @@ export default function Community({ navigation }) {
   followings.forEach((element) => {
     following.push(element.following);
   });
-  // users.forEach((element) => {
-  //   if (!following.includes(element)) {
-  //     console.log(element.full_name + "not following");
-  //   }
-  // });
 
   function getDifference(array1, array2) {
     return array1.filter((object1) => {
@@ -107,9 +93,6 @@ export default function Community({ navigation }) {
     });
   }, []);
 
-  // console.log(following);
-
-  // console.log(notFollowing);
   console.log(notFollowing);
   return (
     <View style={styles.container}>

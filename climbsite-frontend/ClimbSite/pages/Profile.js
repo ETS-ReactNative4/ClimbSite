@@ -2,26 +2,15 @@ import React, { useState, useEffect, useContext } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
 import axios from "axios";
-import {
-  Text,
-  View,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  useWindowDimensions,
-  Image,
-} from "react-native";
+import { Text, View, TouchableOpacity, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ProfileHeader from "../components/ProfileHeader";
-import ImagePicker from "react-native-image-picker";
-import { FontAwesome5 } from "@expo/vector-icons";
-import Posts from "../components/Posts";
+
 import TopTabProfile from "../navigations/TopProfileNavigator";
 import { AuthContext } from "../context/userContext";
 import fetch_url from "../host";
 
 export default function Profile({ navigation }) {
-  const { height } = useWindowDimensions();
   const [authState, setAuthState] = useContext(AuthContext);
   const url = `${fetch_url}/api/climbers/user_info`;
 

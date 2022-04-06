@@ -1,16 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
-import {
-  Text,
-  View,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  useWindowDimensions,
-  FlatList,
-  Image,
-} from "react-native";
+import { Text, View, useWindowDimensions, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
 import axios from "axios";
@@ -56,17 +47,6 @@ export default function Rankings({ navigation }) {
         renderItem={({ item, index }) => (
           <View style={styles.rankings}>
             <Text style={{ flex: 0.1, fontSize: 18 }}>{index + 1}</Text>
-            {/* <View style={{ flex: 0.2, marginRight: 10 }}>
-              <Image
-                style={{
-                  width: 50,
-                  height: 50,
-                  borderRadius: 100,
-                }}
-                source={require("../assets/juan.jpeg")}
-              ></Image>
-            </View> */}
-
             <Text style={{ flex: 0.6, fontSize: 16 }}>{item.user}</Text>
             <Text
               style={{

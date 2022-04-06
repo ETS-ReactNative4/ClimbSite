@@ -1,15 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
-import {
-  Text,
-  View,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  Image,
-  useWindowDimensions,
-} from "react-native";
+import { Text, View, TouchableOpacity, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
@@ -19,7 +11,6 @@ import axios from "axios";
 import fetch_url from "../host";
 
 export default function Info() {
-  const { height } = useWindowDimensions();
   const [cragState, setCragState] = useContext(CragContext);
   const [authState, setAuthState] = useContext(AuthContext);
   const [isFavorite, setIsFavorite] = useState();

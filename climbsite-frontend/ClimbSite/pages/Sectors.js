@@ -1,17 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { styles } from "../styles";
 import { StatusBar } from "expo-status-bar";
-import {
-  Text,
-  View,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  useWindowDimensions,
-} from "react-native";
+import { View, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SelectDropdown from "react-native-select-dropdown";
-import { AntDesign } from "@expo/vector-icons";
 import SectorContainer from "../components/SectorContainer";
 import ProfileHeader from "../components/ProfileHeader";
 import { CragContext } from "../context/cragContext";
@@ -19,7 +10,6 @@ import axios from "axios";
 import fetch_url from "../host";
 
 export default function Sectors({ navigation }) {
-  const { height } = useWindowDimensions();
   const [cragState, setCragState] = useContext(CragContext);
 
   const selectedCragId = cragState.id;
