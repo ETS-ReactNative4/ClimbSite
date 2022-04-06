@@ -119,7 +119,7 @@ export default function Settings({ navigation }) {
   };
   const handleSubmit = async () => {
     const token = authState.token;
-    const url = `http://192.168.1.54:7000/change_password/${profile[0].id}/`;
+    const url = `${fetch_url}/change_password/${profile[0].id}/`;
 
     if (!(data.old_password && data.password)) {
       // setError("empty");
@@ -159,7 +159,7 @@ export default function Settings({ navigation }) {
   const handleEdit = async () => {
     const token = authState.token;
 
-    const url = `http://192.168.1.54:7000/update_profile/${profile[0].id}/`;
+    const url = `${fetch_url}/update_profile/${profile[0].id}/`;
 
     if (!(info.email && info.full_name)) {
       // setError("empty");
