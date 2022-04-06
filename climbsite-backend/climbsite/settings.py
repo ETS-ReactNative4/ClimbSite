@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'crags',
     'events',
     'corsheaders',
+    "phonenumber_field"
 ]
 
 MIDDLEWARE = [

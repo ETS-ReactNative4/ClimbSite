@@ -6,6 +6,7 @@ from crags.serializers import RouteSerializer, SectorSerializer, CragSerializer
 
 
 
+
 User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
@@ -15,17 +16,19 @@ class UserSerializer(serializers.ModelSerializer):
             )
     full_name = serializers.CharField(min_length=2,max_length=32)       
     password = serializers.CharField(min_length=8, write_only=True)
+    
+
     # profile_pic = serializers.ImageField()
     # dob = serializers.DateField()
 
     def create(self, validated_data):
         user = User.objects.create_user( validated_data['email'],validated_data['full_name'],
-             validated_data['password'])
+             validated_data['password'], validated_data['phone_number'] )
         return user
 
     class Meta:
         model = User 
-        fields = ('id', 'full_name', 'email', 'password','profile_pic')
+        fields = ('id', 'full_name', 'email', 'password','profile_pic', 'phone_number')
 
 class UserFollowingSerializer(serializers.ModelSerializer):
     following = UserSerializer(read_only = True)

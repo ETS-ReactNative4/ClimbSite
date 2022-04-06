@@ -137,7 +137,7 @@ export default function EventContainer({ data }) {
                             <TouchableOpacity
                               onPress={() => {
                                 Linking.openURL(
-                                  `whatsapp://send?text=Hello fellow climber&phone=${item.user.phone_number}`
+                                  `whatsapp://send?text=Hello fellow climber! Saw you had an event coming up&phone=${item.user.phone_number}`
                                 );
                               }}
                               style={{
