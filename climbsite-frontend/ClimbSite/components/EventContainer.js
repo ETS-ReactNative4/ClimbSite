@@ -9,6 +9,7 @@ import {
   useWindowDimensions,
   FlatList,
   ScrollView,
+  Linking,
 } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import EventModal from "./EventModal";
@@ -101,32 +102,66 @@ export default function EventContainer({ data }) {
                               <Text style={{}}>Upcoming</Text>
                             </View>
                           </View>
+
                           <View
                             style={{
                               flexDirection: "row",
                               alignItems: "center",
                             }}
                           >
-                            <Text
+                            <View
                               style={{
-                                fontSize: 16,
-                                color: "white",
                                 flex: 0.7,
                               }}
                             >
-                              {item.user.full_name}
-                            </Text>
-                            <Text
+                              <Text
+                                style={{
+                                  fontSize: 16,
+                                  color: "white",
+                                  flex: 0.7,
+                                }}
+                              >
+                                {item.user.full_name}
+                              </Text>
+                              <Text
+                                style={{
+                                  fontSize: 14,
+                                  fontWeight: "100",
+                                  color: "white",
+                                }}
+                              >
+                                Places Available:{" "}
+                                {item.total_seats - item.current_seats}
+                              </Text>
+                            </View>
+                            <TouchableOpacity
+                              onPress={() => {
+                                Linking.openURL(
+                                  `whatsapp://send?text=Hello fellow climber&phone=${item.user.phone_number}`
+                                );
+                              }}
                               style={{
-                                fontSize: 14,
-                                fontWeight: "100",
-                                color: "white",
-                                flex: 0.6,
+                                width: 90,
+                                height: 35,
+                                padding: 5,
+                                backgroundColor: "#1B8B6A",
+                                borderRadius: 5,
+                                textAlign: "center",
+                                marginTop: 10,
+                                flex: 0.3,
                               }}
                             >
-                              Places Available:{" "}
-                              {item.total_seats - item.current_seats}
-                            </Text>
+                              <Text
+                                style={{
+                                  alignSelf: "center",
+                                  fontSize: 17,
+                                  flex: 1,
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                Contact
+                              </Text>
+                            </TouchableOpacity>
                           </View>
                         </View>
                       </View>

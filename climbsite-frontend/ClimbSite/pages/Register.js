@@ -12,6 +12,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign } from "@expo/vector-icons";
 import fetch_url from "../host";
+import PhoneInput from "react-native-phone-number-input";
 
 export default function Register({ navigation }) {
   const { height } = useWindowDimensions();
@@ -22,6 +23,7 @@ export default function Register({ navigation }) {
     full_name: "",
     password: "",
     confirm_password: "",
+    phone_number: "",
   });
 
   const handleEmail = (value) => {
@@ -42,7 +44,12 @@ export default function Register({ navigation }) {
       password: value,
     });
   };
-
+  const handlePhone = (value) => {
+    setData({
+      ...data,
+      phone_number: value,
+    });
+  };
   const handleConfirmPassword = (value) => {
     setData({
       ...data,
@@ -51,7 +58,7 @@ export default function Register({ navigation }) {
   };
 
   async function handleSubmit() {
-    if (!(data.email && data.password && data.full_name)) {
+    if (!(data.email && data.password && data.full_name && data.phone_number)) {
       setError("empty");
     } else if (data.password.length < 8) {
       setError("weak");
@@ -62,6 +69,7 @@ export default function Register({ navigation }) {
         email: data.email,
         full_name: data.full_name,
         password: data.password,
+        phone_number: data.phone_number,
       };
 
       try {
@@ -157,7 +165,22 @@ export default function Register({ navigation }) {
           placeholder="Full Name..."
           onChangeText={(value) => handleName(value)}
         />
-        <Text style={styles.inputtext}>Password: </Text>
+        <Text style={[styles.inputtext, { marginVertical: 10 }]}>
+          Phone Number:
+        </Text>
+        <PhoneInput
+          // ref={phoneInput}
+          // defaultValue={value}
+          defaultCode="LB"
+          layout="first"
+          // onChangeText={(text) => {
+          //   console.warn(text);
+          // }}
+          onChangeFormattedText={(text) => {
+            handlePhone(text);
+          }}
+        />
+        <Text style={[styles.inputtext, { marginTop: 10 }]}>Password: </Text>
         <TextInput
           style={styles.input}
           placeholder="Password..."
