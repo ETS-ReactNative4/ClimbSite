@@ -55,17 +55,21 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
 
 > Uing the above mentioned tech stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
 
-| Home/Profile                                                                                                   | Climblist/Settings                                                                                                   |
+| Home/Profile | Climblist/Settings |
 | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | ![Home/Profile](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-1.png) | ![Climblist/Settings](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-2.png) |
 
-| Explore                                                                                                   | Location info                                                                                                   |
+| Explore | Location info|
 | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
 | ![Explore](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-3.png) | ![Location info](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-4.png) |
 
-| Logs                                                                                                    | Log Event/Explore events                                                                                                   | Rankings/Community                                                                                                   |
-| ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| ![Logs](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-8.jpeg) | ![Log Event/Explore events](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-5.png) | ![Rankings/Community](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-6.png) |
+| Logs | Log Event/Explore events  |
+| ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| ![Logs](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-8.jpeg) | ![Log Event/Explore events](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-5.png) | 
+
+| Rankings/Community  |
+| ------------------------------------------------------------------------------------------------------- |
+| ![Rankings/Community](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-6.png) |
 
 <br><br>
 <img src="./readme/title6.svg"/>
