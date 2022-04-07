@@ -71,6 +71,10 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
 | -----------------| -----|
 | ![Explore](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-3.png) | ![Location info](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-4.png) |
 
+| Log Event/Explore events  | Rankings/Community  |
+| -----------------| -----|
+| ![Log Event/Explore events](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-5.png) | ![Rankings/Community](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-6.png) |
+
 <br><br>
 <img src="./readme/title6.svg"/>
 
