@@ -15,6 +15,7 @@
 
 > “ClimbSite” is a mobile application tailored just for climbers in Lebanon. It displays all climbing and bouldering spots across Lebanon. Not only that, but it goes even deeper to inform users about the many routes they could climb. 
 > Climbers can also use this app to chart their progress by calculating the number of attempts to reach the top, writing notes, sharing feedback, and even rating each try.
+> 
 > Climbers don’t have to worry about the cost of climbing gear or the long distances required to get to their destinations. They can now plan events through “ClimbSite” and invite other adventurers to join them and even share the same equipment. Besides, this application is a great platform to connect a growing community of passionate climbers
 
 
@@ -62,10 +63,13 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
 
 > Uing the above mentioned tech stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
 
-| Landing  | Home/Search  |
+| Home/Profile  | Climblist/Settings  |
 | -----------------| -----|
-| ![Landing](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-1.png) | ![Home/Search](https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg) |
+| ![Home/Profile](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-1.png) | ![Climblist/Settings](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-2.png) |
 
+| Explore  | Location info  |
+| -----------------| -----|
+| ![Explore](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-3.png) | ![Location info](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-4.png) |
 
 <br><br>
 <img src="./readme/title6.svg"/>
