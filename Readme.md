@@ -13,9 +13,9 @@
 
 <img src="./readme/title2.svg"/>
 
-> it’s an app for climbers in Lebanon, it shows all the climbing and bouldering sites in Lebanon and shows all the routes and info needed for each one of them and climbers can track their progress; the routes they sent how many tries it took them put notes on them share their feedback and rate each one them etc…
-> 
-> Knowing the situation in Lebanon it’s harder to buy a new climbing gear or doesn’t have a ride, for this reason climbers can post an event or schedule a day when they are going climbing and other people can ask to join and climb with. This way climbers can also connect with each other since it’s a growing community and will be helpful for the climbers unable to go without a ride or gear.
+> “ClimbSite” is a mobile application tailored just for climbers in Lebanon. It displays all climbing and bouldering spots across Lebanon. Not only that, but it goes even deeper to inform users about the many routes they could climb. 
+> Climbers can also use this app to chart their progress by calculating the number of attempts to reach the top, writing notes, sharing feedback, and even rating each try.
+> Climbers don’t have to worry about the cost of climbing gear or the long distances required to get to their destinations. They can now plan events through “ClimbSite” and invite other adventurers to join them and even share the same equipment. Besides, this application is a great platform to connect a growing community of passionate climbers
 
 
 
@@ -52,7 +52,7 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
 - This project uses the [React Native framework](https://reactnative.dev/) for frontend development. React Native is an open-source UI software framework. It is used to develop applications for Android, Android TV, iOS, macOS, tvOS, Web, Windows and UWP by enabling developers to use the React framework along with native platform capabilities.
 - For persistent storage (database), the app uses [MySQL](https://www.mysql.com/). MySQL is a relational database management system based on SQL – Structured Query Language.
 - For the server side (backend), the app uses [Django framework](https://www.djangoproject.com/). Django is a high-level Python web framework, alongside [Django rest framework](https://www.django-rest-framework.org/) a powerful and flexible toolkit for building Web APIs
-- To send local push notifications, the app uses the [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) package which supports Android, iOS, and macOS.
+
 
 
 
@@ -64,7 +64,7 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
 
 | Landing  | Home/Search  |
 | -----------------| -----|
-| ![Landing](https://github.com/julescript/spotifyndr/blob/master/demo/Landing_Page.jpg) | ![Home/Search](https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg) |
+| ![Landing](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-1.png) | ![Home/Search](https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg) |
 
 
 <br><br>
