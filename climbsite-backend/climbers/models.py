@@ -41,7 +41,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     full_name = models.CharField(max_length=150, blank=True)
     profile_pic = models.ImageField(_("Image"),upload_to = upload_to, null=True, blank = True,default='profile_pic/profile_avatar.jpg')
-    # dob = models.DateField(null=True)
     phoneNumberRegex = RegexValidator(regex = r"^\+?1?\d{8,15}$")
     phone_number = models.CharField(validators = [phoneNumberRegex], max_length = 16, unique = True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6,null=True, blank=True)
@@ -49,7 +48,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     start_date = models.DateTimeField(auto_now_add=True)
     is_staff = models.BooleanField(default=False)
     objects = CustomManager()
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['full_name', 'phone_number']
 

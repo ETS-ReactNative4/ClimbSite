@@ -149,9 +149,6 @@ class Userfollowings(generics.ListAPIView):
             queryset = UserFollowing.objects.filter(follower=user)
             return queryset
 
-
-        
-
 class Userfollowers(generics.ListAPIView):
 
     permission_classes = [IsAuthenticated]
@@ -251,7 +248,6 @@ class DeleteFromFavorites(generics.DestroyAPIView):
 
         except Favorite.DoesNotExist:
             return Response({'status':status.HTTP_400_BAD_REQUEST})
-
 
 
 class FavoriteList(generics.ListAPIView):

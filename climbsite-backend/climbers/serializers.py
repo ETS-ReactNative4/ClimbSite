@@ -17,10 +17,6 @@ class UserSerializer(serializers.ModelSerializer):
     full_name = serializers.CharField(min_length=2,max_length=32)       
     password = serializers.CharField(min_length=8, write_only=True)
     
-
-    # profile_pic = serializers.ImageField()
-    # dob = serializers.DateField()
-
     def create(self, validated_data):
         user = User.objects.create_user( validated_data['email'],validated_data['full_name'],
              validated_data['password'], validated_data['phone_number'] )
