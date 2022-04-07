@@ -7,7 +7,7 @@ from django.forms import ValidationError
 from django.http import HttpResponse, JsonResponse
 from rest_framework import filters
 from rest_framework.views import APIView
-from .serializers import AscendingSerializer, ChangePasswordSerializer, UpdateUserSerializer, UserClimbListSerializer, UserFavoritesSerializer, UserFollowingSerializer, UserSerializer
+from .serializers import AscendingSerializer, ChangePasswordSerializer, ProfileSerializer, UpdateUserSerializer, UserClimbListSerializer, UserFavoritesSerializer, UserFollowingSerializer, UserSerializer
 from django.contrib.auth import get_user_model
 from .models import Ascending, ClimbList, Favorite, UserFollowing
 from rest_framework import generics
@@ -18,6 +18,8 @@ from crags.models import Crag, Route
 from django.db.models import Count, Sum
 from django.core import serializers
 from  django.core.files.base import ContentFile
+from rest_framework.parsers import JSONParser, MultiPartParser
+from rest_framework import viewsets
 
 User = get_user_model()
 
@@ -46,34 +48,35 @@ class GetUserInfo(generics.ListAPIView):
         queryset = User.objects.filter(email=user)
         return queryset
 
-class UpdateUserProfile(generics.UpdateAPIView):
-    serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]
+class UpdateUserProfile(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = ProfileSerializer
+    parser_classes = (MultiPartParser, JSONParser)
 
-    def post(self, request):
+    # def post(self, request):
 
 
-        user = self.request.user
-        image = request.data.get('image')
+    #     user = self.request.user
+    #     image = request.data.get('image')
       
-        try:
-            format, imgstr = image.split(';base64,') 
-            ext = format.split('/')[-1] 
-            print(ext)
-            print(base64.b64decode(imgstr))
-            image_file = ContentFile(base64.b64decode(imgstr), name='temp.' + ext)
-            # print(base64.b64decode(imgstr))
-            # # image_file = ContentFile(base64.b64decode(image),)
-            # print(base64.b64decode(image))
-            edit_profile = User.objects.filter(email=user)
-            edit_profile.update(profile_pic = image_file)
+    #     try:
+    #         format, imgstr = image.split(';base64,') 
+    #         ext = format.split('/')[-1] 
+    #         print(ext)
+    #         # print(base64.b64decode(imgstr))
+    #         image_file = ContentFile(base64.b64decode(imgstr), name='temp.' + ext)
+    #         # print(base64.b64decode(imgstr))
+    #         # # image_file = ContentFile(base64.b64decode(image),)
+    #         # print(base64.b64decode(image))
+    #         edit_profile = User.objects.filter(email=user)
+    #         edit_profile.update(profile_pic = image_file)
            
    
         
-            return Response({'status':status.HTTP_200_OK, 'message':'image changed'})
+    #         return Response({'status':status.HTTP_200_OK, 'message':'image changed'})
 
-        except Exception as ex:
-            raise ex
+    #     except Exception as ex:
+    #         raise ex
             
 
 class GetOthersInfo(generics.ListAPIView):
