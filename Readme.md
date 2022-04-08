@@ -83,7 +83,7 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
 
 > In this table the first column shows both Rankings and community screens where the user can find climbers he might know or meet new ones and check their progress. The second column shows all the upcomimng events and the passed ones, the user can either join or contact the event creator by whatsapp redirection.
 
-| Rankings/Community | Explore Events                                                                            |
+| Rankings/Community                                                                                 |                                                                 Explore Events                                                                            |
 | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | ![Rankings/Community](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-6.png) | ![Explore Events](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-9.png) |
 
