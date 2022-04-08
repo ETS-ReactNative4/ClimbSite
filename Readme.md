@@ -54,18 +54,26 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
 <img src="./readme/title5.svg"/>
 
 > Using the above mentioned tech stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
+> 
+> The first column shows the screens for both the home and profile page. The second column shows the climblist of the user and the settings where the user can edit his credentials.
 
 | Home/Profile | Climblist/Settings |
 | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | ![Home/Profile](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-1.png) | ![Climblist/Settings](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-2.png) |
 
+> This table shows the explore screens, the user can search for a climbing location on the map and get all the info needed.
+
 | Explore | Location info|
 | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
 | ![Explore](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-3.png) | ![Location info](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-4.png) |
 
+> In this table the first column shows both Rankings and community screens where the user can find climbers he might know or meet new ones and check their progress. The second column shows all the upcomimng events and the passed ones, the user can either join or contact the event creator by whatsapp redirection.
+
 | Rankings/Community | Explore Events |
 | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | ![Rankings/Community](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-6.png) | ![Explore Events](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-9.png) |
+
+> And finally, here's a small demo for both logging an event and logging a climb.
 
 |     Event logging                                                                                       |                                                        Log Climb                                                                                                             |
 | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
