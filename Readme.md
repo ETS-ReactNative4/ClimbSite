@@ -129,3 +129,7 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
    ```sh
    npm install
    ```
+3. Run 
+   ```sh
+   npm start
+   ```
