@@ -83,10 +83,9 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
 
 > In this table the first column shows both Rankings and community screens where the user can find climbers he might know or meet new ones and check their progress. The second column shows all the upcomimng events and the passed ones, the user can either join or contact the event creator by whatsapp redirection.
 
-| Rankings/Community | Explore Events |
-| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Rankings/Community | Explore Events                                                                            |
+| -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | ![Rankings/Community](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-6.png) | ![Explore Events](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-9.png) |
-
 
 
 <br><br>
@@ -104,32 +103,29 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
 
 <img src="./readme/title6.svg"/>
 
-> This is an example of how you may give instructions on setting up your project locally.
-> To get a local copy up and running follow these simple example steps.
+
+> To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-
+- Node.js
 - npm
   ```sh
   npm install npm@latest -g
   ```
+- Expo Cli
+  ```sh
+  npm install -g expo-cli
+  ```
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone git@github.com:joeri2k/ClimbSite.git
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
    ```
