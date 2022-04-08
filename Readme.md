@@ -92,7 +92,7 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
 
 > And finally, here's a small demo for both logging an event and logging a climb.
 
-|     Event logging                                                                                       |                                                        Log Climb                                                                                                             |
+|     Event logging Demo                                                                                      |                                                        Log Climb Demo                                                                                                            |
 | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | ![Event logging](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-1.gif) | ![Log Climb](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-2.gif) | 
 
