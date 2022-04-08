@@ -63,12 +63,9 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
 | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
 | ![Explore](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-3.png) | ![Location info](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-4.png) |
 
-
-| Rankings/Community  | Explore Events |
-| ------------------------------------------------------------------------------------------------------- |
- ------------------------------------------------------------------------------------------------------- |
-| ![Rankings/Community](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-6.png) |
- ![Explore Events](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-9.png) |
+| Rankings/Community | Explore Events |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| ![Rankings/Community](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-6.png) | ![Explore Events](https://github.com/joeri2k/ClimbSite/blob/master/readme/climbsite-screenshots/climbsite-9.png) |
 
 |     Event logging                                                                                       |                                                        Log Climb                                                                                                             |
 | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
