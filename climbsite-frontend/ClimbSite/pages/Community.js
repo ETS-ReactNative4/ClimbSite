@@ -93,7 +93,6 @@ export default function Community({ navigation }) {
     });
   }, []);
 
-  console.log(notFollowing);
   return (
     <View style={styles.container}>
       <SafeAreaView>

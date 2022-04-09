@@ -40,9 +40,6 @@ export default function Climblist({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <SafeAreaView>
-        <StatusBar />
-      </SafeAreaView>
       {route && !route.length == 0 ? (
         <ClimblistRoutes data={route && route} />
       ) : (
