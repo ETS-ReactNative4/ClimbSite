@@ -12,12 +12,12 @@ export default function Climblist({ navigation }) {
   const [authState, setAuthState] = useContext(AuthContext);
   const [route, setRoute] = useState();
 
-  const url = `${fetch_url}/api/climbers/climblist`;
+  const climblist_url = `${fetch_url}/api/climbers/climblist`;
   async function getClimblist() {
     const token = authState.token;
 
     try {
-      const response = await axios.get(url, {
+      const response = await axios.get(climblist_url, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data_received = await response.data;

@@ -52,9 +52,21 @@ export default function EventContainer({ data }) {
     <View style={{ marginTop: -5 }}>
       <ScrollView>
         <View>
-          <Text style={{ marginLeft: 45, marginTop: 20, fontSize: 20 }}>
-            Upcoming Events
-          </Text>
+          {data && data.date >= formattedDate ? (
+            <Text style={{ marginLeft: 45, marginTop: 20, fontSize: 20 }}>
+              Upcoming Events
+            </Text>
+          ) : (
+            <Text
+              style={{
+                marginTop: 20,
+                fontSize: 20,
+                alignSelf: "center",
+              }}
+            >
+              No Upcoming Events
+            </Text>
+          )}
           {data &&
             data.map((item) => {
               return (
@@ -173,9 +185,13 @@ export default function EventContainer({ data }) {
               );
             })}
 
-          <Text style={{ marginLeft: 45, marginTop: 20, fontSize: 20 }}>
-            Passed Events
-          </Text>
+          {data && data.date >= formattedDate ? (
+            <Text style={{ marginLeft: 45, marginTop: 20, fontSize: 20 }}>
+              Passed Events
+            </Text>
+          ) : (
+            <></>
+          )}
           {data &&
             data.map((item) => {
               return (

@@ -14,10 +14,10 @@ export default function SearchEvent({ navigation }) {
 
   async function getEvents() {
     const token = authState.token;
-    const url = `${fetch_url}/api/events/`;
+    const events_url = `${fetch_url}/api/events/`;
 
     try {
-      const response = await axios.get(url, {
+      const response = await axios.get(events_url, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data_received = await response.data;

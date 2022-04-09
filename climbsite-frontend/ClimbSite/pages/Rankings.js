@@ -12,12 +12,12 @@ export default function Rankings({ navigation }) {
   const { height } = useWindowDimensions();
   const [authState, setAuthState] = useContext(AuthContext);
 
-  const url = `${fetch_url}/api/climbers/rankings`;
-  async function getInfo() {
+  async function getRankings() {
     const token = authState.token;
+    const rankings_url = `${fetch_url}/api/climbers/rankings`;
 
     try {
-      const response = await axios.get(url, {
+      const response = await axios.get(rankings_url, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data_received = await response.data;
@@ -27,7 +27,7 @@ export default function Rankings({ navigation }) {
     }
   }
   useEffect(() => {
-    getInfo();
+    getRankings();
   }, []);
 
   const [rankings, setRanking] = useState();

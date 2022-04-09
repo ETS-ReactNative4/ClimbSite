@@ -99,9 +99,21 @@ export default function Community({ navigation }) {
         <StatusBar />
       </SafeAreaView>
       <Header navigation={navigation} />
-      <Text style={{ marginLeft: 45, marginVertical: 20, fontSize: 20 }}>
-        Climbers you may know...
-      </Text>
+      {notFollowing && notFollowing.length != 0 ? (
+        <Text style={{ marginLeft: 45, marginVertical: 20, fontSize: 20 }}>
+          Climbers you may know...
+        </Text>
+      ) : (
+        <Text
+          style={{
+            marginVertical: 20,
+            fontSize: 20,
+            alignSelf: "center",
+          }}
+        >
+          No Climbers yet
+        </Text>
+      )}
       <FlatList
         key={(item) => item.id}
         data={notFollowing}

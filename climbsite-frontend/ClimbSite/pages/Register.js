@@ -17,7 +17,7 @@ import PhoneInput from "react-native-phone-number-input";
 export default function Register({ navigation }) {
   const { height } = useWindowDimensions();
   const [error, setError] = useState(null);
-  const url = `${fetch_url}/api/climbers/register`;
+
   const [data, setData] = useState({
     email: "",
     full_name: "",
@@ -58,6 +58,7 @@ export default function Register({ navigation }) {
   };
 
   async function handleSubmit() {
+    const register_url = `${fetch_url}/api/climbers/register`;
     if (!(data.email && data.password && data.full_name && data.phone_number)) {
       setError("empty");
     } else if (data.password.length < 8) {
@@ -73,7 +74,7 @@ export default function Register({ navigation }) {
       };
 
       try {
-        const response = await axios.post(url, user_signup_info);
+        const response = await axios.post(register_url, user_signup_info);
         const data_received = await response.data;
         console.log(data_received);
         navigation.navigate("Login");

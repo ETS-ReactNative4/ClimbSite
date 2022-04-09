@@ -28,10 +28,10 @@ export default function Explore({ navigation }) {
   const today = new Date();
   const formattedDate = format(today, "yyyy-MM-dd");
 
-  async function getInfo() {
-    const url = `${fetch_url}/api/crags/`;
+  async function getCrag() {
+    const crag_url = `${fetch_url}/api/crags/`;
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(crag_url);
       const data_received = await response.data;
       setCrag(data_received);
     } catch (error) {
@@ -43,10 +43,10 @@ export default function Explore({ navigation }) {
 
   async function getEvents() {
     const token = authState.token;
-    const url = `${fetch_url}/api/events/get_attendees`;
+    const event_url = `${fetch_url}/api/events/get_attendees`;
 
     try {
-      const response = await axios.get(url, {
+      const response = await axios.get(event_url, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data_received = await response.data;
@@ -59,7 +59,7 @@ export default function Explore({ navigation }) {
   useEffect(() => {
     navigation.addListener("focus", () => {
       getEvents();
-      getInfo();
+      getCrag();
     });
   }, []);
 

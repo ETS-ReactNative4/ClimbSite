@@ -23,10 +23,10 @@ export default function CragSectors({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const selectedCragId = cragState.id;
 
-  const url = `${fetch_url}/api/crags/sectors?crag_id=${selectedCragId}`;
   async function getSectors() {
+    const sectors_url = `${fetch_url}/api/crags/sectors?crag_id=${selectedCragId}`;
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(sectors_url);
       const data_received = await response.data;
       setSector(data_received);
     } catch (error) {
@@ -39,9 +39,9 @@ export default function CragSectors({ navigation }) {
   const [sector, setSector] = useState();
 
   async function getRoute(sector_id) {
-    const url_route = `${fetch_url}/api/crags/routes?sector_id=${sector_id}`;
+    const route_url = `${fetch_url}/api/crags/routes?sector_id=${sector_id}`;
     try {
-      const response = await axios.get(url_route);
+      const response = await axios.get(route_url);
       const data_received = await response.data;
       setRoute(data_received);
       setModalVisible(true);

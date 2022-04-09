@@ -17,13 +17,13 @@ export default function Info() {
 
   async function addToFavorites(item_id) {
     const token = authState.token;
-    const url_add_to_favorites = `${fetch_url}/api/climbers/favorite`;
+    const add_to_favorites_url = `${fetch_url}/api/climbers/favorite`;
     const crag_id = {
       crag: item_id,
     };
 
     try {
-      const response = await axios.post(url_add_to_favorites, crag_id, {
+      const response = await axios.post(add_to_favorites_url, crag_id, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data_received = await response.data;
@@ -36,10 +36,10 @@ export default function Info() {
 
   async function checkFavorite() {
     const token = authState.token;
-    const check_favorite = `${fetch_url}/api/climbers/if_favorite?crag_id=${cragState.id}`;
+    const check_favorite_url = `${fetch_url}/api/climbers/if_favorite?crag_id=${cragState.id}`;
 
     try {
-      const response = await axios.get(check_favorite, {
+      const response = await axios.get(check_favorite_url, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data_received = await response.data;

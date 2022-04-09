@@ -14,10 +14,10 @@ export default function Sectors({ navigation }) {
 
   const selectedCragId = cragState.id;
 
-  const url = `${fetch_url}/api/crags/sectors?crag_id=${selectedCragId}`;
+  const sectors_url = `${fetch_url}/api/crags/sectors?crag_id=${selectedCragId}`;
   async function getSectors() {
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(sectors_url);
       const data_received = await response.data;
       setSector(data_received);
     } catch (error) {

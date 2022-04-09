@@ -36,13 +36,13 @@ export default function Login({ navigation }) {
     });
   };
 
-  const handleSubmit = async () => {
-    const url = `${fetch_url}/api/token/`;
+  const handleLogin = async () => {
+    const login_url = `${fetch_url}/api/token/`;
     if (!(data.email && data.password)) {
       setError("empty");
     } else {
       try {
-        const response = await axios.post(url, data);
+        const response = await axios.post(login_url, data);
 
         const data_received = await response.data;
         setAuthState({
@@ -115,7 +115,7 @@ export default function Login({ navigation }) {
         <TouchableOpacity style={{ marginLeft: 10 }}>
           <Text style={{ color: "#1B8B6A" }}>Forgot Password?</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
           <Text
             style={{
               alignSelf: "center",

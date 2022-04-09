@@ -14,10 +14,10 @@ export default function LogClimb({ navigation }) {
   const [authState, setAuthState] = useContext(AuthContext);
   const token = authState.token;
 
-  const url = `${fetch_url}/api/crags/`;
+  const log_climb_url = `${fetch_url}/api/crags/`;
   async function getCrag() {
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(log_climb_url);
       const data_received = await response.data;
       setCrag(data_received);
     } catch (error) {
@@ -30,10 +30,10 @@ export default function LogClimb({ navigation }) {
   const [crag, setCrag] = useState();
 
   async function getFavoriteCrags() {
-    const url_fav = `${fetch_url}/api/climbers/get_favorites`;
+    const get_favorites_url = `${fetch_url}/api/climbers/get_favorites`;
 
     try {
-      const response = await axios.get(url_fav, {
+      const response = await axios.get(get_favorites_url, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data_received = await response.data;

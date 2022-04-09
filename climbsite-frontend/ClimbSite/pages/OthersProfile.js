@@ -91,10 +91,10 @@ export default function OthersProfile({ navigation, route }) {
   }
   async function checkFollow() {
     const token = authState.token;
-    const check_favorite = `${fetch_url}/api/climbers/follow_check?other_id=${user_Id}`;
+    const check_favorite_url = `${fetch_url}/api/climbers/follow_check?other_id=${user_Id}`;
 
     try {
-      const response = await axios.get(check_favorite, {
+      const response = await axios.get(check_favorite_url, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data_received = await response.data;
@@ -109,10 +109,9 @@ export default function OthersProfile({ navigation, route }) {
     }
   }
 
-  const url_followers = `${fetch_url}/api/climbers/followers?user_id=${user_Id}`;
   async function getFollowers() {
     const token = authState.token;
-
+    const url_followers = `${fetch_url}/api/climbers/followers?user_id=${user_Id}`;
     try {
       const response = await axios.get(url_followers, {
         headers: { Authorization: `Bearer ${token}` },

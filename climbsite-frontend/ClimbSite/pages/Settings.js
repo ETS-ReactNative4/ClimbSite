@@ -24,14 +24,12 @@ export default function Settings({ navigation }) {
   const [authState, setAuthState] = useContext(AuthContext);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const url = `${fetch_url}/api/climbers/user_info`;
-
   const [profile, setProfile] = useState();
   async function getInfo() {
     const token = authState.token;
-
+    const user_info_url = `${fetch_url}/api/climbers/user_info`;
     try {
-      const response = await axios.get(url, {
+      const response = await axios.get(user_info_url, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data_received = await response.data;
@@ -99,7 +97,7 @@ export default function Settings({ navigation }) {
     password2: "",
   });
 
-  const handleold = (value) => {
+  const handleOldPassword = (value) => {
     setData({
       ...data,
       old_password: value,
@@ -117,7 +115,7 @@ export default function Settings({ navigation }) {
       password2: value,
     });
   };
-  const handleSubmit = async () => {
+  const handleChangePassword = async () => {
     const token = authState.token;
     const url = `${fetch_url}/change_password/${profile[0].id}/`;
 
@@ -162,7 +160,6 @@ export default function Settings({ navigation }) {
     const url = `${fetch_url}/update_profile/${profile[0].id}/`;
 
     if (!(info.email && info.full_name)) {
-      // setError("empty");
     } else {
       try {
         const response = await axios.put(url, info, {
@@ -173,7 +170,6 @@ export default function Settings({ navigation }) {
         Alert.alert("Changed Info successfully");
       } catch (error) {
         console.warn(error);
-        // setError("wrong");
       }
     }
   };
@@ -370,7 +366,7 @@ export default function Settings({ navigation }) {
                 style={styles.input}
                 placeholder="Old Password..."
                 secureTextEntry={true}
-                onChangeText={(value) => handleold(value)}
+                onChangeText={(value) => handleOldPassword(value)}
               />
             </View>
             <View style={{ marginVertical: 10 }}>
@@ -394,7 +390,7 @@ export default function Settings({ navigation }) {
               </View>
             </View>
             <TouchableOpacity
-              onPress={handleSubmit}
+              onPress={handleChangePassword}
               style={{
                 width: 80,
                 height: 35,

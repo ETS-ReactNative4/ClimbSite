@@ -15,10 +15,12 @@ export default function CragEvents() {
 
   async function getEvents() {
     const token = authState.token;
-    const url = `${fetch_url}/api/events/?crag_id=${cragState && cragState.id}`;
+    const event_url = `${fetch_url}/api/events/?crag_id=${
+      cragState && cragState.id
+    }`;
 
     try {
-      const response = await axios.get(url, {
+      const response = await axios.get(event_url, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data_received = await response.data;

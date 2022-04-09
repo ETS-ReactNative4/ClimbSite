@@ -12,12 +12,12 @@ import fetch_url from "../host";
 
 export default function Home({ navigation }) {
   const [authState, setAuthState] = useContext(AuthContext);
-  const url = `${fetch_url}/api/climbers/get_ascents`;
+
   async function getPosts() {
     const token = authState.token;
-
+    const posts_url = `${fetch_url}/api/climbers/get_ascents`;
     try {
-      const response = await axios.get(url, {
+      const response = await axios.get(posts_url, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data_received = await response.data;

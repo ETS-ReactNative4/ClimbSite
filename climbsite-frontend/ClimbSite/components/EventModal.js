@@ -28,7 +28,7 @@ export default function EventModal({
     event: item && item.id,
   };
 
-  const handleJoin = async () => {
+  const handleJoinEvent = async () => {
     const token = authState.token;
     const url = `${fetch_url}/api/events/join_event`;
 
@@ -56,32 +56,6 @@ export default function EventModal({
       // setError("wrong");
     }
   };
-
-  // async function checkEvent() {
-  //   console.warn(item.id);
-  //   const token = authState.token;
-  //   const url = `${fetch_url}/api/events/check_event_status?event_id=${item.id}`;
-
-  //   try {
-  //     const response = await axios.get(url, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     const data_received = await response.data;
-
-  //     if (data_received.message === "delete") {
-  //       setState("delete");
-  //     } else if (data_received.message === "join") {
-  //       setState("join");
-  //     } else if (data_received.message === "unjoin") {
-  //       setState("unjoin");
-  //     }
-  //   } catch (error) {
-  //     console.warn(error);
-  //   }
-  // }
-  // useEffect(() => {
-  //   checkEvent();
-  // }, [modalVisible]);
 
   return (
     <Modal
@@ -155,7 +129,7 @@ export default function EventModal({
           <Text>{item && item.description}</Text>
           <TouchableOpacity
             onPress={() => {
-              handleJoin();
+              handleJoinEvent();
             }}
             style={{
               width: 80,

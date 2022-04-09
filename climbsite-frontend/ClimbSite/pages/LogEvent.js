@@ -42,10 +42,11 @@ export default function LogEvent({ navigation }) {
     longitude: "",
     latitude: "",
   });
-  const url = `${fetch_url}/api/crags/`;
-  async function getInfo() {
+
+  async function getCrag() {
+    const crag_url = `${fetch_url}/api/crags/`;
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(crag_url);
       const data_received = await response.data;
       setCrag(data_received);
     } catch (error) {
@@ -54,13 +55,13 @@ export default function LogEvent({ navigation }) {
   }
 
   useEffect(() => {
-    getInfo();
+    getCrag();
   }, []);
 
   async function getSectors(id) {
-    const url_sector = `${fetch_url}/api/crags/sectors?crag_id=${id}`;
+    const sector_url = `${fetch_url}/api/crags/sectors?crag_id=${id}`;
     try {
-      const response = await axios.get(url_sector);
+      const response = await axios.get(sector_url);
       const data_received = await response.data;
       setSector(data_received);
     } catch (error) {
