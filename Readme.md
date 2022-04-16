@@ -4,7 +4,7 @@
 
 > Hello world! This is the project’s summary that describes the project plain and simple, limited to the space available.
 
-**[PROJECT PHILOSOPHY](https://github.com/joeri2k/ClimbSite#1) • [WIREFRAMES](https://github.com/joeri2k/ClimbSite#-wireframes) • [TECH STACK](https://github.com/joeri2k/ClimbSite#-tech-stack) • [IMPLEMENTATION](https://github.com/joeri2k/ClimbSite#-impplementation) • [HOW TO RUN?](https://github.com/joeri2k/ClimbSite#-how-to-run)**
+**[PROJECT PHILOSOPHY](https://github.com/joeri2k/ClimbSite#1) • [WIREFRAMES](https://github.com/joeri2k/ClimbSite#2) • [TECH STACK](https://github.com/joeri2k/ClimbSite#3) • [IMPLEMENTATION](https://github.com/joeri2k/ClimbSite#4) • [HOW TO RUN?](https://github.com/joeri2k/ClimbSite#5)**
 
 </div>
 
@@ -27,7 +27,7 @@
 
 <br><br>
 
-<img src="./readme/title3.svg"/>
+<img id='2' src="./readme/title3.svg"/>
 
 > This design was planned before on figma for the fine details, then moved to the actual design.
 > Those images are screenshots from figma to show my vision before starting with the actual app.
@@ -42,7 +42,7 @@
 
 <br><br>
 
-<img src="./readme/title4.svg"/>
+<img id='3' src="./readme/title4.svg"/>
 
 Here's a brief high-level overview of the tech stack the ClimbSite app uses:
 
@@ -51,7 +51,7 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
 - For the server side (backend), the app uses [Django framework](https://www.djangoproject.com/). Django is a high-level Python web framework, alongside [Django rest framework](https://www.django-rest-framework.org/) a powerful and flexible toolkit for building Web APIs
 
 <br><br>
-<img src="./readme/title5.svg"/>
+<img id='4' src="./readme/title5.svg"/>
 
 > Using the above mentioned tech stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
 > 
@@ -101,7 +101,7 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
 <br><br>
 
 
-<img src="./readme/title6.svg"/>
+<img id='5' src="./readme/title6.svg"/>
 
 
 > To get a local copy up and running follow these simple steps.
