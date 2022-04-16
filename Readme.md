@@ -108,7 +108,7 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
 
 ### Prerequisites
 
-- Node.js
+- Node.js [Node.js](https://nodejs.org/en/)
 - npm
   ```sh
   npm install npm@latest -g
@@ -117,6 +117,7 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
   ```sh
   npm install -g expo-cli
   ```
+- Expo Go mobile app
 
 ### Installation
 
@@ -125,11 +126,14 @@ Here's a brief high-level overview of the tech stack the ClimbSite app uses:
    ```sh
    git clone git@github.com:joeri2k/ClimbSite.git
    ```
-2. Install NPM packages
+2. Navigate to the Frontend folder and install dependencies
    ```sh
+   cd climbsite-frontend\climbsite
    npm install
    ```
-3. Run 
+3. Run the start up command
    ```sh
-   npm start
+   expo start
    ```
+4. Scan the generated QR code with your camera (ios) or through the Expo Go application (android).
+
