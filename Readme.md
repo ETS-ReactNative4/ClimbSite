@@ -4,13 +4,13 @@
 
 > Hello world! This is the project’s summary that describes the project plain and simple, limited to the space available.
 
-**[PROJECT PHILOSOPHY](https://github.com/joeri2k/ClimbSite#-project-philosophy) • [WIREFRAMES](https://github.com/joeri2k/ClimbSite#-wireframes) • [TECH STACK](https://github.com/joeri2k/ClimbSite#-tech-stack) • [IMPLEMENTATION](https://github.com/joeri2k/ClimbSite#-impplementation) • [HOW TO RUN?](https://github.com/joeri2k/ClimbSite#-how-to-run)**
+**[PROJECT PHILOSOPHY](https://github.com/joeri2k/ClimbSite#1) • [WIREFRAMES](https://github.com/joeri2k/ClimbSite#-wireframes) • [TECH STACK](https://github.com/joeri2k/ClimbSite#-tech-stack) • [IMPLEMENTATION](https://github.com/joeri2k/ClimbSite#-impplementation) • [HOW TO RUN?](https://github.com/joeri2k/ClimbSite#-how-to-run)**
 
 </div>
 
 <br><br>
 
-<img id='-project-philosophy' src="./readme/title2.svg"/>
+<img id='1' src="./readme/title2.svg"/>
 
 > “ClimbSite” is a mobile application tailored just for climbers in Lebanon. It displays all climbing and bouldering spots across Lebanon. Not only that, but it goes even deeper to inform users about the many routes they could climb.
 > Climbers can also use this app to chart their progress by calculating the number of attempts to reach the top, writing notes, sharing feedback, and even rating each try.
