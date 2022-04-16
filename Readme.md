@@ -10,7 +10,7 @@
 
 <br><br>
 
-<img id='project-philosophy' src="./readme/title2.svg"/>
+<img id='-project-philosophy' src="./readme/title2.svg"/>
 
 > “ClimbSite” is a mobile application tailored just for climbers in Lebanon. It displays all climbing and bouldering spots across Lebanon. Not only that, but it goes even deeper to inform users about the many routes they could climb.
 > Climbers can also use this app to chart their progress by calculating the number of attempts to reach the top, writing notes, sharing feedback, and even rating each try.
